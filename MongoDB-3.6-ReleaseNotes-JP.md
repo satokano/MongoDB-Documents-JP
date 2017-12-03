@@ -107,14 +107,29 @@ MongoDB 3.6 から、レプリカセットとシャードクラスタに対す�
 ### Command Options
 
 ## JSON Schema
+MongoDB 3.6は、JSON Schemaを使ったドキュメントバリデーションをサポートするため $jsonSchema オペレータを追加しました。詳細は $jsonSchema を参照してください。
 
-## Replica Sets
+$jsonSchemaを使うには、featureCompatibilityVersionは"3.6"にセットされている必要があります。
 
-## Sharded Clusters
+参照：<br />
+[後方非互換な機能](https://docs.mongodb.com/master/release-notes/3.6-compatibility/#compatibility-enabled)
 
-## General Enhancements
+## レプリカセット
+- レプリカセットのprotocol version 0（pv0）は非推奨となりました。レプリカセットのprotocol versionについて詳細は、[Replica Set Protocol Versions](https://docs.mongodb.com/master/reference/replica-set-protocol-versions/)を参照してください。
+- replSetResizeOplogコマンドが追加され、レプリカセットのメンバーのoplogサイズを動的に変更できるようになりました。WiredTigerストレージエンジンを実行しているインスタンスにおいて利用可能です。
+- catchUpTakeoverDelayMillis 設定オプションが追加され、
+- pv1
+- oplogInitialFindMaxSeconds
+- waitForSecondaryBeforeNoopWriteMS
 
-### MongoDB Compass Packaging
+## シャードクラスタ
+- mongosがmongodに対してのコネクションを追加する速度を制御するため、mongosにShardingTaskExecutorPoolMaxConnecting パラメータが追加されました。
+- マイグレーションされたチャンクが元のシャードから削除されるまでの最小の時間を決める orphanCleanupDelaySecs が追加されました。
+- configデータベースの中のconfig.system.sessions コレクションは、シャード化可能となりました。
+
+## 一般的な改善
+### MongoDB Compass のパッケージング
+MongoDBサーバは、MongoDB Compass Community Editionの各プラットフォーム向けインストールスクリプトとともにパッケージ化されます。このスクリプトはMongoDBサーバのインストールプロセスの一環としてMongoDB Compassをインストールします。
 
 ### Collection Identifier
 
