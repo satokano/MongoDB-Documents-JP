@@ -95,11 +95,20 @@ MongoDB 3.6から、MongoDBのバイナリ（mongodおよびmongos）は、デ�
 ## 互換性への影響
 いくつかの変更点は互換性に影響する可能性があり、ユーザーの対応が必要になるかもしれません。詳細な一覧は[MongoDB 3.6での互換性の変更点](https://docs.mongodb.com/master/release-notes/3.6-compatibility/)を参照してください。
 
-## Upgrade Procedures
+## アップグレードの手順
+注意：<br />
+3.4のインスタンスをアップグレードするためには、3.4のインスタンスは``featureCompatibilityVersion``が3.4に設定されている必要があります。詳細は[FeatureCompatibilityVersionを確認する方法](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#view-fcv)もしくは[setFeatureCompatibilityVersion](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#dbcmd.setFeatureCompatibilityVersion)を参照してください。
 
-## Download
+アップグレードの手順については、以下を参照してください。
 
-## Report an Issue
+* [スタンドアロン構成のサーバを3.6にアップグレードする](https://docs.mongodb.com/master/release-notes/3.6-upgrade-standalone/)
+* [レプリカセットを3.4にアップグレードする](https://docs.mongodb.com/master/release-notes/3.6-upgrade-replica-set/)
+* [シャードクラスタを3.4にアップグレードする](https://docs.mongodb.com/master/release-notes/3.6-upgrade-sharded-cluster/)
 
+3.6へのアップグレードで支援が必要な場合は、[MongoDB社はメジャーバージョンアップグレードサービスを提供しています。](https://www.mongodb.com/products/consulting?jmp=docs)これは、あなたのアプリケーションを停止させることなく円滑な移行ができるように支援するものです。
 
+## ダウンロード
+MongoDB 3.6 Release Candidateをダウンロードするには、[MongoDB Download Center](https://www.mongodb.com/download-center?jmp=docs#development)を参照してください。
 
+## 問題を報告する
+問題を報告するためには https://github.com/mongodb/mongo/wiki/Submit-Bug-Reports を参照してください。MongoDBサーバや、関連プロジェクトについて、JIRAチケットを登録する方法が書いてあります。
