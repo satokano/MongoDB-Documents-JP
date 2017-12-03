@@ -99,7 +99,14 @@ MongoDB 3.6では、mongosでDiagnostics Capture（FTDCともいわれる）の�
 FTDCはデフォルトで有効になっています。
 
 ### 追加の改善点
+MongoDB 3.6は以下の改善を含みます。
 
+- --bind_ip オプションにおいて、Unixドメインソケットの完全なパスを指定できるようになりました。
+- mongod は新たに --timeZoneInfo オプションを指定できるようになりました。タイムゾーンデータを指定するために使ってください。LinuxとmacOS向けのデフォルト設定では、``/usr/share/zoneinfo``にセットされています。
+- 日付に関するオペレーションは、サポートされているすべてのオペレーティングシステムにおいて、日付範囲を一貫して受け入れられるようになりました。0年から9999年までの範囲の年を安全に扱うことができます。
+- mongodに対するhonorSystemUmaskという新しい起動時オプションにより、MongoDBが新規作成するファイルはmongodプロセスを実行するユーザのumaskで指定される読み込み/書き込み権限を持つようになります。LinuxおよびmacOSでのみ有効です。
+- データベースに対する maxWriteBatchSize の制限が、1000 から 100000 に拡張されました。これはある1つのwrite batchの中で許可される書き込みオペレーションの最大数です。
+- データベースコマンド planCacheListPlans はシェルでのPlanCache.getPlansByQuery() メソッドと同じものを出力します。両者からの出力は、プランが生成された時点のタイムスタンプを含むようになりました。
 
 ## 互換性への影響
 いくつかの変更点は互換性に影響する可能性があり、ユーザーの対応が必要になるかもしれません。詳細な一覧は[MongoDB 3.6での互換性の変更点](https://docs.mongodb.com/master/release-notes/3.6-compatibility/)を参照してください。
