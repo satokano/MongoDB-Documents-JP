@@ -69,7 +69,16 @@ $lookup は複数の結合条件および相関サブクエリが指定可能に
 
 ## クライアントセッション
 
-### Causal Consistency
+### 因果一貫性（Causal Consistensy）[^1]
+
+因果一貫性を提供するため、MongoDB 3.6ではクライアントセッションにおいて[causal consistency]を有効にしています。因果一貫なクライアントセッションは、関連付けられた読み込みおよび''ack済みの''書き込みの一連のオペレーションが因果関係を持つ、つまり順序通り反映されることを示します。クライアントアプリケーションは、一度に1つのスレッドだけがクライアントセッションでこれらの操作を実行するようにする必要があります。
+
+アプリケーションはクライアントセッションを開始し、特定のセッションにオペレーションを関連付けることができます。アプリケーションは一度に1つのスレッドだけがクライアントセッションでこれらの操作を実行するようにする必要があります。[^2]
+
+重要：<br />
+クライアントセッションを使うためには：<br />
+- クライアントには、3.6用に更新されたドライバが必要です。Java、C#、Python、Node、Cなど。
+- featureCompatibilityVersionは"3.6"である必要があります。詳細は[FeatureCompatibilityVersionを確認する方法](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#view-fcv)もしくは[setFeatureCompatibilityVersion](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#dbcmd.setFeatureCompatibilityVersion)を参照してください。
 
 ### Retryable Writes
 
@@ -156,3 +165,8 @@ MongoDB 3.6 Release Candidateをダウンロードするには、[MongoDB Downlo
 
 ## 問題を報告する
 問題を報告するためには https://github.com/mongodb/mongo/wiki/Submit-Bug-Reports を参照してください。MongoDBサーバや、関連プロジェクトについて、JIRAチケットを登録する方法が書いてあります。
+
+------------------------------
+
+[^1]: Causal Consistency https://en.wikipedia.org/wiki/Causal_consistency http://www.cs.princeton.edu/~wlloyd/papers/causal-login13.pdf
+[^2]: 原文でも同じことを書いている。ミス？
