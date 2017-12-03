@@ -2,6 +2,7 @@
 <!-- マニュアルっぽいので「ですます」で -->
 <!-- 他のマニュアルを参照する場合、どちらかというと英語タイトルそのままで。文章の一部になっていて、訳さないと変な場合は日本語に訳す。 -->
 <!-- NOTE: とかの囲みは、QiitaのMDで対応するものがなさそうなので、注意：brとかしてごまかす-->
+<!-- SEE ALSO: は参照：で -->
 [Release Notes for MongoDB 3.6](https://docs.mongodb.com/master/release-notes/3.6/)の翻訳です。原文はMongoDB Documentation Teamによるものです。ライセンスは[CC BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/deed.ja)となっています。
 
 [CONTRIBUTING.rst](https://github.com/mongodb/docs/blob/master/CONTRIBUTING.rst)
@@ -18,11 +19,21 @@ MongoDB 3.6は現在開発中です。
 ### デフォルトでlocalhostにのみバインド
 MongoDB 3.6から、MongoDBのバイナリ（mongodおよびmongos）は、デフォルトではlocalhostにのみバインドされるようになりました。以前はMongoDB 2.6以来、公式のMongoDB RPM（Red Hat, CentOS, Fedora Linux、およびその派生）、DEB（Debian, Ubuntu、およびその派生）のみがlocalhostにバインドするようになっていました。詳細は[Localhost Binding Compatibility Changes](https://docs.mongodb.com/master/release-notes/3.6-compatibility/#bind-ip-compatibility)を参照してください。
 
-### Authentication Restrictions
+### 認証の制限
+データベースに対するユーザーの接続を、特定のIPアドレスからのみに制限するため、authenticationRestrictions パラメータが以下のコマンドやメソッドに対して追加されました。
 
-### Additional Security Enhancements
+| Commands | Methods |
+|:-----------|:------------|
+| [createUser]() | [db.createUser()]() |
+| [updateUser]() | [db.updateUser()]() |
+| [createRole]() | [db.createRole()]()]() |
+| [updateRole]() | [db.updateRole()]()]() |
+
+### 追加のセキュリティ改善
+- opensslCipherConfig
 
 ## Aggregation
+以下の
 
 ### More Expressive ``$lookup``
 
@@ -88,9 +99,18 @@ MongoDB 3.6から、MongoDBのバイナリ（mongodおよびmongos）は、デ�
 
 ### Commands
 
-### Wire Protocol and Compression
+### Wire Protocol と圧縮
+- MongoDB 3.6では OP_MSG という新たなWire Protocolのopcodeが導入されました。このopcodeのメッセージフォーマットは拡張可能であり、他のopcodeの機能を包含するように設計されています。
+- --networkMessageCompressorsオプション（または設定ファイル中のnet.compression.compressors）で利用するためのzlib圧縮が追加されました。--networkMessageCompressorsオプション（またはnet.compression.compressorsの設定）はmongod、mongos、mongoシェル、OP_COMPRESSEDメッセージフォーマットをサポートするドライバの間でのネットワーク圧縮を有効化します。
+- snappyネットワーク圧縮がmongod、mongos、mongoシェルの間でデフォルトで有効になりました。
 
 ### Read Concern
+- 新たに ["available"]()というRead Concernが導入されました。非シャード化コレクション（つまり、スタンドアロン環境か、レプリカセット環境）では、"local"と"available"のRead Concernは同じようにふるまいます。シャードクラスタでは、"available"はクラスタパーティションに対してより強い耐性を持ちますが、チャンクマイグレーション中のシャードはorphan documentsを返す可能性があります。
+
+参照：<br />
+[orphanCleanupDelaySecs](https://docs.mongodb.com/master/reference/parameters/#param.orphanCleanupDelaySecs)
+
+- "majority" read concernが常に有効化されました。これに伴い、--enableMajorityReadConcern と replication.enableMajorityReadConcern は非推奨化されました。
 
 ### FTDC
 MongoDB 3.6では、mongosでDiagnostics Capture（FTDCともいわれる）の出力が追加されました。以前のバージョンでは、この機能はmongodのみで利用可能でした。[Diagnostic Parameters](https://docs.mongodb.com/master/reference/parameters/#param-ftdc)を参照してください。
