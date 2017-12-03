@@ -26,30 +26,38 @@ MongoDB 3.6から、MongoDBのバイナリ（mongodおよびmongos）は、デ�
 |:-----------|:------------|
 | [createUser]() | [db.createUser()]() |
 | [updateUser]() | [db.updateUser()]() |
-| [createRole]() | [db.createRole()]()]() |
-| [updateRole]() | [db.updateRole()]()]() |
+| [createRole]() | [db.createRole()]() |
+| [updateRole]() | [db.updateRole()]() |
 
 ### 追加のセキュリティ改善
-- opensslCipherConfig
+- TLS/SSL暗号化を使うときのOpenSSLの暗号アルゴリズムを制御するため、opensslCipherConfigパラメータが追加されました。
+- 認証が有効な場合に限り、作成したカーソルに対しgetMoreを発行できます。
+- restoreロールに対してconvertToCappedアクションが追加されました。
+
+参照：<br />
+[後方非互換な機能](https://docs.mongodb.com/master/release-notes/3.6-compatibility/#compatibility-enabled)
 
 ## Aggregation
-以下の
+MongoDB 3.6からは以下の機能が利用可能です。
 
-### More Expressive ``$lookup``
+### より表現的な ``$lookup``
+$lookup は複数の結合条件および相関サブクエリが指定可能になりました。これは結合されたコレクションに対して変数の指定とパイプライン実行を許可することで可能になったものです。
 
-### New Aggregation Stages
+[詳細は結合条件と相関サブクエリ](https://docs.mongodb.com/master/reference/operator/aggregation/lookup/#lookup-syntax-let-pipeline)の[$lookup](https://docs.mongodb.com/master/reference/operator/aggregation/lookup/#pipe._S_lookup)シンタックスを参照してください。
 
-### New Aggregation Operators
+### 新しいAggregationステージ
 
-### New Aggregation Helper
+### 新しいAggregationオペレータ
 
-### New Aggregation Variable
+### 新しいAggregationヘルパー
 
-### New Options
+### 新しいAggregation変数
 
-### Support for Time Zones
+### 新しいオプション
 
-## Array Update Operator Enhancements
+### タイムゾーンのサポート
+
+## 配列に対するupdateオペレータの改善
 
 ### ``arrayFilters``
 
@@ -59,7 +67,7 @@ MongoDB 3.6から、MongoDBのバイナリ（mongodおよびmongos）は、デ�
 
 ## Change Streams
 
-## Client Sessions
+## クライアントセッション
 
 ### Causal Consistency
 
@@ -67,7 +75,7 @@ MongoDB 3.6から、MongoDBのバイナリ（mongodおよびmongos）は、デ�
 
 ### ``mongo`` Shell Changes
 
-## Server Sessions
+## サーバセッション
 
 ### Server Session Commands
 
