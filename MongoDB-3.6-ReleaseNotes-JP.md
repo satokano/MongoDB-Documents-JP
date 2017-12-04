@@ -67,7 +67,7 @@ MongoDB 3.6では、[`$currentOp`](https://docs.mongodb.com/master/reference/ope
 - どのインデックスを使うかを指定する`hint`オプション
 
 <div><strong>注意：</strong><br />
-<code>hint</code>は <code><a href="https://docs.mongodb.com/master/reference/operator/aggregation/lookup/#pipe._S_lookup">$lookup</a></code>と<code><a href="https://docs.mongodb.com/master/reference/operator/aggregation/graphLookup/#pipe._S_graphLookup">$graphLookup</a></code>ステージには適用されません。<br />
+<code>hint</code>は <code><a href="https://docs.mongodb.com/master/reference/operator/aggregation/lookup/#pipe._S_lookup">$lookup</a></code>と<code><a href="https://docs.mongodb.com/master/reference/operator/aggregation/graphLookup/#pipe._S_graphLookup">$graphLookup</a></code>ステージには適用されません。</div><br />
 
 - データベースプロファイラ、currentOp、ログなどでオペレーションを追跡しやすくするための `comment`オプション
 
