@@ -1,8 +1,9 @@
 <!-- あとでQiita に投稿する https://qiita.com/kabao/items/ -->
+<!-- 12/4時点で正式版が出ておらず、開発版であることを示す記載が残っている。冒頭とか、最後のDownload, Report an Issueとか。正式版が出たら更新。 -->
 <!-- マニュアルっぽいので「ですます」で -->
 <!-- 他のマニュアルを参照する場合、どちらかというと英語タイトルそのままで。文章の一部になっていて、訳さないと変な場合は日本語に訳す。 -->
 <!-- NOTE: とかの囲みは、QiitaのMDで対応するものがなさそうなので、注意：brなどとしてごまかす-->
-<!-- SEE ALSO: は参照：で -->
+<!-- SEE ALSO: は参照：、WARNING: は警告： -->
 <!-- 英単語・数字の周りに空白をいれるか？ -->
 <!-- restの`、``と、Qiita Markdownの対応は？ -->
 [Release Notes for MongoDB 3.6](https://docs.mongodb.com/master/release-notes/3.6/)の翻訳です。原文はMongoDB Documentation Teamによるものです。ライセンスは[CC BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/deed.ja)となっています。
@@ -11,11 +12,14 @@
 
 > MongoDB documentation is distributed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported license.
 
-脚注は、リリースノート以外の3.6のマニュアルも参考にして今回付け加えたものです。
+脚注は、リリースノート以外の3.6のマニュアルなども参考にして今回付け加えたものです。
 
 ------------------------------
 
-MongoDB 3.6は現在開発中です。
+MongoDB 3.6は現在開発中です。[^1]
+
+警告：<br />
+3.6のリリース候補版が利用可能ですが、これらのバージョンはテストのみを目的としたものであり、プロダクション環境での利用を想定したものではありません。
 
 ## セキュリティ
 ### デフォルトでlocalhostにのみバインド
@@ -96,10 +100,10 @@ change streamにより、[oplog](https://docs.mongodb.com/master/reference/gloss
 change streamを使うためには、featureCompatibilityVersionは"3.6"である必要があります。詳細は[FeatureCompatibilityVersionを確認する方法](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#view-fcv)もしくは[setFeatureCompatibilityVersion](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#dbcmd.setFeatureCompatibilityVersion)を参照してください。
 
 ## クライアントセッション
-### 因果一貫性（Causal Consistensy）[^1]
-因果一貫性を提供するため、MongoDB 3.6ではクライアントセッションにおいて[causal consistency]を有効にしています。因果一貫なクライアントセッションは、関連付けられた読み込みおよび''ack済みの''書き込みの一連のオペレーションが因果関係を持つ、つまり順序通り反映されることを示します。クライアントアプリケーションは、一度に1つのスレッドだけがクライアントセッションでこれらの操作を実行するようにする必要があります。
+### 因果一貫性（Causal Consistensy）[^2]
+因果一貫性を提供するため、MongoDB 3.6ではクライアントセッションにおいて[causal consistency]を有効にしています。因果一貫なクライアントセッションは、関連付けられた読み込みおよび *ack済みの* 書き込みの一連のオペレーションが因果関係を持つ、つまり順序通り反映されることを示します。クライアントアプリケーションは、一度に1つのスレッドだけがクライアントセッションでこれらの操作を実行するようにする必要があります。
 
-アプリケーションはクライアントセッションを開始し、特定のセッションにオペレーションを関連付けることができます。アプリケーションは一度に1つのスレッドだけがクライアントセッションでこれらの操作を実行するようにする必要があります。[^2]
+アプリケーションはクライアントセッションを開始し、特定のセッションにオペレーションを関連付けることができます。アプリケーションは一度に1つのスレッドだけがクライアントセッションでこれらの操作を実行するようにする必要があります。[^3]
 
 重要：<br />
 クライアントセッションを使うためには：<br />
@@ -184,7 +188,7 @@ mongoシェルとドライバはこれらのオプションをセッション中
 ステートメントの配列をとる[`delete`](https://docs.mongodb.com/master/reference/command/delete/#dbcmd.delete)、[`insert`](https://docs.mongodb.com/master/reference/command/insert/#dbcmd.insert)、[`update`](https://docs.mongodb.com/master/reference/command/update/#dbcmd.update)コマンドのために、以下のオプションも利用可能です。
 
 重要：<br />
-stmtIdsを手動で設定しないでください。MongoDBによってstmtIdsは狭義単調増加となるように設定されます。
+`stmtIds`を手動で設定しないでください。MongoDBによって`stmtIds`は狭義単調増加となるように設定されます。
 
 | Option | Type | 説明 |
 |:-----------|:------------|:------------|
@@ -277,6 +281,8 @@ MongoDB 3.6 Release Candidateをダウンロードするには、[MongoDB Downlo
 
 ------------------------------
 
-[^1]: Causal Consistency https://en.wikipedia.org/wiki/Causal_consistency http://www.cs.princeton.edu/~wlloyd/papers/causal-login13.pdf
+[^1]: 2017/12/4時点でまだ正式版は出ていないようです。
 
-[^2]: 原文でも同じことを書いている。ミス？
+[^2]: Causal Consistency https://en.wikipedia.org/wiki/Causal_consistency http://www.cs.princeton.edu/~wlloyd/papers/causal-login13.pdf
+
+[^3]: 原文でも同じことを書いている。
