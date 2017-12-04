@@ -46,7 +46,7 @@ MongoDB 3.6から、MongoDBのバイナリ（mongodおよびmongos）は、デ�
 ## Aggregation
 MongoDB 3.6からは以下の機能が利用可能です。
 
-### より表現的な ``$lookup``
+### より表現的な `$lookup`
 $lookup は複数の結合条件および相関サブクエリが指定可能になりました。これは結合されたコレクションに対して変数の指定とパイプライン実行を許可することで可能になったものです。
 
 [詳細は結合条件と相関サブクエリ](https://docs.mongodb.com/master/reference/operator/aggregation/lookup/#lookup-syntax-let-pipeline)の[$lookup](https://docs.mongodb.com/master/reference/operator/aggregation/lookup/#pipe._S_lookup)シンタックスを参照してください。
@@ -67,7 +67,7 @@ MongoDB 3.6では、[`$currentOp`](https://docs.mongodb.com/master/reference/ope
 - どのインデックスを使うかを指定する`hint`オプション
 
 <div><strong>注意：</strong><br />
-<code>hint</code>は <code><a href="https://docs.mongodb.com/master/reference/operator/aggregation/lookup/#pipe._S_lookup">$lookup</a></code>と<code><a href="https://docs.mongodb.com/master/reference/operator/aggregation/graphLookup/#pipe._S_graphLookup">$graphLookup</a></code>ステージには適用されません。
+<code>hint</code>は <code><a href="https://docs.mongodb.com/master/reference/operator/aggregation/lookup/#pipe._S_lookup">$lookup</a></code>と<code><a href="https://docs.mongodb.com/master/reference/operator/aggregation/graphLookup/#pipe._S_graphLookup">$graphLookup</a></code>ステージには適用されません。<br />
 
 - データベースプロファイラ、currentOp、ログなどでオペレーションを追跡しやすくするための `comment`オプション
 
