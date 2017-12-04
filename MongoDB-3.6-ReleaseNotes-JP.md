@@ -191,7 +191,7 @@ mongoシェルとドライバはこれらのオプションをセッション中
 ステートメントの配列をとる[`delete`](https://docs.mongodb.com/master/reference/command/delete/#dbcmd.delete)、[`insert`](https://docs.mongodb.com/master/reference/command/insert/#dbcmd.insert)、[`update`](https://docs.mongodb.com/master/reference/command/update/#dbcmd.update)コマンドのために、以下のオプションも利用可能です。
 
 <div><strong>重要：</strong><br />
-`stmtIds`を手動で設定しないでください。MongoDBによって`stmtIds`は狭義単調増加となるように設定されます。</div>
+<code>stmtIds</code>を手動で設定しないでください。MongoDBによって<code>stmtIds</code>は狭義単調増加となるように設定されます。</div>
 
 | Option | Type | 説明 |
 |:-----------|:------------|:------------|
