@@ -64,8 +64,14 @@ MongoDB 3.6では[Aggregationの日付オペレーション](https://docs.mongod
 [Aggregation Compatibility Changes](https://docs.mongodb.com/master/release-notes/3.6-compatibility/#aggregate-compatibility)
 
 ## 配列に対するupdateオペレータの改善
+### arrayFilters
+以下のコマンドとメソッドにおいて、配列においてどの要素を変更するのか指定するためのarrayFiltersパラメータが追加されました。
 
-### ``arrayFilters``
+| Commands | Methods |
+|:-----------|:------------|
+| [findAndModify]() | [db.collection.findOneAndUpdate()]()<br />[db.collection.findAndModify()]() |
+| [update]() | [db.collection.updateOne()]()<br />[db.collection.updateMany()]()<br />[db.collection.update()]() |
+| | updateOneおよびupdateManyオペレーション向けの[db.collection.bulkWrite()]()<br />updateOne()とupdate()メソッドのBulk()オペレーション向けの[Bulk.find.arrayFilters()]() |
 
 ### Multi-Element Array Updates
 
