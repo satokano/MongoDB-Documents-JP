@@ -56,11 +56,20 @@ $lookup は複数の結合条件および相関サブクエリが指定可能に
 ### 新しいAggregationオペレータ
 
 ### 新しいAggregationヘルパー
+MongoDB 3.6では、[`$currentOp`](https://docs.mongodb.com/master/reference/operator/aggregation/currentOp/#pipe._S_currentOp)や[`$listLocalSessions`](https://docs.mongodb.com/master/reference/operator/aggregation/listLocalSessions/#pipe._S_listLocalSessions)で始まるものなど、もととなるコレクションを必要としないaggregationを処理するためのヘルパーとして [`db.aggregate()`](https://docs.mongodb.com/master/reference/method/db.aggregate/#db.aggregate) が追加されました。
 
 ### 新しいAggregation変数
-[REMOVE](https://docs.mongodb.com/master/reference/aggregation-variables/#variable.REMOVE)にて、条件に応じたフィールドの除外が可能になりました。
+[`REMOVE`](https://docs.mongodb.com/master/reference/aggregation-variables/#variable.REMOVE)にて、条件に応じたフィールドの除外が可能になりました。
 
 ### 新しいオプション
+[`aggregate`](https://docs.mongodb.com/master/reference/command/aggregate/#dbcmd.aggregate)コマンドと[`db.collection.aggregate()`](https://docs.mongodb.com/master/reference/method/db.collection.aggregate/#db.collection.aggregate)メソッドは以下の新しいオプションをサポートします。
+
+- どのインデックスを使うかを指定する`hint`オプション
+
+<div><strong>注意：</strong><br />
+<code>hint</code>は <code><a href="https://docs.mongodb.com/master/reference/operator/aggregation/lookup/#pipe._S_lookup">$lookup</a></code>と<code><a href="https://docs.mongodb.com/master/reference/operator/aggregation/graphLookup/#pipe._S_graphLookup">$graphLookup</a></code>ステージには適用されません。
+
+- データベースプロファイラ、currentOp、ログなどでオペレーションを追跡しやすくするための `comment`オプション
 
 ### タイムゾーンのサポート
 MongoDB 3.6では[Aggregationの日付オペレーション](https://docs.mongodb.com/master/reference/operator/aggregation-date/)にて、タイムゾーンをサポートしました。
