@@ -81,13 +81,12 @@ MongoDB 3.6では、[`$currentOp`](https://docs.mongodb.com/master/reference/ope
 [`aggregate`](https://docs.mongodb.com/master/reference/command/aggregate/#dbcmd.aggregate)コマンドと[`db.collection.aggregate()`](https://docs.mongodb.com/master/reference/method/db.collection.aggregate/#db.collection.aggregate)メソッドは以下の新しいオプションをサポートします。
 
 - どのインデックスを使うかを指定する`hint`オプション
-
 <div><strong>注意：</strong><br />
 <code>hint</code>は <code><a href="https://docs.mongodb.com/master/reference/operator/aggregation/lookup/#pipe._S_lookup">$lookup</a></code>と<code><a href="https://docs.mongodb.com/master/reference/operator/aggregation/graphLookup/#pipe._S_graphLookup">$graphLookup</a></code>ステージには適用されません。</div><br />
-
 - データベースプロファイラ、currentOp、ログなどでオペレーションを追跡しやすくするための `comment`オプション
 
 ### タイムゾーンのサポート
+
 MongoDB 3.6では[Aggregationの日付オペレーション](https://docs.mongodb.com/master/reference/operator/aggregation-date/)にて、タイムゾーンをサポートしました。
 
 <div><strong>参照：</strong><br />
@@ -132,17 +131,17 @@ change streamを使うためには、<code>featureCompatibilityVersion</code>は
 
 <div><strong>重要：</strong><br />
 クライアントセッションを使うためには：<br />
-
-- クライアントには、3.6用に更新されたドライバが必要です。Java、C#、Python、Node、Cなど。
-- featureCompatibilityVersionは"3.6"である必要があります。詳細は[FeatureCompatibilityVersionを確認する方法](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#view-fcv)もしくは[setFeatureCompatibilityVersion](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#dbcmd.setFeatureCompatibilityVersion)を参照してください。</div>
+<ul>
+<li>クライアントには、3.6用に更新されたドライバが必要です。Java、C#、Python、Node、Cなど。</li>
+<li>featureCompatibilityVersionは"3.6"である必要があります。詳細は<a href="https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#view-fcv">FeatureCompatibilityVersionを確認する方法</a>もしくは<a href="https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#dbcmd.setFeatureCompatibilityVersion">setFeatureCompatibilityVersion</a>を参照してください。</li></ul></div>
 
 ### リトライ可能な書き込み
 
 <div><strong>重要：</strong><br />
 リトライ可能な書き込みを使うためには：<br />
-
-- クライアントには、3.6用に更新されたドライバが必要です。Java、C#、Python、Node、Cなど。
-- featureCompatibilityVersionは"3.6"である必要があります。詳細は[FeatureCompatibilityVersionを確認する方法](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#view-fcv)もしくは[setFeatureCompatibilityVersion](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#dbcmd.setFeatureCompatibilityVersion)を参照してください。</div>
+<ul>
+<li>クライアントには、3.6用に更新されたドライバが必要です。Java、C#、Python、Node、Cなど。</li>
+<li>featureCompatibilityVersionは"3.6"である必要があります。詳細は<a href="https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#view-fcv">FeatureCompatibilityVersionを確認する方法</a>もしくは<a href="https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#dbcmd.setFeatureCompatibilityVersion">setFeatureCompatibilityVersion</a>を参照してください。</li></ul></div>
 
 MongoDB 3.6 から、レプリカセットとシャードクラスタに対する特定のack済みオペレーションは、一時的なネットワーク障害やレプリカセットのマスタ選出を適切に処理するため「リトライ可能」となりました。
 
@@ -204,9 +203,7 @@ MongoDBクラスタのサーバセッションを、列挙、管理、killする
 
 ### コマンドオプション
 3.6から、MongoDBのドライバは、ackされていない書き込みを除き、すべてのオペレーションをサーバセッションと関連付けるようになりました。すべてのコマンドにおいてサーバセッションとの関連付けをサポートするために以下のオプションが利用可能です。
-
-<div><strong>重要：</strong><br />
-mongoシェルとドライバはこれらのオプションをセッション中のコマンドに割り当てます。</div><br />
+<div><strong>重要：</strong><br />mongoシェルとドライバはこれらのオプションをセッション中のコマンドに割り当てます。</div><br />
 
 | Option | Type | 説明 |
 |:-----------|:------------|:------------|
@@ -283,9 +280,7 @@ MongoDB 3.6では、非推奨であった `$pushAll` オペレータが削除さ
 
 ### Read Concern
 - 新たに ["available"]()というRead Concernが導入されました。非シャード化コレクション（つまり、スタンドアロン環境か、レプリカセット環境）では、"local"と"available"のRead Concernは同じようにふるまいます。シャードクラスタでは、"available"はクラスタパーティションに対してより強い耐性を持ちますが、チャンクマイグレーション中のシャードはorphan documentsを返す可能性があります。
-
-<div><strong>参照：</strong><br />
-<a href="https://docs.mongodb.com/master/reference/parameters/#param.orphanCleanupDelaySecs">orphanCleanupDelaySecs</a></div><br />
+<div><strong>参照：</strong><br /><a href="https://docs.mongodb.com/master/reference/parameters/#param.orphanCleanupDelaySecs">orphanCleanupDelaySecs</a></div><br />
 
 - "majority" read concernが常に有効化されました。これに伴い、--enableMajorityReadConcern と replication.enableMajorityReadConcern は非推奨化されました。
 
