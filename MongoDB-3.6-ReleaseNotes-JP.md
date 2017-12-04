@@ -181,7 +181,7 @@ MongoDBクラスタのサーバセッションを、列挙、管理、killする
 3.6から、MongoDBのドライバは、ackされていない書き込みを除き、すべてのオペレーションをサーバセッションと関連付けるようになりました。すべてのコマンドにおいてサーバセッションとの関連付けをサポートするために以下のオプションが利用可能です。
 
 <div><strong>重要：</strong><br />
-mongoシェルとドライバはこれらのオプションをセッション中のコマンドに割り当てます。</div>
+mongoシェルとドライバはこれらのオプションをセッション中のコマンドに割り当てます。</div><br />
 
 | Option | Type | 説明 |
 |:-----------|:------------|:------------|
@@ -246,6 +246,11 @@ MongoDB 3.6では、非推奨であった `$pushAll` オペレータが削除さ
 
 ### コマンド
 
+- [`listDatabases`](https://docs.mongodb.com/master/reference/command/listDatabases/#dbcmd.listDatabases)コマンドに以下のオプションが追加されました。
+  - `nameOnly`は、データベース名のみを返します。この場合はデータベースロックは不要です。（データベース名とサイズ情報の両方を返す場合は、データベースロックが必要となってしまいます。）
+  - `filter`は指定条件に合致するデータベースのみを出力します。
+- [`validate`](https://docs.mongodb.com/master/reference/command/validate/#dbcmd.validate)コマンドおよび[`db.collection.validate()`](https://docs.mongodb.com/master/reference/method/db.collection.validate/#db.collection.validate)メソッドの振る舞いが、変更されました。
+
 ### Wire Protocol と圧縮
 - MongoDB 3.6では OP_MSG という新たなWire Protocolのopcodeが導入されました。このopcodeのメッセージフォーマットは拡張可能であり、他のopcodeの機能を包含するように設計されています。
 - --networkMessageCompressorsオプション（または設定ファイル中のnet.compression.compressors）で利用するためのzlib圧縮が追加されました。--networkMessageCompressorsオプション（またはnet.compression.compressorsの設定）はmongod、mongos、mongoシェル、OP_COMPRESSEDメッセージフォーマットをサポートするドライバの間でのネットワーク圧縮を有効化します。
@@ -255,7 +260,7 @@ MongoDB 3.6では、非推奨であった `$pushAll` オペレータが削除さ
 - 新たに ["available"]()というRead Concernが導入されました。非シャード化コレクション（つまり、スタンドアロン環境か、レプリカセット環境）では、"local"と"available"のRead Concernは同じようにふるまいます。シャードクラスタでは、"available"はクラスタパーティションに対してより強い耐性を持ちますが、チャンクマイグレーション中のシャードはorphan documentsを返す可能性があります。
 
 <div><strong>参照：</strong><br />
-<a href="https://docs.mongodb.com/master/reference/parameters/#param.orphanCleanupDelaySecs">orphanCleanupDelaySecs</a></div>
+<a href="https://docs.mongodb.com/master/reference/parameters/#param.orphanCleanupDelaySecs">orphanCleanupDelaySecs</a></div><br />
 
 - "majority" read concernが常に有効化されました。これに伴い、--enableMajorityReadConcern と replication.enableMajorityReadConcern は非推奨化されました。
 
@@ -281,7 +286,7 @@ MongoDB 3.6は以下の改善を含みます。
 ## アップグレードの手順
 
 <div><strong>注意：</strong><br />
-3.4のインスタンスをアップグレードするためには、3.4のインスタンスは``featureCompatibilityVersion``が3.4に設定されている必要があります。詳細は[FeatureCompatibilityVersionを確認する方法](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#view-fcv)もしくは[setFeatureCompatibilityVersion](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#dbcmd.setFeatureCompatibilityVersion)を参照してください。</div>
+3.4のインスタンスをアップグレードするためには、3.4のインスタンスは<code>featureCompatibilityVersion</code>が3.4に設定されている必要があります。詳細は<a href="https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#view-fcv">FeatureCompatibilityVersionを確認する方法</a>もしくは<a href="https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#dbcmd.setFeatureCompatibilityVersion">setFeatureCompatibilityVersion</a>を参照してください。</div>
 
 アップグレードの手順については、以下を参照してください。
 
