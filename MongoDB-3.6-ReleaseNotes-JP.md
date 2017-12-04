@@ -192,6 +192,7 @@ mongoシェルとドライバはこれらのオプションをセッション中
 
 <div><strong>重要：</strong><br />
 <code>stmtIds</code>を手動で設定しないでください。MongoDBによって<code>stmtIds</code>は狭義単調増加となるように設定されます。</div>
+<br />
 
 | Option | Type | 説明 |
 |:-----------|:------------|:------------|
