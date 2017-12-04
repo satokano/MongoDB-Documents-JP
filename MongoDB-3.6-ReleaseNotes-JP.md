@@ -2,7 +2,7 @@
 <!-- 12/4時点で正式版が出ておらず、開発版であることを示す記載が残っている。冒頭とか、最後のDownload, Report an Issueとか。正式版が出たら更新。 -->
 <!-- マニュアルっぽいので「ですます」で -->
 <!-- 他のマニュアルを参照する場合、どちらかというと英語タイトルそのままで。文章の一部になっていて、訳さないと変な場合は日本語に訳す。 -->
-<!-- NOTE: とかの囲みは、QiitaのMDで対応するものがなさそうなので、注意：brなどとしてごまかす-->
+<!-- NOTE: とかの囲みは、QiitaのMDで対応するものがなさそうなので、注意：brなどとしてごまかす？ ```text: かと思ったがそうすると中身のMD記法が解釈されない。divかと思ったがQiitaはstyle属性適用されない。divで囲んでタイトルはstrong、中身は自前でタグを書くのが見た目的には一番マシっぽい。 -->
 <!-- SEE ALSO: は参照：、WARNING: は警告： -->
 <!-- 英単語・数字の周りに空白をいれるか？ -->
 <!-- restの`、``と、Qiita Markdownの対応は？ -->
@@ -18,8 +18,8 @@
 
 MongoDB 3.6は現在開発中です。[^1]
 
-警告：<br />
-3.6のリリース候補版が利用可能ですが、これらのバージョンはテストのみを目的としたものであり、プロダクション環境での利用を想定したものではありません。
+<div><strong>警告：</strong><br />
+3.6のリリース候補版が利用可能ですが、これらのバージョンはテストのみを目的としたものであり、プロダクション環境での利用を想定したものではありません。</div>
 
 ## セキュリティ
 ### デフォルトでlocalhostにのみバインド
@@ -40,8 +40,8 @@ MongoDB 3.6から、MongoDBのバイナリ（mongodおよびmongos）は、デ�
 - 認証が有効な場合に限り、作成したカーソルに対し[`getMore`](https://docs.mongodb.com/master/reference/command/getMore/#dbcmd.getMore)を発行できます。
 - [`restore`](https://docs.mongodb.com/master/reference/built-in-roles/#restore)ロールに対して[`convertToCapped`](https://docs.mongodb.com/master/reference/privilege-actions/#convertToCapped)アクションが追加されました。
 
-参照：<br />
-[後方非互換な機能](https://docs.mongodb.com/master/release-notes/3.6-compatibility/#compatibility-enabled)
+<div><strong>参照：</strong><br />
+[後方非互換な機能](https://docs.mongodb.com/master/release-notes/3.6-compatibility/#compatibility-enabled)</div>
 
 ## Aggregation
 MongoDB 3.6からは以下の機能が利用可能です。
@@ -65,8 +65,8 @@ $lookup は複数の結合条件および相関サブクエリが指定可能に
 ### タイムゾーンのサポート
 MongoDB 3.6では[Aggregationの日付オペレーション](https://docs.mongodb.com/master/reference/operator/aggregation-date/)にて、タイムゾーンをサポートしました。
 
-参照：<br />
-[Aggregation Compatibility Changes](https://docs.mongodb.com/master/release-notes/3.6-compatibility/#aggregate-compatibility)
+<div><strong>参照：</strong><br />
+[Aggregation Compatibility Changes](https://docs.mongodb.com/master/release-notes/3.6-compatibility/#aggregate-compatibility)</div>
 
 ## 配列に対するupdateオペレータの改善
 ### arrayFilters
@@ -82,7 +82,7 @@ MongoDB 3.6では[Aggregationの日付オペレーション](https://docs.mongod
 MongoDB3.6では、配列およびネストされた配列に対するupdateオペレーションにて、以下の位置指定オペレータが追加されました。
 
 - [$[]](https://docs.mongodb.com/master/reference/operator/update/positional-all/#up._S_[])オペレータによる位置指定は、配列における全指定要素を更新します。
-- [$[<identifier>]](https://docs.mongodb.com/master/reference/operator/update/positional-filtered/#up._S_[%3Cidentifier%3E])オペレータによる、フィルタ済みの位置指定は、[arrayFilters](https://docs.mongodb.com/master/release-notes/3.6/#arrayfilters)条件に合致する全指定要素を更新します。
+- [$[ <identifier> ]](https://docs.mongodb.com/master/reference/operator/update/positional-filtered/#up._S_[%3Cidentifier%3E])オペレータによる、フィルタ済みの位置指定は、[arrayFilters](https://docs.mongodb.com/master/release-notes/3.6/#arrayfilters)条件に合致する全指定要素を更新します。
 
 ### pushに対する負の配列インデックス
 pushオペレータに対する[$position](https://docs.mongodb.com/master/reference/operator/update/position/#up._S_position)指定は、負の配列インデックスを指定可能で、配列の最終要素からの位置を示します。
@@ -96,8 +96,8 @@ change streamにより、[oplog](https://docs.mongodb.com/master/reference/gloss
 
 詳細は[Change Streams](https://docs.mongodb.com/master/changeStreams/#changestreams)を参照してください。
 
-重要：<br />
-change streamを使うためには、featureCompatibilityVersionは"3.6"である必要があります。詳細は[FeatureCompatibilityVersionを確認する方法](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#view-fcv)もしくは[setFeatureCompatibilityVersion](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#dbcmd.setFeatureCompatibilityVersion)を参照してください。
+<div><strong>重要：</strong><br />
+change streamを使うためには、featureCompatibilityVersionは"3.6"である必要があります。詳細は[FeatureCompatibilityVersionを確認する方法](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#view-fcv)もしくは[setFeatureCompatibilityVersion](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#dbcmd.setFeatureCompatibilityVersion)を参照してください。</div>
 
 ## クライアントセッション
 ### 因果一貫性（Causal Consistensy）[^2]
@@ -107,14 +107,17 @@ change streamを使うためには、featureCompatibilityVersionは"3.6"であ�
 
 重要：<br />
 クライアントセッションを使うためには：<br />
+
 - クライアントには、3.6用に更新されたドライバが必要です。Java、C#、Python、Node、Cなど。
 - featureCompatibilityVersionは"3.6"である必要があります。詳細は[FeatureCompatibilityVersionを確認する方法](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#view-fcv)もしくは[setFeatureCompatibilityVersion](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#dbcmd.setFeatureCompatibilityVersion)を参照してください。
 
 ### リトライ可能な書き込み
-重要：<br />
+
+<div><strong>重要：</strong><br />
 リトライ可能な書き込みを使うためには：<br />
+
 - クライアントには、3.6用に更新されたドライバが必要です。Java、C#、Python、Node、Cなど。
-- featureCompatibilityVersionは"3.6"である必要があります。詳細は[FeatureCompatibilityVersionを確認する方法](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#view-fcv)もしくは[setFeatureCompatibilityVersion](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#dbcmd.setFeatureCompatibilityVersion)を参照してください。
+- featureCompatibilityVersionは"3.6"である必要があります。詳細は[FeatureCompatibilityVersionを確認する方法](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#view-fcv)もしくは[setFeatureCompatibilityVersion](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#dbcmd.setFeatureCompatibilityVersion)を参照してください。</div>
 
 MongoDB 3.6 から、レプリカセットとシャードクラスタに対する特定のack済みオペレーションは、一時的なネットワーク障害やレプリカセットのマスタ選出を適切に処理するため「リトライ可能」となりました。
 
@@ -137,8 +140,8 @@ MongoDB 3.6では、[mongo](https://docs.mongodb.com/master/reference/program/mo
 ## サーバセッション
 MongoDBのサーバセッション（または論理セッションともいう）は、[クライアントセッション](https://docs.mongodb.com/master/release-notes/3.6/#client-sessions)において[因果一貫性（Causal Consistency）](https://docs.mongodb.com/master/core/read-isolation-consistency-recency/#causal-consistency)や[リトライ可能な書き込み](https://docs.mongodb.com/master/core/distributed-queries/#retryable-writes)をサポートするための、基盤となるフレームワークです。
 
-重要：<br />
-アプリケーションは、クライアントセッションを使用してサーバセッションとのインターフェースを行います。
+<div><strong>重要：</strong><br />
+アプリケーションは、クライアントセッションを使用してサーバセッションとのインターフェースを行います。</div>
 
 サーバセッションはスタンドアロンmongod、レプリカセット、シャードクラスタにおいて利用可能です。
 
@@ -177,8 +180,8 @@ MongoDBクラスタのサーバセッションを、列挙、管理、killする
 ### コマンドオプション
 3.6から、MongoDBのドライバは、ackされていない書き込みを除き、すべてのオペレーションをサーバセッションと関連付けるようになりました。すべてのコマンドにおいてサーバセッションとの関連付けをサポートするために以下のオプションが利用可能です。
 
-重要：<br />
-mongoシェルとドライバはこれらのオプションをセッション中のコマンドに割り当てます。
+<div><strong>重要：</strong><br />
+mongoシェルとドライバはこれらのオプションをセッション中のコマンドに割り当てます。</div>
 
 | Option | Type | 説明 |
 |:-----------|:------------|:------------|
@@ -187,8 +190,8 @@ mongoシェルとドライバはこれらのオプションをセッション中
 
 ステートメントの配列をとる[`delete`](https://docs.mongodb.com/master/reference/command/delete/#dbcmd.delete)、[`insert`](https://docs.mongodb.com/master/reference/command/insert/#dbcmd.insert)、[`update`](https://docs.mongodb.com/master/reference/command/update/#dbcmd.update)コマンドのために、以下のオプションも利用可能です。
 
-重要：<br />
-`stmtIds`を手動で設定しないでください。MongoDBによって`stmtIds`は狭義単調増加となるように設定されます。
+<div><strong>重要：</strong><br />
+`stmtIds`を手動で設定しないでください。MongoDBによって`stmtIds`は狭義単調増加となるように設定されます。</div>
 
 | Option | Type | 説明 |
 |:-----------|:------------|:------------|
@@ -199,8 +202,8 @@ MongoDB 3.6は、JSON Schemaを使ったドキュメントバリデーション�
 
 $jsonSchemaを使うには、featureCompatibilityVersionは"3.6"にセットされている必要があります。
 
-参照：<br />
-[後方非互換な機能](https://docs.mongodb.com/master/release-notes/3.6-compatibility/#compatibility-enabled)
+<div><strong>参照：</strong><br />
+[後方非互換な機能](https://docs.mongodb.com/master/release-notes/3.6-compatibility/#compatibility-enabled)</div>
 
 ## レプリカセット
 - レプリカセットのprotocol version 0（pv0）は非推奨となりました。レプリカセットのprotocol versionについて詳細は、[Replica Set Protocol Versions](https://docs.mongodb.com/master/reference/replica-set-protocol-versions/)を参照してください。
@@ -237,16 +240,16 @@ MongoDBサーバは、MongoDB Compass Community Editionの各プラットフォ�
 ### Read Concern
 - 新たに ["available"]()というRead Concernが導入されました。非シャード化コレクション（つまり、スタンドアロン環境か、レプリカセット環境）では、"local"と"available"のRead Concernは同じようにふるまいます。シャードクラスタでは、"available"はクラスタパーティションに対してより強い耐性を持ちますが、チャンクマイグレーション中のシャードはorphan documentsを返す可能性があります。
 
-参照：<br />
-[orphanCleanupDelaySecs](https://docs.mongodb.com/master/reference/parameters/#param.orphanCleanupDelaySecs)
+<div><strong>参照：</strong><br />
+[orphanCleanupDelaySecs](https://docs.mongodb.com/master/reference/parameters/#param.orphanCleanupDelaySecs)</div>
 
 - "majority" read concernが常に有効化されました。これに伴い、--enableMajorityReadConcern と replication.enableMajorityReadConcern は非推奨化されました。
 
 ### FTDC
 MongoDB 3.6では、mongosでDiagnostics Capture（FTDCともいわれる）の出力が追加されました。以前のバージョンでは、この機能はmongodのみで利用可能でした。[Diagnostic Parameters](https://docs.mongodb.com/master/reference/parameters/#param-ftdc)を参照してください。
 
-注意：<br />
-FTDCはデフォルトで有効になっています。
+<div><strong>注意：</strong><br />
+FTDCはデフォルトで有効になっています。</div>
 
 ### 追加の改善点
 MongoDB 3.6は以下の改善を含みます。
@@ -262,8 +265,9 @@ MongoDB 3.6は以下の改善を含みます。
 いくつかの変更点は互換性に影響する可能性があり、ユーザーの対応が必要になるかもしれません。詳細な一覧は[MongoDB 3.6での互換性の変更点](https://docs.mongodb.com/master/release-notes/3.6-compatibility/)を参照してください。
 
 ## アップグレードの手順
-注意：<br />
-3.4のインスタンスをアップグレードするためには、3.4のインスタンスは``featureCompatibilityVersion``が3.4に設定されている必要があります。詳細は[FeatureCompatibilityVersionを確認する方法](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#view-fcv)もしくは[setFeatureCompatibilityVersion](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#dbcmd.setFeatureCompatibilityVersion)を参照してください。
+
+<div><strong>注意：</strong><br />
+3.4のインスタンスをアップグレードするためには、3.4のインスタンスは``featureCompatibilityVersion``が3.4に設定されている必要があります。詳細は[FeatureCompatibilityVersionを確認する方法](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#view-fcv)もしくは[setFeatureCompatibilityVersion](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#dbcmd.setFeatureCompatibilityVersion)を参照してください。</div>
 
 アップグレードの手順については、以下を参照してください。
 
