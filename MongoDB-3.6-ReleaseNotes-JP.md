@@ -52,8 +52,24 @@ $lookup は複数の結合条件および相関サブクエリが指定可能に
 [詳細は結合条件と相関サブクエリ](https://docs.mongodb.com/master/reference/operator/aggregation/lookup/#lookup-syntax-let-pipeline)の[$lookup](https://docs.mongodb.com/master/reference/operator/aggregation/lookup/#pipe._S_lookup)シンタックスを参照してください。
 
 ### 新しいAggregationステージ
+MongoDB 3.6では以下の新しいaggregationステージが追加されました。
+
+| Operator | 説明 |
+|:-----------|:------------|
+| [`$currentOp`](https://docs.mongodb.com/master/reference/operator/aggregation/currentOp/#pipe._S_currentOp) | [mongod](https://docs.mongodb.com/master/reference/program/mongod/#bin.mongod)インスタンスでアクティブまたは休止中の操作に関する情報を含むドキュメントのストリームを返します。新しいaggregationヘルパー [`db.aggregate()`](https://docs.mongodb.com/master/reference/method/db.aggregate/#db.aggregate) を使います。 |
+| [`$listSessions`](https://docs.mongodb.com/master/reference/operator/aggregation/listSessions/#pipe._S_listSessions) | `config`データベースの`system.sessions`コレクションのサーバセッションを列挙します。新しいaggregationヘルパー[`db.aggregate()`](https://docs.mongodb.com/master/reference/method/db.aggregate/#db.aggregate)を使います。 |
+| [`$listLocalSessions`](https://docs.mongodb.com/master/reference/operator/aggregation/listLocalSessions/#pipe._S_listLocalSessions) | サーバによりメモリ上にキャッシュされているサーバセッションを列挙します。 |
 
 ### 新しいAggregationオペレータ
+
+| Operator | 説明 |
+|:-----------|:------------|
+| [`$arrayToObject`](https://docs.mongodb.com/master/reference/operator/aggregation/arrayToObject/#exp._S_arrayToObject) | キー・値のペアの配列をドキュメントに変換します。 |
+| [`$objectToArray`](https://docs.mongodb.com/master/reference/operator/aggregation/objectToArray/#exp._S_objectToArray) | ドキュメントをキー・値のペアを表現するドキュメントの配列に変換します。 |
+| [`$mergeObjects`](https://docs.mongodb.com/master/reference/operator/aggregation/mergeObjects/#exp._S_mergeObjects) | 複数のドキュメントを単一のドキュメントに結合します。 |
+| [`$dateFromString`](https://docs.mongodb.com/master/reference/operator/aggregation/dateFromString/#exp._S_dateFromString) | 日付・時刻を表す文字列を日付オブジェクトに変換します。 |
+| [`$dateFromParts`](https://docs.mongodb.com/master/reference/operator/aggregation/dateFromParts/#exp._S_dateFromParts) | 指定された日付の構成部品から、BSONの日付オブジェクトを構築します。 |
+| [`$dateToParts`](https://docs.mongodb.com/master/reference/operator/aggregation/dateToParts/#exp._S_dateToParts) | 日付の構成部品を含むドキュメントを返します。 |
 
 ### 新しいAggregationヘルパー
 MongoDB 3.6では、[`$currentOp`](https://docs.mongodb.com/master/reference/operator/aggregation/currentOp/#pipe._S_currentOp)や[`$listLocalSessions`](https://docs.mongodb.com/master/reference/operator/aggregation/listLocalSessions/#pipe._S_listLocalSessions)で始まるものなど、もととなるコレクションを必要としないaggregationを処理するためのヘルパーとして [`db.aggregate()`](https://docs.mongodb.com/master/reference/method/db.aggregate/#db.aggregate) が追加されました。
