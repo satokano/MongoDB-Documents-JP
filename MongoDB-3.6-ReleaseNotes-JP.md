@@ -78,7 +78,10 @@ change streamにより、[oplog](https://docs.mongodb.com/master/reference/gloss
 
 3.6系ドライバであればいずれも、db.collection.watch()メソッドを使うことでchange streamを作成することができます。完全な手順や使い方は、それぞれのドライバのドキュメントを参照してください。
 
+詳細は[Change Streams](https://docs.mongodb.com/master/changeStreams/#changestreams)を参照してください。
 
+重要：<br />
+change streamを使うためには、featureCompatibilityVersionは"3.6"である必要があります。詳細は[FeatureCompatibilityVersionを確認する方法](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#view-fcv)もしくは[setFeatureCompatibilityVersion](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#dbcmd.setFeatureCompatibilityVersion)を参照してください。
 
 ## クライアントセッション
 ### 因果一貫性（Causal Consistensy）[^1]
