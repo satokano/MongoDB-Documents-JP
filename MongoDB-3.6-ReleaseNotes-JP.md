@@ -139,6 +139,18 @@ MongoDBのサーバセッション（または論理セッションともいう�
 サーバセッションはスタンドアロンmongod、レプリカセット、シャードクラスタにおいて利用可能です。
 
 ### サーバセッションのコマンド
+3.6から、MongoDBのドライバは、ackされていない書き込みを除き、すべてのオペレーションをサーバセッションと関連付けるようになりました。環境構成が認証/認可を強制している場合は、サーバセッションは認証済みユーザと関連付けられます。
+
+MongoDBクラスタのサーバセッションを、列挙、管理、killするために、以下のコマンドが利用可能です。
+
+| Commands | 説明 |
+|:-----------|:------------|
+| [endSessions](https://docs.mongodb.com/master/reference/command/endSessions/#dbcmd.endSessions) | 指定のサーバセッションを終了します。 |
+| [killAllSessions](https://docs.mongodb.com/master/reference/command/killAllSessions/#dbcmd.killAllSessions) | すべてのサーバセッションをkillします。 |
+| [killAllSessionsByPattern](https://docs.mongodb.com/master/reference/command/killAllSessionsByPattern/#dbcmd.killAllSessionsByPattern) | 指定のパターンに一致するサーバセッションすべてをkillします。 |
+| [killSessions](https://docs.mongodb.com/master/reference/command/killSessions/#dbcmd.killSessions) | 指定のサーバセッションをkillします。 |
+| [refreshSessions](https://docs.mongodb.com/master/reference/command/refreshSessions/#dbcmd.refreshSessions) | アイドル状態のサーバセッションをリフレッシュします。 |
+| [startSession](https://docs.mongodb.com/master/reference/command/startSession/#dbcmd.startSession) | 新しいサーバセッションを開始します。 |
 
 ### パラメータ
 サーバセッションに対し以下の新しいパラメータが利用可能です。
@@ -158,7 +170,25 @@ MongoDBのサーバセッション（または論理セッションともいう�
 ### 一般的な事項
 [serverStatus](https://docs.mongodb.com/master/reference/command/serverStatus/#dbcmd.serverStatus)は、[logicalSessionRecordCache](https://docs.mongodb.com/master/reference/command/serverStatus/#server-status-logicalsessions)の数に関する情報を返します。
 
-### Command Options
+### コマンドオプション
+3.6から、MongoDBのドライバは、ackされていない書き込みを除き、すべてのオペレーションをサーバセッションと関連付けるようになりました。すべてのコマンドにおいてサーバセッションとの関連付けをサポートするために以下のオプションが利用可能です。
+
+重要：<br />
+mongoシェルとドライバはこれらのオプションをセッション中のコマンドに割り当てます。
+
+| Option | Type | 説明 |
+|:-----------|:------------|:------------|
+| `lsid` | Document | コマンドに関連付けられたセッションのユニークなidを指定するDocumentです。`txnNumber`が指定されている場合は、`lsid`も必須です。 |
+| `txnNumber` | 64bitの整数 | コマンドのセッションにおいて、コマンドを一意に識別するための、狭義単調増加する非負の整数です。<br />このオプションが指定された場合は、`lsid`も必須です。 |
+
+ステートメントの配列をとる[`delete`](https://docs.mongodb.com/master/reference/command/delete/#dbcmd.delete)、[`insert`](https://docs.mongodb.com/master/reference/command/insert/#dbcmd.insert)、[`update`](https://docs.mongodb.com/master/reference/command/update/#dbcmd.update)コマンドのために、以下のオプションも利用可能です。
+
+重要：<br />
+stmtIdsを手動で設定しないでください。MongoDBによってstmtIdsは狭義単調増加となるように設定されます。
+
+| Option | Type | 説明 |
+|:-----------|:------------|:------------|
+| `stmtIds` | 32bit整数の配列 | 書き込みコマンドにおける各書き込みオペレーションをそれぞれ一意に識別する数値の配列です。 |
 
 ## JSON Schema
 MongoDB 3.6は、JSON Schemaを使ったドキュメントバリデーションをサポートするため $jsonSchema オペレータを追加しました。詳細は $jsonSchema を参照してください。
