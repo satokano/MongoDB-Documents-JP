@@ -73,9 +73,14 @@ MongoDB 3.6では[Aggregationの日付オペレーション](https://docs.mongod
 | [update]() | [db.collection.updateOne()]()<br />[db.collection.updateMany()]()<br />[db.collection.update()]() |
 | | updateOneおよびupdateManyオペレーション向けの[db.collection.bulkWrite()]()<br />updateOne()とupdate()メソッドのBulk()オペレーション向けの[Bulk.find.arrayFilters()]() |
 
-### Multi-Element Array Updates
+### 配列における複数要素のupdate
+MongoDB3.6では、配列およびネストされた配列に対するupdateオペレーションにて、以下の位置指定オペレータが追加されました。
 
-### Negative Array Index Position for ``push``
+- [$[]](https://docs.mongodb.com/master/reference/operator/update/positional-all/#up._S_[])オペレータによる位置指定は、配列における全指定要素を更新します。
+- [$[<identifier>]](https://docs.mongodb.com/master/reference/operator/update/positional-filtered/#up._S_[%3Cidentifier%3E])オペレータによる、フィルタ済みの位置指定は、[arrayFilters](https://docs.mongodb.com/master/release-notes/3.6/#arrayfilters)条件に合致する全指定要素を更新します。
+
+### pushに対する負の配列インデックス
+pushオペレータに対する[$position](https://docs.mongodb.com/master/reference/operator/update/position/#up._S_position)指定は、負の配列インデックスを指定可能で、配列の最終要素からの位置を示します。
 
 ## Change Streams
 MongoDB 3.6では、レプリカセット、および、レプリカセットと組み合わせたシャードクラスタに対して、change streamを作成することができるようになりました。
