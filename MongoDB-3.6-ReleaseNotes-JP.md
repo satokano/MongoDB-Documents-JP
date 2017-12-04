@@ -72,6 +72,13 @@ MongoDB 3.6では[Aggregationの日付オペレーション](https://docs.mongod
 ### Negative Array Index Position for ``push``
 
 ## Change Streams
+MongoDB 3.6では、レプリカセット、および、レプリカセットと組み合わせたシャードクラスタに対して、change streamを作成することができるようになりました。
+
+change streamにより、[oplog](https://docs.mongodb.com/master/reference/glossary/#term-oplog)を追跡する複雑性・リスクを避けながら、リアルタイムにデータ変更の通知を受けることができるようになりました。
+
+3.6系ドライバであればいずれも、db.collection.watch()メソッドを使うことでchange streamを作成することができます。完全な手順や使い方は、それぞれのドライバのドキュメントを参照してください。
+
+
 
 ## クライアントセッション
 ### 因果一貫性（Causal Consistensy）[^1]
