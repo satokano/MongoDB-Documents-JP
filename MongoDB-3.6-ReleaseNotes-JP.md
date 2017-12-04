@@ -100,16 +100,16 @@ change streamにより、[oplog](https://docs.mongodb.com/master/reference/gloss
 change streamを使うためには、featureCompatibilityVersionは"3.6"である必要があります。詳細は[FeatureCompatibilityVersionを確認する方法](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#view-fcv)もしくは[setFeatureCompatibilityVersion](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#dbcmd.setFeatureCompatibilityVersion)を参照してください。</div>
 
 ## クライアントセッション
-### 因果一貫性（Causal Consistensy）[^2]
-因果一貫性を提供するため、MongoDB 3.6ではクライアントセッションにおいて[causal consistency]を有効にしています。因果一貫なクライアントセッションは、関連付けられた読み込みおよび *ack済みの* 書き込みの一連のオペレーションが因果関係を持つ、つまり順序通り反映されることを示します。クライアントアプリケーションは、一度に1つのスレッドだけがクライアントセッションでこれらの操作を実行するようにする必要があります。
+### 因果一貫性（Causal Consistency）[^2]
+因果一貫性を提供するため、MongoDB 3.6ではクライアントセッションにおいて[causal consistency](https://docs.mongodb.com/master/core/read-isolation-consistency-recency/#causal-consistency)を有効にしています。因果一貫なクライアントセッションは、関連付けられた読み込みおよび *ack済みの* 書き込みの一連のオペレーションが因果関係を持つ、つまり順序通り反映されることを示します。クライアントアプリケーションは、一度に1つのスレッドだけがクライアントセッションでこれらの操作を実行するようにする必要があります。
 
 アプリケーションはクライアントセッションを開始し、特定のセッションにオペレーションを関連付けることができます。アプリケーションは一度に1つのスレッドだけがクライアントセッションでこれらの操作を実行するようにする必要があります。[^3]
 
-重要：<br />
+<div><strong>重要：</strong><br />
 クライアントセッションを使うためには：<br />
 
 - クライアントには、3.6用に更新されたドライバが必要です。Java、C#、Python、Node、Cなど。
-- featureCompatibilityVersionは"3.6"である必要があります。詳細は[FeatureCompatibilityVersionを確認する方法](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#view-fcv)もしくは[setFeatureCompatibilityVersion](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#dbcmd.setFeatureCompatibilityVersion)を参照してください。
+- featureCompatibilityVersionは"3.6"である必要があります。詳細は[FeatureCompatibilityVersionを確認する方法](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#view-fcv)もしくは[setFeatureCompatibilityVersion](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#dbcmd.setFeatureCompatibilityVersion)を参照してください。</div>
 
 ### リトライ可能な書き込み
 
