@@ -120,6 +120,14 @@ MongoDB 3.6 から、レプリカセットとシャードクラスタに対す�
 リトライ可能な書き込みについて詳細は、[Retryable Writes](https://docs.mongodb.com/master/core/distributed-queries/#retryable-writes)を参照してください。
 
 ### mongo シェルの変更
+MongoDB 3.6では、[mongo](https://docs.mongodb.com/master/reference/program/mongo/#bin.mongo)シェルに対し[--retryWrites](https://docs.mongodb.com/master/reference/program/mongo/#cmdoption-retrywrites)コマンドラインオプションが追加されました。このオプションにより、[mongo](https://docs.mongodb.com/master/reference/program/mongo/#bin.mongo)シェルにおいて[リトライ可能な書き込み](https://docs.mongodb.com/master/release-notes/3.6/#retryable-writes)が有効になります。
+
+[mongo](https://docs.mongodb.com/master/reference/program/mongo/#bin.mongo)シェルにおけるMongo()コネクションオブジェクトに、以下のメソッドが追加されました。
+
+- [Mongo.isCausalConsistency()](https://docs.mongodb.com/master/reference/method/Mongo.isCausalConsistency/#Mongo.isCausalConsistency)
+- [Mongo.startSession()](https://docs.mongodb.com/master/reference/method/Mongo.startSession/#Mongo.startSession)
+- さまざまな [Session](https://docs.mongodb.com/master/reference/method/Session/#Session) メソッド
+- さまざまな [SessionOptions](https://docs.mongodb.com/master/reference/method/SessionOptions/#SessionOptions) メソッド
 
 ## サーバセッション
 ### Server Session Commands
