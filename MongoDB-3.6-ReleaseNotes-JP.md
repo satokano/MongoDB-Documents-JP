@@ -4,6 +4,7 @@
 <!-- NOTE: とかの囲みは、QiitaのMDで対応するものがなさそうなので、注意：brなどとしてごまかす-->
 <!-- SEE ALSO: は参照：で -->
 <!-- 英単語・数字の周りに空白をいれるか？ -->
+<!-- restの`、``と、Qiita Markdownの対応は？ -->
 [Release Notes for MongoDB 3.6](https://docs.mongodb.com/master/release-notes/3.6/)の翻訳です。原文はMongoDB Documentation Teamによるものです。ライセンスは[CC BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/deed.ja)となっています。
 
 [CONTRIBUTING.rst](https://github.com/mongodb/docs/blob/master/CONTRIBUTING.rst)
@@ -21,7 +22,7 @@ MongoDB 3.6は現在開発中です。
 MongoDB 3.6から、MongoDBのバイナリ（mongodおよびmongos）は、デフォルトではlocalhostにのみバインドされるようになりました。以前はMongoDB 2.6以来、公式のMongoDB RPM（Red Hat, CentOS, Fedora Linux、およびその派生）、DEB（Debian, Ubuntu、およびその派生）のみがlocalhostにバインドするようになっていました。詳細は[Localhost Binding Compatibility Changes](https://docs.mongodb.com/master/release-notes/3.6-compatibility/#bind-ip-compatibility)を参照してください。
 
 ### 認証の制限
-データベースに対するユーザーの接続を、特定のIPアドレスからのみに制限するため、authenticationRestrictions パラメータが以下のコマンドやメソッドに対して追加されました。
+データベースに対するユーザーの接続を、特定のIPアドレスからのみに制限するため、`authenticationRestrictions` パラメータが以下のコマンドやメソッドに対して追加されました。
 
 | Commands | Methods |
 |:-----------|:------------|
@@ -31,9 +32,9 @@ MongoDB 3.6から、MongoDBのバイナリ（mongodおよびmongos）は、デ�
 | [updateRole](https://docs.mongodb.com/master/reference/command/updateRole/#dbcmd.updateRole) | [db.updateRole()](https://docs.mongodb.com/master/reference/method/db.updateRole/#db.updateRole) |
 
 ### 追加のセキュリティ改善
-- TLS/SSL暗号化を使うときのOpenSSLの暗号アルゴリズムを制御するため、[opensslCipherConfig](https://docs.mongodb.com/master/reference/parameters/#param.opensslCipherConfig)パラメータが追加されました。
-- 認証が有効な場合に限り、作成したカーソルに対し[getMore](https://docs.mongodb.com/master/reference/command/getMore/#dbcmd.getMore)を発行できます。
-- [restore](https://docs.mongodb.com/master/reference/built-in-roles/#restore)ロールに対して[convertToCapped](https://docs.mongodb.com/master/reference/privilege-actions/#convertToCapped)アクションが追加されました。
+- TLS/SSL暗号化を使うときのOpenSSLの暗号アルゴリズムを制御するため、[`opensslCipherConfig`](https://docs.mongodb.com/master/reference/parameters/#param.opensslCipherConfig)パラメータが追加されました。
+- 認証が有効な場合に限り、作成したカーソルに対し[`getMore`](https://docs.mongodb.com/master/reference/command/getMore/#dbcmd.getMore)を発行できます。
+- [`restore`](https://docs.mongodb.com/master/reference/built-in-roles/#restore)ロールに対して[`convertToCapped`](https://docs.mongodb.com/master/reference/privilege-actions/#convertToCapped)アクションが追加されました。
 
 参照：<br />
 [後方非互換な機能](https://docs.mongodb.com/master/release-notes/3.6-compatibility/#compatibility-enabled)
@@ -130,13 +131,32 @@ MongoDB 3.6では、[mongo](https://docs.mongodb.com/master/reference/program/mo
 - さまざまな [SessionOptions](https://docs.mongodb.com/master/reference/method/SessionOptions/#SessionOptions) メソッド
 
 ## サーバセッション
-### Server Session Commands
+MongoDBのサーバセッション（または論理セッションともいう）は、[クライアントセッション](https://docs.mongodb.com/master/release-notes/3.6/#client-sessions)において[因果一貫性（Causal Consistency）](https://docs.mongodb.com/master/core/read-isolation-consistency-recency/#causal-consistency)や[リトライ可能な書き込み](https://docs.mongodb.com/master/core/distributed-queries/#retryable-writes)をサポートするための、基盤となるフレームワークです。
 
-### Parameters
+重要：<br />
+アプリケーションは、クライアントセッションを使用してサーバセッションとのインターフェースを行います。
 
-### Aggregation Stages
+サーバセッションはスタンドアロンmongod、レプリカセット、シャードクラスタにおいて利用可能です。
 
-### General
+### サーバセッションのコマンド
+
+### パラメータ
+サーバセッションに対し以下の新しいパラメータが利用可能です。
+
+- [logicalSessionRefreshMinutes](https://docs.mongodb.com/master/reference/parameters/#param.logicalSessionRefreshMinutes)
+- [localLogicalSessionTimeoutMinutes](https://docs.mongodb.com/master/reference/parameters/#param.localLogicalSessionTimeoutMinutes)
+- [maxAcceptableLogicalClockDriftSec](https://docs.mongodb.com/master/reference/parameters/#param.maxAcceptableLogicalClockDriftSecs)
+
+### Aggregationステージ
+サーバセッションをサポートするため、MongoDB 3.6では、以下のAggregationパイプラインステージが追加されました。
+
+| Operator | 説明 |
+|:-----------|:------------|
+| [$listSessions](https://docs.mongodb.com/master/reference/operator/aggregation/listSessions/#pipe._S_listSessions) | `config`データベースの`system.sessions`コレクションの中のサーバセッションを列挙します。 |
+| [$listLocalSessions]() | サーバによりメモリ中にキャッシュされているセッションを列挙します。[db.aggregate()](https://docs.mongodb.com/master/reference/method/db.aggregate/#db.aggregate)という新しいaggregationヘルパーを使用します。 |
+
+### 一般的な事項
+[serverStatus](https://docs.mongodb.com/master/reference/command/serverStatus/#dbcmd.serverStatus)は、[logicalSessionRecordCache](https://docs.mongodb.com/master/reference/command/serverStatus/#server-status-logicalsessions)の数に関する情報を返します。
 
 ### Command Options
 
