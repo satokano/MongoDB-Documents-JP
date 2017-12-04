@@ -31,9 +31,9 @@ MongoDB 3.6から、MongoDBのバイナリ（mongodおよびmongos）は、デ�
 | [updateRole](https://docs.mongodb.com/master/reference/command/updateRole/#dbcmd.updateRole) | [db.updateRole()](https://docs.mongodb.com/master/reference/method/db.updateRole/#db.updateRole) |
 
 ### 追加のセキュリティ改善
-- TLS/SSL暗号化を使うときのOpenSSLの暗号アルゴリズムを制御するため、opensslCipherConfigパラメータが追加されました。
-- 認証が有効な場合に限り、作成したカーソルに対しgetMoreを発行できます。
-- restoreロールに対してconvertToCappedアクションが追加されました。
+- TLS/SSL暗号化を使うときのOpenSSLの暗号アルゴリズムを制御するため、[opensslCipherConfig](https://docs.mongodb.com/master/reference/parameters/#param.opensslCipherConfig)パラメータが追加されました。
+- 認証が有効な場合に限り、作成したカーソルに対し[getMore](https://docs.mongodb.com/master/reference/command/getMore/#dbcmd.getMore)を発行できます。
+- [restore](https://docs.mongodb.com/master/reference/built-in-roles/#restore)ロールに対して[convertToCapped](https://docs.mongodb.com/master/reference/privilege-actions/#convertToCapped)アクションが追加されました。
 
 参照：<br />
 [後方非互換な機能](https://docs.mongodb.com/master/release-notes/3.6-compatibility/#compatibility-enabled)
@@ -53,10 +53,15 @@ $lookup は複数の結合条件および相関サブクエリが指定可能に
 ### 新しいAggregationヘルパー
 
 ### 新しいAggregation変数
+[REMOVE](https://docs.mongodb.com/master/reference/aggregation-variables/#variable.REMOVE)にて、条件に応じたフィールドの除外が可能になりました。
 
 ### 新しいオプション
 
 ### タイムゾーンのサポート
+MongoDB 3.6では[Aggregationの日付オペレーション](https://docs.mongodb.com/master/reference/operator/aggregation-date/)にて、タイムゾーンをサポートしました。
+
+参照：<br />
+[Aggregation Compatibility Changes](https://docs.mongodb.com/master/release-notes/3.6-compatibility/#aggregate-compatibility)
 
 ## 配列に対するupdateオペレータの改善
 
