@@ -25,10 +25,10 @@ MongoDB 3.6から、MongoDBのバイナリ（mongodおよびmongos）は、デ�
 
 | Commands | Methods |
 |:-----------|:------------|
-| [createUser]() | [db.createUser()]() |
-| [updateUser]() | [db.updateUser()]() |
-| [createRole]() | [db.createRole()]() |
-| [updateRole]() | [db.updateRole()]() |
+| [createUser](https://docs.mongodb.com/master/reference/command/createUser/#dbcmd.createUser) | [db.createUser()](https://docs.mongodb.com/master/reference/method/db.createUser/#db.createUser) |
+| [updateUser](https://docs.mongodb.com/master/reference/command/updateUser/#dbcmd.updateUser) | [db.updateUser()](https://docs.mongodb.com/master/reference/method/db.updateUser/#db.updateUser) |
+| [createRole](https://docs.mongodb.com/master/reference/command/createRole/#dbcmd.createRole) | [db.createRole()](https://docs.mongodb.com/master/reference/method/db.createRole/#db.createRole) |
+| [updateRole](https://docs.mongodb.com/master/reference/command/updateRole/#dbcmd.updateRole) | [db.updateRole()](https://docs.mongodb.com/master/reference/method/db.updateRole/#db.updateRole) |
 
 ### 追加のセキュリティ改善
 - TLS/SSL暗号化を使うときのOpenSSLの暗号アルゴリズムを制御するため、opensslCipherConfigパラメータが追加されました。
