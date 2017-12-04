@@ -82,7 +82,8 @@ MongoDB 3.6では、[`$currentOp`](https://docs.mongodb.com/master/reference/ope
 
 - どのインデックスを使うかを指定する`hint`オプション
 <div><strong>注意：</strong><br />
-<code>hint</code>は <code><a href="https://docs.mongodb.com/master/reference/operator/aggregation/lookup/#pipe._S_lookup">$lookup</a></code>と<code><a href="https://docs.mongodb.com/master/reference/operator/aggregation/graphLookup/#pipe._S_graphLookup">$graphLookup</a></code>ステージには適用されません。</div><br />
+<code>hint</code>は <code><a href="https://docs.mongodb.com/master/reference/operator/aggregation/lookup/#pipe._S_lookup">$lookup</a></code>と<code><a href="https://docs.mongodb.com/master/reference/operator/aggregation/graphLookup/#pipe._S_graphLookup">$graphLookup</a></code>ステージには適用されません。</div>
+
 - データベースプロファイラ、currentOp、ログなどでオペレーションを追跡しやすくするための `comment`オプション
 
 ### タイムゾーンのサポート
@@ -124,8 +125,8 @@ change streamにより、[oplog](https://docs.mongodb.com/master/reference/gloss
 change streamを使うためには、<code>featureCompatibilityVersion</code>は"3.6"である必要があります。詳細は<a href="https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#view-fcv">FeatureCompatibilityVersionを確認する方法</a>もしくは<a href="https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#dbcmd.setFeatureCompatibilityVersion">setFeatureCompatibilityVersion</a>を参照してください。</div>
 
 ## クライアントセッション
-### 因果一貫性（Causal Consistency）[^2]
-因果一貫性を提供するため、MongoDB 3.6ではクライアントセッションにおいて[causal consistency](https://docs.mongodb.com/master/core/read-isolation-consistency-recency/#causal-consistency)を有効にしています。因果一貫なクライアントセッションは、関連付けられた読み込みおよび *ack済みの* 書き込みの一連のオペレーションが因果関係を持つ、つまり順序通り反映されることを示します。クライアントアプリケーションは、一度に1つのスレッドだけがクライアントセッションでこれらの操作を実行するようにする必要があります。
+### 因果一貫性（Causal Consistency）
+因果一貫性[^2]を提供するため、MongoDB 3.6ではクライアントセッションにおいて[causal consistency](https://docs.mongodb.com/master/core/read-isolation-consistency-recency/#causal-consistency)を有効にしています。因果一貫なクライアントセッションは、関連付けられた読み込みおよび *ack済みの* 書き込みの一連のオペレーションが因果関係を持つ、つまり順序通り反映されることを示します。クライアントアプリケーションは、一度に1つのスレッドだけがクライアントセッションでこれらの操作を実行するようにする必要があります。
 
 アプリケーションはクライアントセッションを開始し、特定のセッションにオペレーションを関連付けることができます。アプリケーションは一度に1つのスレッドだけがクライアントセッションでこれらの操作を実行するようにする必要があります。[^3]
 
