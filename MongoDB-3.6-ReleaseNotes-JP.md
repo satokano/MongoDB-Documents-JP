@@ -79,7 +79,7 @@ MongoDB 3.6では、[$currentOp](https://docs.mongodb.com/master/reference/opera
 
 - どのインデックスを使うかを指定する`hint`オプション
 <div><strong>注意：</strong><br />
-<code>hint</code>は <code><a href="https://docs.mongodb.com/master/reference/operator/aggregation/lookup/#pipe._S_lookup">$lookup</a></code>と<code><a href="https://docs.mongodb.com/master/reference/operator/aggregation/graphLookup/#pipe._S_graphLookup">$graphLookup</a></code>ステージには適用されません。</div>
+<code>hint</code>は <a href="https://docs.mongodb.com/master/reference/operator/aggregation/lookup/#pipe._S_lookup">$lookup</a>と<a href="https://docs.mongodb.com/master/reference/operator/aggregation/graphLookup/#pipe._S_graphLookup">$graphLookup</a>ステージには適用されません。</div>
 
 - データベースプロファイラ、currentOp、ログなどでオペレーションを追跡しやすくするための `comment`オプション
 
@@ -219,7 +219,7 @@ MongoDBクラスタのサーバセッションを、列挙、管理、killする
 | `lsid` | Document | コマンドに関連付けられたセッションのユニークなidを指定するDocumentです。`txnNumber`が指定されている場合は、`lsid`も必須です。 |
 | `txnNumber` | 64bitの整数 | コマンドのセッションにおいて、コマンドを一意に識別するための、狭義単調増加する非負の整数です。<br />このオプションが指定された場合は、`lsid`も必須です。 |
 
-ステートメントの配列をとる[`delete`](https://docs.mongodb.com/master/reference/command/delete/#dbcmd.delete)、[`insert`](https://docs.mongodb.com/master/reference/command/insert/#dbcmd.insert)、[`update`](https://docs.mongodb.com/master/reference/command/update/#dbcmd.update)コマンドのために、以下のオプションも利用可能です。
+ステートメントの配列をとる[delete](https://docs.mongodb.com/master/reference/command/delete/#dbcmd.delete)、[insert](https://docs.mongodb.com/master/reference/command/insert/#dbcmd.insert)、[update](https://docs.mongodb.com/master/reference/command/update/#dbcmd.update)コマンドのために、以下のオプションも利用可能です。
 
 <div><strong>重要：</strong><br />
 <code>stmtIds</code>を手動で設定しないでください。MongoDBによって<code>stmtIds</code>は狭義単調増加となるように設定されます。</div>
@@ -230,7 +230,7 @@ MongoDBクラスタのサーバセッションを、列挙、管理、killする
 | `stmtIds` | 32bit整数の配列 | 書き込みコマンドにおける各書き込みオペレーションをそれぞれ一意に識別する数値の配列です。 |
 
 ## JSON Schema
-MongoDB 3.6は、JSON Schemaを使ったドキュメントバリデーションをサポートするため [`$jsonSchema`](https://docs.mongodb.com/master/reference/operator/query/jsonSchema/#op._S_jsonSchema) オペレータを追加しました。詳細は [`$jsonSchema`](https://docs.mongodb.com/master/reference/operator/query/jsonSchema/#op._S_jsonSchema) を参照してください。
+MongoDB 3.6は、JSON Schemaを使ったドキュメントバリデーションをサポートするため [$jsonSchema](https://docs.mongodb.com/master/reference/operator/query/jsonSchema/#op._S_jsonSchema) オペレータを追加しました。詳細は [$jsonSchema](https://docs.mongodb.com/master/reference/operator/query/jsonSchema/#op._S_jsonSchema) を参照してください。
 
 $jsonSchemaを使うには、`featureCompatibilityVersion`は "3.6" にセットされている必要があります。
 
@@ -240,14 +240,14 @@ $jsonSchemaを使うには、`featureCompatibilityVersion`は "3.6" にセット
 ## レプリカセット
 - レプリカセットのprotocol version 0（`pv0`）は非推奨となりました。レプリカセットのprotocol versionについて詳細は、[Replica Set Protocol Versions](https://docs.mongodb.com/master/reference/replica-set-protocol-versions/)を参照してください。
 - [replSetResizeOplog](https://docs.mongodb.com/master/reference/command/replSetResizeOplog/#dbcmd.replSetResizeOplog)コマンドが追加され、レプリカセットのメンバーのoplogサイズを動的に変更できるようになりました。WiredTigerストレージエンジンを実行しているインスタンスにおいて利用可能です。
-- [`catchUpTakeoverDelayMillis`](https://docs.mongodb.com/master/reference/replica-configuration/#repl-conf-catchup-takeover-delay) 設定オプションが追加され、あるノードが現在のプライマリよりも先にあることが決定されたあと、プライマリ選出のためにどのぐらいの時間待機するかを指定できるようになりました。
+- [catchUpTakeoverDelayMillis](https://docs.mongodb.com/master/reference/replica-configuration/#repl-conf-catchup-takeover-delay) 設定オプションが追加され、あるノードが現在のプライマリよりも先にあることが決定されたあと、プライマリ選出のためにどのぐらいの時間待機するかを指定できるようになりました。
 - protocol version 1（`pv1`）を使っているレプリカセットでは、アービタは、次の候補者以上の優先度をもつ正常なプライマリを検出している場合、NOを投票します。レプリカセットのprotocol versionについての詳細は[Replica Set Protocol Versions](https://docs.mongodb.com/master/reference/replica-set-protocol-versions/)を参照してください。
-- レプリカセットのメンバーが、データ同期の実行中に[`find`](https://docs.mongodb.com/master/reference/command/find/#dbcmd.find)コマンドをどのくらいの時間待つべきかを調節するため、[`oplogInitialFindMaxSeconds`](https://docs.mongodb.com/master/reference/parameters/#param.oplogInitialFindMaxSeconds)パラメータが追加されました。
-- `afterClusterTime`がoplogの最終適用時刻よりも大きい場合に、セカンダリがどのぐらいの時間待つべきかを指定するため、[`waitForSecondaryBeforeNoopWriteMS`](https://docs.mongodb.com/master/reference/parameters/#param.waitForSecondaryBeforeNoopWriteMS)パラメータが追加されました。
+- レプリカセットのメンバーが、データ同期の実行中に[find](https://docs.mongodb.com/master/reference/command/find/#dbcmd.find)コマンドをどのくらいの時間待つべきかを調節するため、[oplogInitialFindMaxSeconds](https://docs.mongodb.com/master/reference/parameters/#param.oplogInitialFindMaxSeconds)パラメータが追加されました。
+- `afterClusterTime`がoplogの最終適用時刻よりも大きい場合に、セカンダリがどのぐらいの時間待つべきかを指定するため、[waitForSecondaryBeforeNoopWriteMS](https://docs.mongodb.com/master/reference/parameters/#param.waitForSecondaryBeforeNoopWriteMS)パラメータが追加されました。
 
 ## シャードクラスタ
-- [mongos](https://docs.mongodb.com/master/reference/program/mongos/#bin.mongos)が[mongod](https://docs.mongodb.com/master/reference/program/mongod/#bin.mongod)に対してのコネクションを追加する速度を制御するため、[mongos](https://docs.mongodb.com/master/reference/program/mongos/#bin.mongos)に[`ShardingTaskExecutorPoolMaxConnecting`](https://docs.mongodb.com/master/reference/parameters/#param.ShardingTaskExecutorPoolMaxConnecting) パラメータが追加されました。
-- マイグレーションされたチャンクが元のシャードから削除されるまでの最小の時間を決める [`orphanCleanupDelaySecs`](https://docs.mongodb.com/master/reference/parameters/#param.orphanCleanupDelaySecs) が追加されました。
+- [mongos](https://docs.mongodb.com/master/reference/program/mongos/#bin.mongos)が[mongod](https://docs.mongodb.com/master/reference/program/mongod/#bin.mongod)に対してのコネクションを追加する速度を制御するため、[mongos](https://docs.mongodb.com/master/reference/program/mongos/#bin.mongos)に[ShardingTaskExecutorPoolMaxConnecting](https://docs.mongodb.com/master/reference/parameters/#param.ShardingTaskExecutorPoolMaxConnecting) パラメータが追加されました。
+- マイグレーションされたチャンクが元のシャードから削除されるまでの最小の時間を決める [orphanCleanupDelaySecs](https://docs.mongodb.com/master/reference/parameters/#param.orphanCleanupDelaySecs) が追加されました。
 - `config`データベースの中の`config.system.sessions` コレクションは、シャード化可能となりました。
 
 ## 一般的な改善
@@ -263,8 +263,8 @@ MongoDBサーバは、MongoDB Compass Community Editionの各プラットフォ�
 ### 新しいクエリオペレータ
 MongoDB 3.6では、以下の新たなクエリオペレータが追加されました。
 
-- 新しい [`$jsonSchema`](https://docs.mongodb.com/master/reference/operator/query/jsonSchema/#op._S_jsonSchema) オペレータは、指定されたJSON Schemaで検証済みとなったドキュメントにマッチします。[`$jsonSchema`](https://docs.mongodb.com/master/reference/operator/query/jsonSchema/#op._S_jsonSchema)を使うには、`featureCompatibilityVersion` は "3.6" に設定されている必要があります。
-- [`$expr`](https://docs.mongodb.com/master/reference/operator/query/expr/#op._S_expr)により、クエリ言語内で集計式が使えるようになりました。
+- 新しい [$jsonSchema](https://docs.mongodb.com/master/reference/operator/query/jsonSchema/#op._S_jsonSchema) オペレータは、指定されたJSON Schemaで検証済みとなったドキュメントにマッチします。[$jsonSchema](https://docs.mongodb.com/master/reference/operator/query/jsonSchema/#op._S_jsonSchema)を使うには、`featureCompatibilityVersion` は "3.6" に設定されている必要があります。
+- [$expr](https://docs.mongodb.com/master/reference/operator/query/expr/#op._S_expr)により、クエリ言語内で集計式が使えるようになりました。
 
 ### 削除されたオペレータ
 MongoDB 3.6では、非推奨であった `$pushAll` オペレータが削除されました。詳細は[Remove $pushAll Update Operator](https://docs.mongodb.com/master/release-notes/3.6-compatibility/#pushall-compatibility)を参照してください。
@@ -277,24 +277,24 @@ MongoDB 3.6では、非推奨であった `$pushAll` オペレータが削除さ
 
 ### コマンド
 
-- [`listDatabases`](https://docs.mongodb.com/master/reference/command/listDatabases/#dbcmd.listDatabases)コマンドに以下のオプションが追加されました。
+- [listDatabases](https://docs.mongodb.com/master/reference/command/listDatabases/#dbcmd.listDatabases)コマンドに以下のオプションが追加されました。
   - `nameOnly`は、データベース名のみを返します。この場合はデータベースロックは不要です。（データベース名とサイズ情報の両方を返す場合は、データベースロックが必要となってしまいます。）
   - `filter`は指定条件に合致するデータベースのみを出力します。
-- [`validate`](https://docs.mongodb.com/master/reference/command/validate/#dbcmd.validate)コマンドおよび[`db.collection.validate()`](https://docs.mongodb.com/master/reference/method/db.collection.validate/#db.collection.validate)メソッドの振る舞いが、変更されました。
+- [validate](https://docs.mongodb.com/master/reference/command/validate/#dbcmd.validate)コマンドおよび[db.collection.validate()](https://docs.mongodb.com/master/reference/method/db.collection.validate/#db.collection.validate)メソッドの振る舞いが、変更されました。
 
 ### Wire Protocol と圧縮
-- MongoDB 3.6では OP_MSG という新たなWire Protocolのopcodeが導入されました。このopcodeのメッセージフォーマットは拡張可能であり、他のopcodeの機能を包含するように設計されています。
-- --networkMessageCompressorsオプション（または設定ファイル中のnet.compression.compressors）で利用するためのzlib圧縮が追加されました。--networkMessageCompressorsオプション（またはnet.compression.compressorsの設定）はmongod、mongos、mongoシェル、OP_COMPRESSEDメッセージフォーマットをサポートするドライバの間でのネットワーク圧縮を有効化します。
-- snappyネットワーク圧縮がmongod、mongos、mongoシェルの間でデフォルトで有効になりました。
+- MongoDB 3.6では [OP_MSG](https://docs.mongodb.com/master/reference/mongodb-wire-protocol/#wire-op-msg) という新たな[Wire Protocol](https://docs.mongodb.com/master/reference/mongodb-wire-protocol/)のopcodeが導入されました。このopcodeのメッセージフォーマットは拡張可能であり、他のopcodeの機能を包含するように設計されています。
+- `--networkMessageCompressors`オプション（または設定ファイル中の[net.compression.compressors](https://docs.mongodb.com/master/reference/configuration-options/#net.compression.compressors)）で利用するための`zlib`圧縮が追加されました。`--networkMessageCompressors`オプション（または[net.compression.compressors](https://docs.mongodb.com/master/reference/configuration-options/#net.compression.compressors)の設定）は[mongod](https://docs.mongodb.com/master/reference/program/mongod/#bin.mongod)、[mongos](https://docs.mongodb.com/master/reference/program/mongos/#bin.mongos)、[mongo](https://docs.mongodb.com/master/reference/program/mongo/#bin.mongo)シェル、`OP_COMPRESSED`メッセージフォーマットをサポートするドライバの間でのネットワーク圧縮を有効化します。
+- `snappy`ネットワーク圧縮が[mongod](https://docs.mongodb.com/master/reference/program/mongod/#bin.mongod)、[mongos](https://docs.mongodb.com/master/reference/program/mongos/#bin.mongos)、[mongo](https://docs.mongodb.com/master/reference/program/mongo/#bin.mongo)シェルの間でデフォルトで有効になりました。
 
 ### Read Concern
-- 新たに ["available"]()というRead Concernが導入されました。非シャード化コレクション（つまり、スタンドアロン環境か、レプリカセット環境）では、"local"と"available"のRead Concernは同じようにふるまいます。シャードクラスタでは、"available"はクラスタパーティションに対してより強い耐性を持ちますが、チャンクマイグレーション中のシャードはorphan documentsを返す可能性があります。
+- 新たに ["available"](https://docs.mongodb.com/master/reference/read-concern/#readconcern."available")というRead Concernが導入されました。非シャード化コレクション（つまり、スタンドアロン環境か、レプリカセット環境）では、["local"](https://docs.mongodb.com/master/reference/read-concern/#readconcern."local")と["available"](https://docs.mongodb.com/master/reference/read-concern/#readconcern."available")のRead Concernは同じようにふるまいます。シャードクラスタでは、["available"](https://docs.mongodb.com/master/reference/read-concern/#readconcern."available")はクラスタパーティションに対してより強い耐性を持ちますが、チャンクマイグレーション中のシャードはorphan documentsを返す可能性があります。
 <div><strong>参照：</strong><br /><a href="https://docs.mongodb.com/master/reference/parameters/#param.orphanCleanupDelaySecs">orphanCleanupDelaySecs</a></div><br />
 
-- "majority" read concernが常に有効化されました。これに伴い、--enableMajorityReadConcern と replication.enableMajorityReadConcern は非推奨化されました。
+- ["majority"](https://docs.mongodb.com/master/reference/read-concern/#readconcern."majority") read concernが常に有効化されました。これに伴い、[--enableMajorityReadConcern](https://docs.mongodb.com/master/reference/program/mongod/#cmdoption-enablemajorityreadconcern) と [replication.enableMajorityReadConcern](https://docs.mongodb.com/master/reference/configuration-options/#replication.enableMajorityReadConcern) は非推奨化されました。
 
 ### FTDC
-MongoDB 3.6では、mongosでDiagnostics Capture（FTDCともいわれる）の出力が追加されました。以前のバージョンでは、この機能はmongodのみで利用可能でした。[Diagnostic Parameters](https://docs.mongodb.com/master/reference/parameters/#param-ftdc)を参照してください。
+MongoDB 3.6では、[mongos](https://docs.mongodb.com/master/reference/program/mongos/#bin.mongos)でDiagnostics Capture（FTDCともいわれる）の出力が追加されました。以前のバージョンでは、この機能は[mongod](https://docs.mongodb.com/master/reference/program/mongod/#bin.mongod)のみで利用可能でした。[Diagnostic Parameters](https://docs.mongodb.com/master/reference/parameters/#param-ftdc)を参照してください。
 
 <div><strong>注意：</strong><br />
 FTDCはデフォルトで有効になっています。</div>
