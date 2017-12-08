@@ -321,8 +321,8 @@ MongoDB 3.6は以下の改善を含みます。
 アップグレードの手順については、以下を参照してください。
 
 - [スタンドアロン構成のサーバを3.6にアップグレードする](https://docs.mongodb.com/master/release-notes/3.6-upgrade-standalone/)
-- [レプリカセットを3.4にアップグレードする](https://docs.mongodb.com/master/release-notes/3.6-upgrade-replica-set/)
-- [シャードクラスタを3.4にアップグレードする](https://docs.mongodb.com/master/release-notes/3.6-upgrade-sharded-cluster/)
+- [レプリカセットを3.6にアップグレードする](https://docs.mongodb.com/master/release-notes/3.6-upgrade-replica-set/)
+- [シャードクラスタを3.6にアップグレードする](https://docs.mongodb.com/master/release-notes/3.6-upgrade-sharded-cluster/)
 
 3.6へのアップグレードで支援が必要な場合は、[MongoDB社はメジャーバージョンアップグレードサービスを提供しています。](https://www.mongodb.com/products/consulting?jmp=docs)これは、あなたのアプリケーションを停止させることなく円滑な移行ができるように支援するものです。
 
