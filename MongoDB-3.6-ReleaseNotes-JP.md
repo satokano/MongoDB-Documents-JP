@@ -1,5 +1,5 @@
-<!-- あとでQiita に投稿する https://qiita.com/kabao/items/ -->
-<!-- 12/4時点で正式版が出ておらず、開発版であることを示す記載が残っている。冒頭とか、最後のDownload, Report an Issueとか。正式版が出たら更新。 -->
+<!-- Qiita https://qiita.com/kabao/items/ac14c779ea8ea110276f -->
+<!-- 12/4時点で開発中だったが、12/5に正式版がでた。 -->
 <!-- マニュアルっぽいので「ですます」で -->
 <!-- 他のマニュアルを参照する場合、どちらかというと英語タイトルそのままで。文章の一部になっていて、訳さないと変な場合は日本語に訳す。 -->
 <!-- NOTE: とかの囲みは、QiitaのMDで対応するものがなさそうなので、注意：brなどとしてごまかす？ ```text: かと思ったがそうすると中身のMD記法が解釈されない。divかと思ったがQiitaはstyle属性適用されない。divで囲んでタイトルはstrong、中身は自前でタグを書くのが見た目的には一番マシっぽい。 -->
@@ -16,14 +16,11 @@
 
 ------------------------------
 
-MongoDB 3.6は現在開発中です。[^1]
-
-<div><strong>警告：</strong><br />
-3.6のリリース候補版が利用可能ですが、これらのバージョンはテストのみを目的としたものであり、プロダクション環境での利用を想定したものではありません。</div>
+# MongoDB 3.6 リリースノート
 
 ## セキュリティ
 ### デフォルトでlocalhostにのみバインド
-MongoDB 3.6から、MongoDBのバイナリ（mongodおよびmongos）は、デフォルトではlocalhostにのみバインドされるようになりました。以前はMongoDB 2.6以来、公式のMongoDB RPM（Red Hat, CentOS, Fedora Linux、およびその派生）、DEB（Debian, Ubuntu、およびその派生）のみがlocalhostにバインドするようになっていました。詳細は[Localhost Binding Compatibility Changes](https://docs.mongodb.com/master/release-notes/3.6-compatibility/#bind-ip-compatibility)を参照してください。
+MongoDB 3.6から、MongoDBのバイナリ（[mongod](https://docs.mongodb.com/master/reference/program/mongod/#bin.mongod)および[mongos](https://docs.mongodb.com/master/reference/program/mongos/#bin.mongos)）は、デフォルトではlocalhostにのみバインドされるようになりました。以前はMongoDB 2.6以来、公式のMongoDB RPM（Red Hat, CentOS, Fedora Linux、およびその派生）、DEB（Debian, Ubuntu、およびその派生）のみがlocalhostにバインドするようになっていました。詳細は[Localhost Binding Compatibility Changes](https://docs.mongodb.com/master/release-notes/3.6-compatibility/#bind-ip-compatibility)を参照してください。
 
 ### 認証の制限
 データベースに対するユーザーの接続を、特定のIPアドレスからのみに制限するため、`authenticationRestrictions` パラメータが以下のコマンドやメソッドに対して追加されました。
@@ -36,9 +33,9 @@ MongoDB 3.6から、MongoDBのバイナリ（mongodおよびmongos）は、デ�
 | [updateRole](https://docs.mongodb.com/master/reference/command/updateRole/#dbcmd.updateRole) | [db.updateRole()](https://docs.mongodb.com/master/reference/method/db.updateRole/#db.updateRole) |
 
 ### 追加のセキュリティ改善
-- TLS/SSL暗号化を使うときのOpenSSLの暗号アルゴリズムを制御するため、[`opensslCipherConfig`](https://docs.mongodb.com/master/reference/parameters/#param.opensslCipherConfig)パラメータが追加されました。
-- 認証が有効な場合に限り、作成したカーソルに対し[`getMore`](https://docs.mongodb.com/master/reference/command/getMore/#dbcmd.getMore)を発行できます。
-- [`restore`](https://docs.mongodb.com/master/reference/built-in-roles/#restore)ロールに対して[`convertToCapped`](https://docs.mongodb.com/master/reference/privilege-actions/#convertToCapped)アクションが追加されました。
+- TLS/SSL暗号化を使うときのOpenSSLの暗号アルゴリズムを制御するため、[opensslCipherConfig](https://docs.mongodb.com/master/reference/parameters/#param.opensslCipherConfig)パラメータが追加されました。
+- 認証が有効な場合に限り、作成したカーソルに対し[getMore](https://docs.mongodb.com/master/reference/command/getMore/#dbcmd.getMore)を発行できます。
+- [restore](https://docs.mongodb.com/master/reference/built-in-roles/#restore)ロールに対して[convertToCapped](https://docs.mongodb.com/master/reference/privilege-actions/#convertToCapped)アクションが追加されました。
 
 <div><strong>参照：</strong><br />
 <a href="https://docs.mongodb.com/master/release-notes/3.6-compatibility/#compatibility-enabled">後方非互換な機能</a></div>
@@ -47,9 +44,9 @@ MongoDB 3.6から、MongoDBのバイナリ（mongodおよびmongos）は、デ�
 MongoDB 3.6からは以下の機能が利用可能です。
 
 ### より表現的な `$lookup`
-$lookup は複数の結合条件および相関サブクエリが指定可能になりました。これは結合されたコレクションに対して変数の指定とパイプライン実行を許可することで可能になったものです。
+[$lookup](https://docs.mongodb.com/master/reference/operator/aggregation/lookup/#pipe._S_lookup) は複数の結合条件および非相関サブクエリが指定可能になりました。これは結合されたコレクションに対して変数の指定とパイプライン実行を許可することで可能になったものです。
 
-[詳細は結合条件と相関サブクエリ](https://docs.mongodb.com/master/reference/operator/aggregation/lookup/#lookup-syntax-let-pipeline)の[$lookup](https://docs.mongodb.com/master/reference/operator/aggregation/lookup/#pipe._S_lookup)シンタックスを参照してください。
+[詳細は結合条件と非相関サブクエリ](https://docs.mongodb.com/master/reference/operator/aggregation/lookup/#lookup-syntax-let-pipeline)の[$lookup](https://docs.mongodb.com/master/reference/operator/aggregation/lookup/#pipe._S_lookup)シンタックスを参照してください。
 
 ### 新しいAggregationステージ
 MongoDB 3.6では以下の新しいaggregationステージが追加されました。
@@ -324,8 +321,6 @@ MongoDB 3.6 Release Candidateをダウンロードするには、[MongoDB Downlo
 問題を報告するためには https://github.com/mongodb/mongo/wiki/Submit-Bug-Reports を参照してください。MongoDBサーバや、関連プロジェクトについて、JIRAチケットを登録する方法が書いてあります。
 
 ------------------------------
-
-[^1]: 2017/12/4時点でまだ正式版は出ていないようです。
 
 [^2]: Causal Consistency https://en.wikipedia.org/wiki/Causal_consistency http://www.cs.princeton.edu/~wlloyd/papers/causal-login13.pdf
 
