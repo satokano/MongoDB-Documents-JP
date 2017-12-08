@@ -302,12 +302,13 @@ FTDCはデフォルトで有効になっています。</div>
 ### 追加の改善点
 MongoDB 3.6は以下の改善を含みます。
 
-- --bind_ip オプションにおいて、Unixドメインソケットの完全なパスを指定できるようになりました。
-- mongod は新たに --timeZoneInfo オプションを指定できるようになりました。タイムゾーンデータを指定するために使ってください。LinuxとmacOS向けのデフォルト設定では、``/usr/share/zoneinfo``にセットされています。
+- [--bind_ip](https://docs.mongodb.com/master/reference/program/mongos/#cmdoption-bind-ip) オプションにおいて、Unixドメインソケットの完全なパスを指定できるようになりました。
+- [mongod](https://docs.mongodb.com/master/reference/program/mongod/#bin.mongod) は新たに [--timeZoneInfo](https://docs.mongodb.com/master/reference/program/mongos/#cmdoption-timezoneinfo) オプションを指定できるようになりました。タイムゾーンデータを指定するために使ってください。LinuxとmacOS向けのデフォルト設定では、``/usr/share/zoneinfo``にセットされています。
 - 日付に関するオペレーションは、サポートされているすべてのオペレーティングシステムにおいて、日付範囲を一貫して受け入れられるようになりました。0年から9999年までの範囲の年を安全に扱うことができます。
-- mongodに対するhonorSystemUmaskという新しい起動時オプションにより、MongoDBが新規作成するファイルはmongodプロセスを実行するユーザのumaskで指定される読み込み/書き込み権限を持つようになります。LinuxおよびmacOSでのみ有効です。
-- データベースに対する maxWriteBatchSize の制限が、1000 から 100000 に拡張されました。これはある1つのwrite batchの中で許可される書き込みオペレーションの最大数です。
-- データベースコマンド planCacheListPlans はシェルでのPlanCache.getPlansByQuery() メソッドと同じものを出力します。両者からの出力は、プランが生成された時点のタイムスタンプを含むようになりました。
+- [mongod](https://docs.mongodb.com/master/reference/program/mongod/#bin.mongod)に対する[honorSystemUmask](https://docs.mongodb.com/master/reference/parameters/#param.honorSystemUmask)という新しい起動時オプションにより、MongoDBが新規作成するファイルは[mongod](https://docs.mongodb.com/master/reference/program/mongod/#bin.mongod)プロセスを実行するユーザの[umask](https://en.wikipedia.org/wiki/Umask)で指定される読み込み/書き込み権限を持つようになります。LinuxおよびmacOSでのみ有効です。
+- データベースに対する [maxWriteBatchSize](https://docs.mongodb.com/master/reference/limits/#Write-Command-Batch-Limit-Size) の制限が、1000 から 100000 に拡張されました。これはある1つのwrite batchの中で許可される書き込みオペレーションの最大数です。
+- データベースコマンド [planCacheListPlans](https://docs.mongodb.com/master/reference/command/planCacheListPlans/#dbcmd.planCacheListPlans) はシェルでの[PlanCache.getPlansByQuery()](https://docs.mongodb.com/master/reference/method/PlanCache.getPlansByQuery/#PlanCache.getPlansByQuery) メソッドと同じものを出力します。両者からの出力は、プランが生成された時点のタイムスタンプを含むようになりました。
+- [KeysRotationIntervalSec](https://docs.mongodb.com/master/reference/parameters/#param.KeysRotationIntervalSec)という新しいサーバパラメータにより[HMAC署名鍵](https://en.wikipedia.org/wiki/Hash-based_message_authentication_code)がローテーションするまでの秒数を指定できるようになりました。
 
 ## 互換性への影響
 いくつかの変更点は互換性に影響する可能性があり、ユーザーの対応が必要になるかもしれません。詳細な一覧は[MongoDB 3.6での互換性の変更点](https://docs.mongodb.com/master/release-notes/3.6-compatibility/)を参照してください。
@@ -319,14 +320,23 @@ MongoDB 3.6は以下の改善を含みます。
 
 アップグレードの手順については、以下を参照してください。
 
-* [スタンドアロン構成のサーバを3.6にアップグレードする](https://docs.mongodb.com/master/release-notes/3.6-upgrade-standalone/)
-* [レプリカセットを3.4にアップグレードする](https://docs.mongodb.com/master/release-notes/3.6-upgrade-replica-set/)
-* [シャードクラスタを3.4にアップグレードする](https://docs.mongodb.com/master/release-notes/3.6-upgrade-sharded-cluster/)
+- [スタンドアロン構成のサーバを3.6にアップグレードする](https://docs.mongodb.com/master/release-notes/3.6-upgrade-standalone/)
+- [レプリカセットを3.4にアップグレードする](https://docs.mongodb.com/master/release-notes/3.6-upgrade-replica-set/)
+- [シャードクラスタを3.4にアップグレードする](https://docs.mongodb.com/master/release-notes/3.6-upgrade-sharded-cluster/)
 
 3.6へのアップグレードで支援が必要な場合は、[MongoDB社はメジャーバージョンアップグレードサービスを提供しています。](https://www.mongodb.com/products/consulting?jmp=docs)これは、あなたのアプリケーションを停止させることなく円滑な移行ができるように支援するものです。
 
 ## ダウンロード
-MongoDB 3.6 Release Candidateをダウンロードするには、[MongoDB Download Center](https://www.mongodb.com/download-center?jmp=docs#development)を参照してください。
+MongoDB 3.6をダウンロードするには、[MongoDB Download Center](https://www.mongodb.com/download-center?jmp=docs#production)を参照してください。
+
+## 3.6.0での既知の問題点
+
+- [SEVER-31760](https://jira.mongodb.org/browse/SERVER-31760):<br />[$expr](https://docs.mongodb.com/master/reference/operator/query/expr/#op._S_expr)が、外部パイプラインで[$lookup](https://docs.mongodb.com/master/reference/operator/aggregation/lookup/#pipe._S_lookup) aggregationステージの一部として使用される場合など、フィールドに対する等価一致でインデックスを使用しません。
+- [TOOLS-1827](https://jira.mongodb.org/browse/TOOLS-1827):<br />SRVでURIを使用する場合、コマンドラインURIでクエリパラメータが指定されていない場合、フェッチされたTXTレコードは無視されます。これを回避するには、URIクエリ文字列で、データベースとの通信に使用するSSL設定（ssl=trueまたはssl=falseのいずれか）を明示的に指定します。
+- [WT-3724](https://jira.mongodb.org/browse/WT-3724):<br />MongoDB 3.6は、macOS 10.13の新しいファイルシステムであるAPFS上ではテストされておらず、エラーが発生するかもしれません。
+
+<div><strong>参照：</strong><br />
+<a href="http://bit.ly/2jJFa85">3.6で解決された全てのJIRA issue</a></div>
 
 ## 問題を報告する
 問題を報告するためには https://github.com/mongodb/mongo/wiki/Submit-Bug-Reports を参照してください。MongoDBサーバや、関連プロジェクトについて、JIRAチケットを登録する方法が書いてあります。
