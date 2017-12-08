@@ -53,29 +53,29 @@ MongoDB 3.6では以下の新しいaggregationステージが追加されまし�
 
 | Operator | 説明 |
 |:-----------|:------------|
-| [`$currentOp`](https://docs.mongodb.com/master/reference/operator/aggregation/currentOp/#pipe._S_currentOp) | [mongod](https://docs.mongodb.com/master/reference/program/mongod/#bin.mongod)インスタンスでアクティブまたは休止中の操作に関する情報を含むドキュメントのストリームを返します。新しいaggregationヘルパー [`db.aggregate()`](https://docs.mongodb.com/master/reference/method/db.aggregate/#db.aggregate) を使います。 |
-| [`$listSessions`](https://docs.mongodb.com/master/reference/operator/aggregation/listSessions/#pipe._S_listSessions) | `config`データベースの`system.sessions`コレクションのサーバセッションを列挙します。新しいaggregationヘルパー[`db.aggregate()`](https://docs.mongodb.com/master/reference/method/db.aggregate/#db.aggregate)を使います。 |
-| [`$listLocalSessions`](https://docs.mongodb.com/master/reference/operator/aggregation/listLocalSessions/#pipe._S_listLocalSessions) | サーバによりメモリ上にキャッシュされているサーバセッションを列挙します。 |
+| [$currentOp](https://docs.mongodb.com/master/reference/operator/aggregation/currentOp/#pipe._S_currentOp) | [mongod](https://docs.mongodb.com/master/reference/program/mongod/#bin.mongod)インスタンスでアクティブまたは休止中の操作に関する情報を含むドキュメントのストリームを返します。新しいaggregationヘルパー [db.aggregate()](https://docs.mongodb.com/master/reference/method/db.aggregate/#db.aggregate) を使います。 |
+| [$listSessions](https://docs.mongodb.com/master/reference/operator/aggregation/listSessions/#pipe._S_listSessions) | `config`データベースの`system.sessions`コレクションのサーバセッションを列挙します。新しいaggregationヘルパー[db.aggregate()](https://docs.mongodb.com/master/reference/method/db.aggregate/#db.aggregate)を使います。 |
+| [$listLocalSessions](https://docs.mongodb.com/master/reference/operator/aggregation/listLocalSessions/#pipe._S_listLocalSessions) | サーバによりメモリ上にキャッシュされているサーバセッションを列挙します。 |
 
 ### 新しいAggregationオペレータ
 
 | Operator | 説明 |
 |:-----------|:------------|
-| [`$arrayToObject`](https://docs.mongodb.com/master/reference/operator/aggregation/arrayToObject/#exp._S_arrayToObject) | キー・値のペアの配列をドキュメントに変換します。 |
-| [`$objectToArray`](https://docs.mongodb.com/master/reference/operator/aggregation/objectToArray/#exp._S_objectToArray) | ドキュメントをキー・値のペアを表現するドキュメントの配列に変換します。 |
-| [`$mergeObjects`](https://docs.mongodb.com/master/reference/operator/aggregation/mergeObjects/#exp._S_mergeObjects) | 複数のドキュメントを単一のドキュメントに結合します。 |
-| [`$dateFromString`](https://docs.mongodb.com/master/reference/operator/aggregation/dateFromString/#exp._S_dateFromString) | 日付・時刻を表す文字列を日付オブジェクトに変換します。 |
-| [`$dateFromParts`](https://docs.mongodb.com/master/reference/operator/aggregation/dateFromParts/#exp._S_dateFromParts) | 指定された日付の構成部品から、BSONの日付オブジェクトを構築します。 |
-| [`$dateToParts`](https://docs.mongodb.com/master/reference/operator/aggregation/dateToParts/#exp._S_dateToParts) | 日付の構成部品を含むドキュメントを返します。 |
+| [$arrayToObject](https://docs.mongodb.com/master/reference/operator/aggregation/arrayToObject/#exp._S_arrayToObject) | キー・値のペアの配列をドキュメントに変換します。 |
+| [$objectToArray](https://docs.mongodb.com/master/reference/operator/aggregation/objectToArray/#exp._S_objectToArray) | ドキュメントをキー・値のペアを表現するドキュメントの配列に変換します。 |
+| [$mergeObjects](https://docs.mongodb.com/master/reference/operator/aggregation/mergeObjects/#exp._S_mergeObjects) | 複数のドキュメントを単一のドキュメントに結合します。 |
+| [$dateFromString](https://docs.mongodb.com/master/reference/operator/aggregation/dateFromString/#exp._S_dateFromString) | 日付・時刻を表す文字列を日付オブジェクトに変換します。 |
+| [$dateFromParts](https://docs.mongodb.com/master/reference/operator/aggregation/dateFromParts/#exp._S_dateFromParts) | 指定された日付の構成部品から、BSONの日付オブジェクトを構築します。 |
+| [$dateToParts](https://docs.mongodb.com/master/reference/operator/aggregation/dateToParts/#exp._S_dateToParts) | 日付の構成部品を含むドキュメントを返します。 |
 
 ### 新しいAggregationヘルパー
-MongoDB 3.6では、[`$currentOp`](https://docs.mongodb.com/master/reference/operator/aggregation/currentOp/#pipe._S_currentOp)や[`$listLocalSessions`](https://docs.mongodb.com/master/reference/operator/aggregation/listLocalSessions/#pipe._S_listLocalSessions)で始まるものなど、もととなるコレクションを必要としないaggregationを処理するためのヘルパーとして [`db.aggregate()`](https://docs.mongodb.com/master/reference/method/db.aggregate/#db.aggregate) が追加されました。
+MongoDB 3.6では、[$currentOp](https://docs.mongodb.com/master/reference/operator/aggregation/currentOp/#pipe._S_currentOp)や[$listLocalSessions](https://docs.mongodb.com/master/reference/operator/aggregation/listLocalSessions/#pipe._S_listLocalSessions)で始まるものなど、もととなるコレクションを必要としないaggregationを処理するためのヘルパーとして [db.aggregate()](https://docs.mongodb.com/master/reference/method/db.aggregate/#db.aggregate) が追加されました。
 
 ### 新しいAggregation変数
-[`REMOVE`](https://docs.mongodb.com/master/reference/aggregation-variables/#variable.REMOVE)にて、条件に応じたフィールドの除外が可能になりました。
+[REMOVE](https://docs.mongodb.com/master/reference/aggregation-variables/#variable.REMOVE)にて、条件に応じたフィールドの除外が可能になりました。
 
 ### 新しいオプション
-[`aggregate`](https://docs.mongodb.com/master/reference/command/aggregate/#dbcmd.aggregate)コマンドと[`db.collection.aggregate()`](https://docs.mongodb.com/master/reference/method/db.collection.aggregate/#db.collection.aggregate)メソッドは以下の新しいオプションをサポートします。
+[aggregate](https://docs.mongodb.com/master/reference/command/aggregate/#dbcmd.aggregate)コマンドと[db.collection.aggregate()](https://docs.mongodb.com/master/reference/method/db.collection.aggregate/#db.collection.aggregate)メソッドは以下の新しいオプションをサポートします。
 
 - どのインデックスを使うかを指定する`hint`オプション
 <div><strong>注意：</strong><br />
@@ -108,6 +108,17 @@ MongoDB3.6では、配列およびネストされた配列に対するupdateオ�
 
 ### pushに対する負の配列インデックス
 pushオペレータに対する[$position](https://docs.mongodb.com/master/reference/operator/update/position/#up._S_position)指定は、負の配列インデックスを指定可能で、配列の最終要素からの位置を示します。
+
+## 3.6と互換性のあるドライバ
+以下のドライバはMongoDB 3.6と互換性があります。
+
+- Java 3.6
+- Python 3.6
+- C 1.9
+- Node 3.0
+
+### DNSにより構成されるシードリスト形式 mongodb+srv
+標準的なコネクション形式に加えて、3.6のドライバはDNSにより構成されるシードリスト形式をサポートします。詳細は[DNS Seedlist Connection Format](https://docs.mongodb.com/master/reference/connection-string/#connections-dns-seedlist)を参照してください。
 
 ## Change Streams
 MongoDB 3.6では、レプリカセット、および、レプリカセットと組み合わせたシャードクラスタに対して、change streamを作成することができるようになりました。
