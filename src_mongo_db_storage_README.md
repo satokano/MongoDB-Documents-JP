@@ -8,19 +8,17 @@ Storage Engine API
 本ドキュメントに書かれていないAPIについての質問は、[mongodb-dev][]のGoogleグループを使ってください。
 ストレージエンジンAPIに関わっている全員があなたの投稿を読むことになります。
 
-サードパーティ製のストレージエンジンはare integrated through self-contained modules that can be dropped into
-an existing MongoDB source tree, and will be automatically configured and included. A typical
-module would at least have the following files:
+サードパーティ製のストレージエンジンは、既存のMongoDBソースツリーに投入できる自己完結型モジュールを使用して統合され、自動的に設定されインクルードされます。典型的なモジュールは、少なくとも次のファイルを含んでいます。
 
-    src/             Directory with the actual source files
-    README.md        Information specific to the storage engine
-    SConscript       Scons build rules
-    build.py         Module configuration script
+    src/             実際のソースファイルを格納するディレクトリ
+    README.md        ストレージエンジンに特有の情報
+    SConscript       Sconsビルドルール
+    build.py         モジュールの設定スクリプト
 
-See <https://github.com/mongodb-partners/mongo-rocks> for a good example of the structure.
+構成の例としては<https://github.com/mongodb-partners/mongo-rocks>を参照するとよいでしょう。
 
 
-Concepts
+概念
 --------
 
 ### Record Stores
