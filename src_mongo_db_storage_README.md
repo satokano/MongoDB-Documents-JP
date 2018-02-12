@@ -41,17 +41,13 @@ KVEngineに基づくストレージエンジンではレコードアイデンテ
 より効率的にインデックスを構築するためにBulkBuilderクラスが存在します。
 
 ### ロックと同時実行 (Locking and Concurrency)
-MongoDB uses multi-granular intent locking; see the [Concurrency FAQ][]. In all cases, this will
-ensure that operations to meta-data, such as creation and deletion of record stores, are serialized
-with respect to other accesses. Storage engines can choose to support document-level concurrency,
-in which case the storage engine is responsible for any additional synchronization necessary. For
-storage engines not supporting document-level concurrency, MongoDB will use shared/exclusive locks
-at the collection level, so all record store accesses will be serialized.
+MongoDBは複数の粒度のインテントロックを使用します。[同時実行に関するFAQ][]を参照してください。
+いずれの場合も、これによって、レコードストアの作成や削除のようなメタデータに対するオペレーションが他のアクセスに対して直列化されることが保証されます。
+ストレージエンジンはドキュメントレベルの同時実行をサポートすることも可能です。その場合は、ストレージエンジンは、必要となる追加の同期処理を行う責任を負います。
+ドキュメントレベルの同時実行をサポートしないストレージエンジンでは、MongoDBはコレクションレベルで共有／排他的ロックを使用します。したがってすべてのレコードストアのアクセスは直列化されます。
 
-MongoDB uses [two-phase locking][] (2PL) to guarantee serializability of accesses to resources it
-manages. For storage engines that support document level concurrency, MongoDB will only use intent
-locks for the most common operations, leaving synchronization at the record store layer up to the
-storage engine.
+MongoDBは、管理しているリソースに対するアクセスの直列化可能性を保証するために、[2相ロック][] (2PL) を使います。
+ドキュメントレベルの同時実行をサポートしているストレージエンジンについては、MongoDBはほとんどの一般的なオペレーションに対してはインテントロックのみを用います。ただしレコードストアレイヤーの同期処理は例外で、ストレージエンジンに任されます。
 
 ### トランザクション
 Each operation creates an OperationContext with a new RecoveryUnit, implemented by the storage
@@ -121,9 +117,9 @@ different timestamp set prior to each write it did.
 * [ServerParameter](../server_parameters.h)
 
 
-[Concurrency FAQ]: http://docs.mongodb.org/manual/faq/concurrency/
+[同時実行に関するFAQ]: http://docs.mongodb.org/manual/faq/concurrency/
 [初期同期]: http://docs.mongodb.org/manual/core/replica-set-sync/#replica-set-initial-sync
 [mongodb-dev]: https://groups.google.com/forum/#!forum/mongodb-dev
 [replica set]: http://docs.mongodb.org/manual/replication/
 [Storage FAQ]: http://docs.mongodb.org/manual/faq/storage
-[two-phase locking]: http://en.wikipedia.org/wiki/Two-phase_locking
+[2相ロック]: http://en.wikipedia.org/wiki/Two-phase_locking
