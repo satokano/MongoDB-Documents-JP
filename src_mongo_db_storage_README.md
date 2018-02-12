@@ -79,15 +79,11 @@ RecoveryUnitは、あるオペレーションがコミット済みトランザ�
 Optimistic Concurrency Control (OCC) またはMulti Version Concurrency Control (MVCC) を使っているシステムは、あるトランザクションが他のトランザクションと衝突し、あるオペレーションの実行の結果、デッドロックやその他のリソース制約違反になってしまうのを検出するかもしれません。
 そのような場合、ストレージエンジンは一時的な障害を通知するためにWriteConflictExceptionをスローしても構いません。MongoDBは例外を処理し、そのトランザクションを中止またはリスタートします。
 
-### Point-in-time snapshot reads
-Two functions on the RecoveryUnit help storage engines implement point-in-time reads: setTimestamp()
-and selectSnapshot().  setTimestamp() is used by write transactions to label any forthcoming writes
-with a timestamp; these timestamps are then used to produce a point-in-time read transaction via a
-call to selectSnapshot() at the start of the read.  The storage engine must produce the effect of
-reading from a snapshot that includes only writes with timestamps at or earlier than the
-selectSnapshot timestamp.  This means that a point-in-time read may slice across prior write
-transactions by hiding only some data from a given write transaction, if that transaction had a
-different timestamp set prior to each write it did.
+### Point-in-timeスナップショット読み込み Point-in-time snapshot reads
+RecoveryUnitの2つの関数が、ストレージエンジンがPoint-in-time読み込みを実装するのを助けます。setTimestamp()とselectSnapshot()です。
+setTimestamp()は、将来の書き込みに対しタイムスタンプでラベルを付けるために、書き込みトランザクションによって使用されます。これらのタイムスタンプは、読み込みの開始時にselectSnapshot()を呼び出してpoint-in-time読み込みトランザクションを生成するために、使用されます。
+ストレージエンジンは、selectSnapshotのタイムスタンプ以前のタイムスタンプを持つ書き込みのみを含むスナップショットからの読み込みの効果を生成しなければなりません。
+つまり、ある特定の書き込みトランザクションがそれぞれの書き込みをした時点より前にセットされた異なるタイムスタンプを持っていた場合、その書き込みトランザクションから一部のデータだけを隠すことによって、point-in-time読み込みが以前の書き込みトランザクションをまたいで分断されうるということです。
 
 実装すべきクラス
 --------------------
