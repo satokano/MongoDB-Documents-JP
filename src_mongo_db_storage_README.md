@@ -75,12 +75,9 @@ RecoveryUnitは、あるオペレーションがコミット済みトランザ�
 トランザクションは、コミットされればすぐに他のトランザクションから見えるようになります。ストレージエンジンは耐久性を実現するため、複数のトランザクションをバンドルしてグループコミットを使うかもしれません。
 またその代わりに、ストレージエンジンはコミット時に永続化されるまで待っても構いません。
 
-### Write Conflicts
-Systems with optimistic concurrency control (OCC) or multi-version concurrency control (MVCC) may
-find that a transaction conflicts with other transactions, that executing an operation would result
-in deadlock or violate other resource constraints. In such cases the storage engine may throw a
-WriteConflictException to signal the transient failure. MongoDB will handle the exception, abort
-and restart the transaction.
+### 書き込みの衝突
+Optimistic Concurrency Control (OCC) またはMulti Version Concurrency Control (MVCC) を使っているシステムは、あるトランザクションが他のトランザクションと衝突し、あるオペレーションの実行の結果、デッドロックやその他のリソース制約違反になってしまうのを検出するかもしれません。
+そのような場合、ストレージエンジンは一時的な障害を通知するためにWriteConflictExceptionをスローしても構いません。MongoDBは例外を処理し、そのトランザクションを中止またはリスタートします。
 
 ### Point-in-time snapshot reads
 Two functions on the RecoveryUnit help storage engines implement point-in-time reads: setTimestamp()
