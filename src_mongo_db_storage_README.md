@@ -21,25 +21,25 @@ Storage Engine API
 概念
 --------
 
-### Record Stores
+### レコードストアRecord Stores
 A database contains one or more collections, each with a number of indexes, and a catalog listing
 them. All MongoDB collections are implemented with record stores: one for the documents themselves,
 and one for each index. By using the KVEngine class, you only have to deal with the abstraction, as
 the KVStorageEngine implements the StorageEngine interface, using record stores for catalogs and
 indexes.
 
-#### Record Identities
+#### レコードアイデンティティRecord Identities
 A RecordId is a unique identifier, assigned by the storage engine, for a specific document or entry
 in a record store at a given time. For storage engines based in the KVEngine the record identity is
 fixed, but other storage engines, such as MMAPv1, may change it when updating a document. Note that
 changing record ids can be very expensive, as indexes map to the RecordId. A single document with a
 large array may have thousands of index entries, resulting in very expensive updates.
 
-#### Cloning and bulk operations
+#### クローニングとバルクオペレーションCloning and bulk operations
 Currently all cloning, [initial sync][] and other operations are done in terms of operating on
 individual documents, though there is a BulkBuilder class for more efficiently building indexes.
 
-### Locking and Concurrency
+### ロックと同時実行Locking and Concurrency
 MongoDB uses multi-granular intent locking; see the [Concurrency FAQ][]. In all cases, this will
 ensure that operations to meta-data, such as creation and deletion of record stores, are serialized
 with respect to other accesses. Storage engines can choose to support document-level concurrency,
@@ -52,7 +52,7 @@ manages. For storage engines that support document level concurrency, MongoDB wi
 locks for the most common operations, leaving synchronization at the record store layer up to the
 storage engine.
 
-### Transactions
+### トランザクションTransactions
 Each operation creates an OperationContext with a new RecoveryUnit, implemented by the storage
 engine, that lives until the operation finishes. Currently, query operations that return a cursor
 to the client live as long as that client cursor, with the operation context switching between its
@@ -60,23 +60,24 @@ own recovery unit and that of the client cursor. In a few other cases an interna
 an extra recovery unit as well. The recovery unit must implement transaction semantics as described
 below.
 
-#### Atomicity
-Writes must only become visible when explicitly committed, and in that case all pending writes
-become visible atomically. Writes that are not committed before the unit of work ends must be
-rolled back. In addition to writes done directly through the Storage API, such as document updates
-and creation of record stores, other custom changes can be registered with the recovery unit.
+#### 原子性 (Atomicity)
+書き込みは明示的にコミットされた時に限り、見えるようにならなければならない。
+そしてその場合すべての保留中の書き込みは、原子的に見えるようにならなければならない。
+作業単位(unit of work)が完了するまでにコミットされなかった書き込みは、ロールバックされなければならない。
+ストレージAPIを通して直接的になされた書き込みに加えて、ドキュメントの更新やレコードストアの作成、
+その他の変更も、リカバリユニットに登録される可能性がある。
 
-#### Consistency
-Storage engines must ensure that atomicity and isolation guarantees span all record stores, as
-otherwise the guarantee of atomic updates on a document and all its indexes would be violated.
+#### 一貫性 (Consistency)
+ストレージエンジンは全てのレコードストアにまたがって原子性と隔離性を保証しなければならない。
+そうでなければあるドキュメントとインデックスに対する原子的な更新は保証できなくなってしまう。
 
-#### Isolation
+#### 隔離性 (Isolation)
 Storage engines must provide snapshot isolation, either through locking (as is the case for the
 MMAPv1 engine), through multi-version concurrency control (MVCC) or otherwise. The first read
 implicitly establishes the snapshot. Operations can always see all changes they make in the context
 of a recovery unit, but other operations cannot until a successful commit.
 
-#### Durability
+#### 耐久性 (Durability)
 Once a transaction is committed, it is not necessarily durable: if, and only if the server fails,
 as result of power loss or otherwise, the database may recover to an earlier point in time.
 However, atomicity of transactions must remain preserved. Similarly, in a replica set, a primary
