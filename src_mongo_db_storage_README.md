@@ -37,8 +37,8 @@ KVEngineに基づくストレージエンジンではレコードアイデンテ
 大きな配列をもつ1つのドキュメントは何千ものインデックスエントリを持つ可能性があり、更新のコストが非常に高くなる可能性があります。
 
 #### クローニングとバルクオペレーション (Cloning and bulk operations)
-Currently all cloning, [initial sync][] and other operations are done in terms of operating on
-individual documents, though there is a BulkBuilder class for more efficiently building indexes.
+現在、全てのクローニング、[初期同期][]、およびその他のオペレーションは個々のドキュメント単位で動作しますが、
+より効率的にインデックスを構築するためにBulkBuilderクラスが存在します。
 
 ### ロックと同時実行 (Locking and Concurrency)
 MongoDB uses multi-granular intent locking; see the [Concurrency FAQ][]. In all cases, this will
@@ -122,7 +122,7 @@ different timestamp set prior to each write it did.
 
 
 [Concurrency FAQ]: http://docs.mongodb.org/manual/faq/concurrency/
-[initial sync]: http://docs.mongodb.org/manual/core/replica-set-sync/#replica-set-initial-sync
+[初期同期]: http://docs.mongodb.org/manual/core/replica-set-sync/#replica-set-initial-sync
 [mongodb-dev]: https://groups.google.com/forum/#!forum/mongodb-dev
 [replica set]: http://docs.mongodb.org/manual/replication/
 [Storage FAQ]: http://docs.mongodb.org/manual/faq/storage
