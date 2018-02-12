@@ -21,25 +21,26 @@ Storage Engine API
 概念
 --------
 
-### レコードストアRecord Stores
-A database contains one or more collections, each with a number of indexes, and a catalog listing
-them. All MongoDB collections are implemented with record stores: one for the documents themselves,
-and one for each index. By using the KVEngine class, you only have to deal with the abstraction, as
-the KVStorageEngine implements the StorageEngine interface, using record stores for catalogs and
-indexes.
+### レコードストア (Record Stores)
+1つのデータベースは1つ以上のコレクションを保持していて、コレクションは複数のインデックスを保持しており、それらの一覧表を持っています。
+全てのMongoDBのコレクションはレコードストアを使って実装されています。
+ドキュメントそのものに対して1つのレコードストア、インデックスに対して1つのレコードストアが使われます。
+KVEngineクラスを使うことで抽象化されたインターフェースのみを扱えばよいことになります。
+KVStorageEngineは、カタログやインデックスのためにレコードストアを使ってStorageEngineインターフェースを実装しているからです。
 
-#### レコードアイデンティティRecord Identities
-A RecordId is a unique identifier, assigned by the storage engine, for a specific document or entry
-in a record store at a given time. For storage engines based in the KVEngine the record identity is
-fixed, but other storage engines, such as MMAPv1, may change it when updating a document. Note that
-changing record ids can be very expensive, as indexes map to the RecordId. A single document with a
-large array may have thousands of index entries, resulting in very expensive updates.
+#### レコードアイデンティティ
+RecordIdは、ある時点において特定のドキュメントまたはレコードストア内のエントリに対し、
+ストレージエンジンによって割り当てられるユニークな識別子です。
+KVEngineに基づくストレージエンジンではレコードアイデンティティは固定ですが、
+他のストレージエンジン、たとえばMMAPv1等では、ドキュメントを更新するときに変更される可能性があります。
+インデックスがRecordIdにマップされるため、レコードアイデンティティを変更することは非常にコストが高くなる可能性があることに注意してください。
+大きな配列をもつ1つのドキュメントは何千ものインデックスエントリを持つ可能性があり、更新のコストが非常に高くなる可能性があります。
 
-#### クローニングとバルクオペレーションCloning and bulk operations
+#### クローニングとバルクオペレーション (Cloning and bulk operations)
 Currently all cloning, [initial sync][] and other operations are done in terms of operating on
 individual documents, though there is a BulkBuilder class for more efficiently building indexes.
 
-### ロックと同時実行Locking and Concurrency
+### ロックと同時実行 (Locking and Concurrency)
 MongoDB uses multi-granular intent locking; see the [Concurrency FAQ][]. In all cases, this will
 ensure that operations to meta-data, such as creation and deletion of record stores, are serialized
 with respect to other accesses. Storage engines can choose to support document-level concurrency,
@@ -52,7 +53,7 @@ manages. For storage engines that support document level concurrency, MongoDB wi
 locks for the most common operations, leaving synchronization at the record store layer up to the
 storage engine.
 
-### トランザクションTransactions
+### トランザクション
 Each operation creates an OperationContext with a new RecoveryUnit, implemented by the storage
 engine, that lives until the operation finishes. Currently, query operations that return a cursor
 to the client live as long as that client cursor, with the operation context switching between its
