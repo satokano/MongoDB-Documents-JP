@@ -50,41 +50,30 @@ MongoDBは、管理しているリソースに対するアクセスの直列化�
 ドキュメントレベルの同時実行をサポートしているストレージエンジンについては、MongoDBはほとんどの一般的なオペレーションに対してはインテントロックのみを用います。ただしレコードストアレイヤーの同期処理は例外で、ストレージエンジンに任されます。
 
 ### トランザクション
-Each operation creates an OperationContext with a new RecoveryUnit, implemented by the storage
-engine, that lives until the operation finishes. Currently, query operations that return a cursor
-to the client live as long as that client cursor, with the operation context switching between its
-own recovery unit and that of the client cursor. In a few other cases an internal command may use
-an extra recovery unit as well. The recovery unit must implement transaction semantics as described
-below.
+各オペレーションは、ストレージエンジンによって実装された新しいRecoveryUnitを持つOperationContextを作成します。そのOperationContextはオペレーションが完了するまで生存します。
+現在、クライアントにカーソルを返すクエリオペレーションは、クライアントカーソルと同じ期間生存します。OperationContextはそれ自身のRecoveryUnitとクライアントカーソルのRecoveryUnitとの間で切り替えを行います。いくつかの他のケースでは、内部コマンドはさらなるRecoveryUnitも使用するかもしれません。RecoveryUnitは、後述のようにトランザクションセマンティクスを実装する必要があります。
 
 #### 原子性 (Atomicity)
-書き込みは明示的にコミットされた時に限り、見えるようにならなければならない。
-そしてその場合すべての保留中の書き込みは、原子的に見えるようにならなければならない。
-作業単位(unit of work)が完了するまでにコミットされなかった書き込みは、ロールバックされなければならない。
-ストレージAPIを通して直接的になされた書き込みに加えて、ドキュメントの更新やレコードストアの作成、
-その他の変更も、リカバリユニットに登録される可能性がある。
+書き込みは明示的にコミットされた時に限り、見えるようにならなければなりません。
+そしてその場合すべての保留中の書き込みは、原子的に見えるようにならなければなりません。
+作業単位(unit of work)が完了するまでにコミットされなかった書き込みは、ロールバックされなければなりません。
+ストレージAPIを通して直接的になされた書き込みに加えて、ドキュメントの更新やレコードストアの作成、その他の変更も、リカバリユニットに登録される可能性があります。
 
 #### 一貫性 (Consistency)
-ストレージエンジンは全てのレコードストアにまたがって原子性と隔離性を保証しなければならない。
-そうでなければあるドキュメントとインデックスに対する原子的な更新は保証できなくなってしまう。
+ストレージエンジンは全てのレコードストアにまたがって原子性と隔離性を保証しなければなりません。
+そうでなければあるドキュメントとインデックスに対する原子的な更新は保証できなくなってしまいます。
 
 #### 隔離性 (Isolation)
-Storage engines must provide snapshot isolation, either through locking (as is the case for the
-MMAPv1 engine), through multi-version concurrency control (MVCC) or otherwise. The first read
-implicitly establishes the snapshot. Operations can always see all changes they make in the context
-of a recovery unit, but other operations cannot until a successful commit.
+ストレージエンジンは、ロック (MMAPv1エンジンのように)、またはMulti Version Concurrency Control (MVCC) 、またはその他の方法によって、Snapshot Isolationを提供しなければなりません。
+最初の読み込みで暗黙的にスナップショットが確立されます。オペレーションは常にRecoveryUnitのcontext内で自分が行ったすべての変更を見ることができます。しかし他のオペレーションからは、コミットが正常に完了するまでその変更を見ることはできません。
 
 #### 耐久性 (Durability)
-Once a transaction is committed, it is not necessarily durable: if, and only if the server fails,
-as result of power loss or otherwise, the database may recover to an earlier point in time.
-However, atomicity of transactions must remain preserved. Similarly, in a replica set, a primary
-that becomes unavailable may need to roll back to an earlier state when rejoining the replica set,
-if its changes were not yet seen by a majority of nodes. The RecoveryUnit implements methods to
-allow operations to wait for their committed transactions to become durable.
+ひとたびトランザクションがコミットされたとしても、必ずしも永続化されるわけではありません。電源の喪失やその他の原因によりサーバーが故障した場合 (その場合に限りますが) 、データベースは過去のある時点まで戻る可能性があります。
+しかしながら、トランザクションの原子性は維持されている必要があります。同様にレプリカセットでは、一旦利用不能となったプライマリがレプリカセットに再参加するとき、変更が過半数のノードから可視になっていなかった場合、過去の状態までロールバックされる必要があるかもしれません。
+RecoveryUnitは、あるオペレーションがコミット済みトランザクションの永続化を待つことができるようにするためのメソッドを実装しています。
 
-A transaction may become visible to other transactions as soon as it commits, and a storage engine
-may use a group commit, bundling a number of transactions to achieve durability. Alternatively, a
-storage engine may wait for durability at commit time.
+トランザクションは、コミットされればすぐに他のトランザクションから見えるようになります。ストレージエンジンは耐久性を実現するため、複数のトランザクションをバンドルしてグループコミットを使うかもしれません。
+またその代わりに、ストレージエンジンはコミット時に永続化されるまで待っても構いません。
 
 ### Write Conflicts
 Systems with optimistic concurrency control (OCC) or multi-version concurrency control (MVCC) may
