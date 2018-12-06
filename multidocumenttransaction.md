@@ -1,4 +1,4 @@
-[2018年6月27日にMat KeepとAlyson Cabralによって公開されたブログ](https://www.mongodb.com/blog/post/mongodb-multi-document-acid-transactions-general-availability)の翻訳
+[2018年6月27日にMongoDBのMat KeepとAlyson Cabralによって公開されたブログ](https://www.mongodb.com/blog/post/mongodb-multi-document-acid-transactions-general-availability)の翻訳
 
 ----
 
