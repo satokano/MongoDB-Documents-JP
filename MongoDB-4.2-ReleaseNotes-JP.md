@@ -214,11 +214,25 @@ MongoDB 4.2では、[$trunc](https://docs.mongodb.com/master/reference/operator/
 
 ### 新たなステージ
 
+MongoDB 4.2では、新たなaggregationパイプラインステージである[$planCacheStats](https://docs.mongodb.com/master/reference/operator/aggregation/planCacheStats/#pipe._S_planCacheStats)が追加され、これによりあるコレクションに対する[プランキャッシュ](https://docs.mongodb.com/master/core/query-plans/)の情報が取得できるようになりました。
 
+[$planCacheStats](https://docs.mongodb.com/master/reference/operator/aggregation/planCacheStats/#pipe._S_planCacheStats)aggregationステージは、[PlanCache.getPlansByQuery()](https://docs.mongodb.com/master/reference/method/PlanCache.getPlansByQuery/#PlanCache.getPlansByQuery)メソッド、[planCacheListPlans](https://docs.mongodb.com/master/reference/command/planCacheListPlans/#dbcmd.planCacheListPlans)コマンド、[PlanCache.listQueryShapes()](https://docs.mongodb.com/master/reference/method/PlanCache.listQueryShapes/#PlanCache.listQueryShapes)メソッド、[planCacheListQueryShapes](https://docs.mongodb.com/master/reference/command/planCacheListQueryShapes/#dbcmd.planCacheListQueryShapes)コマンドよりも優先されます。
 
 ## Change Stream
 
+### startAfterオプション
+
+MongoDB 4.2では、[Change Stream](https://docs.mongodb.com/master/changeStreams/#changestreams)に対してstartAfterオプションが追加されました。レジュームトークンで示されるイベントの後に新しいChange Streamをスタートするようにするものです。このオプションにより、[invalidate](https://docs.mongodb.com/master/reference/change-events/#change-event-invalidate)イベントからChange Streamを開始することができるようになり、以前のStreamが無効化されたあとの通知を見逃さないよう保証することができるようになりました。
+
+### Change Streamレジュームトークン
+
+MongoDB 4.2では、Change Stream[レジュームトークン](https://docs.mongodb.com/master/changeStreams/#change-stream-resume-token)のバージョン1（つまりv1）を使用します。Change Streamレジュームトークン バージョン1は、MongoDB 4.0.7で導入されました。
+
 ## Wildcard インデックス
+
+MongoDB 4.2では、ユーザーがコレクション内のさまざまなフィールドに対してクエリを実行するワークロードをサポートするため、ワイルドカードインデックスが追加されました。データベース管理者は、各ユーザーの様々なデータアクセスパターンをサポートするのに多数のインデックスを作成するのではなく、ドキュメントのフィールドの一部、または全てのフィールドを対象としてワイルドカードインデックスを作成できます。
+
+
 
 ## サポート対象プラットフォーム
 
