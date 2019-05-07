@@ -237,6 +237,35 @@ MongoDBは、特定のフィールドパス、または複数のフィールド�
 <div><strong>重要：</strong><br />
 ワイルドカードインデックスは、ワークロードにもとづいてインデックスを計画することを置き換えられるものではありません。クエリーをサポートするインデックスを作るための詳しい情報は<a href="https://docs.mongodb.com/master/tutorial/create-indexes-to-support-queries/#create-indexes-to-support-queries">こちら</a>を参照してください。</div>
 
+ワイルドカードインデックスは[スパース](https://docs.mongodb.com/master/core/index-sparse/)インデックスの一種で、インデックスには空でない値（スカラー値やnull）を持つフィールドのエントリのみが含まれます。
+
+ワイルドカードインデックスは、[createIndexes](https://docs.mongodb.com/master/reference/command/createIndexes/#dbcmd.createIndexes)コマンド、またはそのシェルヘルパーである[db.collection.createIndex()](https://docs.mongodb.com/master/reference/method/db.collection.createIndex/#db.collection.createIndex)、[db.collection.createIndexes()](https://docs.mongodb.com/master/reference/method/db.collection.createIndexes/#db.collection.createIndexes)を使用して作成することができます。ワイルドカードインデックスの作成例は、[ワイルドカードインデックスを作成する](https://docs.mongodb.com/master/reference/method/db.collection.createIndex/#createindex-method-wildcard-examples)を参照してください。
+
+ワイルドカードインデックスを作成する前に、[mongod](https://docs.mongodb.com/master/reference/program/mongod/#bin.mongod)の[featureCompatibilityVersion](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#view-fcv) (fCV) を4.2に設定する必要があります。fCVの設定方法については、[4.2 機能の互換性](https://docs.mongodb.com/master/release-notes/4.2-compatibility/#compatibility-enabled)を参照してください。
+
+### ワイルドカードインデックスの制約事項
+
+- ワイルドカードインデックスは、以下のインデックス形式、プロパティをサポートしません。
+  - [Compound](https://docs.mongodb.com/master/core/index-compound/)
+  - [TTL](https://docs.mongodb.com/master/core/index-ttl/)
+  - [Text](https://docs.mongodb.com/master/core/index-text/)
+  - [2d (Geospatial)](https://docs.mongodb.com/master/core/geospatial-indexes/)
+  - [2dsphere (Geospatial)](https://docs.mongodb.com/master/core/2dsphere/)
+  - [Hashed](https://docs.mongodb.com/master/core/index-hashed/)
+  - [Unique](https://docs.mongodb.com/master/core/index-unique/)
+- ワイルドカードインデックスは、以下のクエリオペレータをサポートしません。
+  - { $exists: false }
+  - { $eq: null }
+  - { $eq: [ { a: 1 } ] }
+  - { $eq: { <object> } } 
+  - { $ne: { <object> } }
+  - { $ne: null } (配列を含むフィールドパスに対するクエリの場合)
+- ワイルドカードインデックスを用いてコレクションをシャード化することはできません。
+- ワイルドカードインデックスでカバーされている複数のフィールドを指定したクエリに対しては、ワイルドカードインデックスはクエリ内の最大1つのフィールドをサポート可能です。クエリの$or演算子またはaggregationの[$or](https://docs.mongodb.com/master/reference/operator/aggregation/or/#exp._S_or)オペレータを使用しているクエリに対しては、[クエリプランナ](https://docs.mongodb.com/master/core/query-plans/#query-plans-query-optimization)は単一のワイルドカードインデックスを使って、独立した$orの引数を満たすことができます。クエリプランナは、任意のクエリに対してどのワイルドカードインデックスフィールドを使うか選択します。<br />クエリプランナは、**次の場合に限って**、ワイルドカードインデックスを使用して[sort()](https://docs.mongodb.com/master/reference/method/cursor.sort/#cursor.sort)オペレーションもサポートすることができます。
+  - ソートフィールドがワイルドカードインデックスに含まれており、_かつ_、
+  - ソートフィールドがクエリの条件部分にも含まれており、_かつ_、
+  - クエリプランナがクエリを満たすためにソートフィールドを選択した場合
+
 ## サポート対象プラットフォーム
 
 - MongoDB 4.2 (Community版およびEnterprise版) は以下のサポートを追加しました。
