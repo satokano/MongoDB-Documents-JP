@@ -257,8 +257,8 @@ MongoDBは、特定のフィールドパス、または複数のフィールド�
   - { $exists: false }
   - { $eq: null }
   - { $eq: [ { a: 1 } ] }
-  - { $eq: { <object> } } 
-  - { $ne: { <object> } }
+  - { $eq: { \<object\> } } 
+  - { $ne: { \<object\> } }
   - { $ne: null } (配列を含むフィールドパスに対するクエリの場合)
 - ワイルドカードインデックスを用いてコレクションをシャード化することはできません。
 - ワイルドカードインデックスでカバーされている複数のフィールドを指定したクエリに対しては、ワイルドカードインデックスはクエリ内の最大1つのフィールドをサポート可能です。クエリの$or演算子またはaggregationの[$or](https://docs.mongodb.com/master/reference/operator/aggregation/or/#exp._S_or)オペレータを使用しているクエリに対しては、[クエリプランナ](https://docs.mongodb.com/master/core/query-plans/#query-plans-query-optimization)は単一のワイルドカードインデックスを使って、独立した$orの引数を満たすことができます。クエリプランナは、任意のクエリに対してどのワイルドカードインデックスフィールドを使うか選択します。<br />クエリプランナは、**次の場合に限って**、ワイルドカードインデックスを使用して[sort()](https://docs.mongodb.com/master/reference/method/cursor.sort/#cursor.sort)オペレーションもサポートすることができます。
