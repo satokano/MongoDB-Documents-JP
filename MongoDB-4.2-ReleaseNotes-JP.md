@@ -98,12 +98,12 @@ MongoDB 4.2では[mongod](https://docs.mongodb.com/master/reference/program/mong
 - 接続文字列におけるtlsオプションについては、[接続文字列](https://docs.mongodb.com/master/reference/connection-string/#uri-options-tls)のページを参照してください。
 
 <div><strong>TIP：</strong><br />
-ほとんどのTLSオプション名は、SSLオプション名と似ています。たとえば[--tlsMode](https://docs.mongodb.com/master/reference/program/mongod/#cmdoption-mongod-tlsmode)と[--sslMode](https://docs.mongodb.com/master/reference/program/mongod/#cmdoption-mongod-sslmode)というように。例外は以下です。
+ほとんどのTLSオプション名は、SSLオプション名と似ています。たとえば<a href="https://docs.mongodb.com/master/reference/program/mongod/#cmdoption-mongod-tlsmode">--tlsMode</a>と<a href="https://docs.mongodb.com/master/reference/program/mongod/#cmdoption-mongod-sslmode">--sslMode</a>というように。例外は以下です。
 <ul>
-<li>TLSでは[net.tls.certificateKeyFile](https://docs.mongodb.com/master/reference/configuration-options/#net.tls.certificateKeyFile)、SSLでは[net.ssl.PEMKeyFile](https://docs.mongodb.com/master/reference/configuration-options/#net.ssl.PEMKeyFile)
-<li>TLSでは[net.tls.certificateKeyFilePassword](https://docs.mongodb.com/master/reference/configuration-options/#net.tls.certificateKeyFilePassword)、SSLでは[net.ssl.PEMKeyPassword](https://docs.mongodb.com/master/reference/configuration-options/#net.ssl.PEMKeyPassword)
-<li>TLSでは[--tlsCertificateKeyFile](https://docs.mongodb.com/master/reference/program/mongod/#cmdoption-mongod-tlscertificatekeyfile)、SSLでは[--sslPEMKeyFile](https://docs.mongodb.com/master/reference/program/mongod/#cmdoption-mongod-sslpemkeyfile)
-<li>TLSでは[--tlsCertificateKeyFilePassword](https://docs.mongodb.com/master/reference/program/mongod/#cmdoption-mongod-tlscertificatekeyfile)、SSLでは[--sslPEMKeyPassword](https://docs.mongodb.com/master/reference/program/mongod/#cmdoption-mongod-sslpemkeypassword)
+<li>TLSでは<a href="https://docs.mongodb.com/master/reference/configuration-options/#net.tls.certificateKeyFile">net.tls.certificateKeyFile</a>、SSLでは<a href="https://docs.mongodb.com/master/reference/configuration-options/#net.ssl.PEMKeyFile">net.ssl.PEMKeyFile</a>
+<li>TLSでは<a href="https://docs.mongodb.com/master/reference/configuration-options/#net.tls.certificateKeyFilePassword">net.tls.certificateKeyFilePassword</a>、SSLでは<a href="https://docs.mongodb.com/master/reference/configuration-options/#net.ssl.PEMKeyPassword">net.ssl.PEMKeyPassword</a>
+<li>TLSでは<a href="https://docs.mongodb.com/master/reference/program/mongod/#cmdoption-mongod-tlscertificatekeyfile">--tlsCertificateKeyFile</a>、SSLでは<a href="https://docs.mongodb.com/master/reference/program/mongod/#cmdoption-mongod-sslpemkeyfile">--sslPEMKeyFile</a>
+<li>TLSでは<a href="https://docs.mongodb.com/master/reference/program/mongod/#cmdoption-mongod-tlscertificatekeyfile">--tlsCertificateKeyFilePassword</a>、SSLでは<a href="https://docs.mongodb.com/master/reference/program/mongod/#cmdoption-mongod-sslpemkeypassword">--sslPEMKeyPassword</a>
 </ul>
 </div>
 
@@ -118,7 +118,7 @@ MongoDB 4.2では[mongod](https://docs.mongodb.com/master/reference/program/mong
 
 ### tlsWithholdClientCertificateパラメータの追加
 
-MongoDB 4.2では、[mongod](https://docs.mongodb.com/master/reference/program/mongod/#bin.mongod)と[mongos](https://docs.mongodb.com/master/reference/program/mongos/#bin.mongos)に対するsetParameterに[tlsWithholdClientCertificate](https://docs.mongodb.com/master/reference/parameters/#param.tlsWithholdClientCertificate)が追加されました。
+MongoDB 4.2では、[mongod](https://docs.mongodb.com/master/reference/program/mongod/#bin.mongod)と[mongos](https://docs.mongodb.com/master/reference/program/mongos/#bin.mongos)に対するsetParameterに[tlsWithholdClientCertificate](https://docs.mongodb.com/master/reference/parameters/#param.tlsWithholdClientCertificate)が追加されました。trueに設定すると、クラスタ内部認証の通信において当該mongodがクライアントとして振舞わないようになり、TLS証明書を他のmongodに対して送らないようになります。証明書無しでの着信を認める場合に使用してください。
 
 ### tlsClusterCAFileオプションの追加
 
