@@ -369,6 +369,10 @@ MongoDB 4.2では、[$currentOp](https://docs.mongodb.com/master/reference/opera
 
 ### ロギング
 
+- [INITSYNC](https://docs.mongodb.com/master/reference/log-messages/#INITSYNC)コンポーネントが追加されました。
+- [ELECTION](https://docs.mongodb.com/master/reference/log-messages/#ELECTION)コンポーネントが追加されました。
+- デバッグメッセージにはverbosityレベル（D\[1-5\]）が含まれるようになりました。たとえば、verbosityレベルが2の場合は、MongoDBは **D2** というログを出力します。以前のバージョンでは、MongoDBはデバッグレベルでは単にDと出力していました。
+
 ### serverStatusメトリクス
 
 ### zstdの導入
