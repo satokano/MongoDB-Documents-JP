@@ -331,9 +331,64 @@ MongoDB 4.2以降で、[featureCompatibilityVersion](https://docs.mongodb.com/ma
 
 #### 複数インデックスのdrop
 
+MongoDB 4.2以降では、[dropIndexes](https://docs.mongodb.com/master/reference/command/dropIndexes/#dbcmd.dropIndexes)コマンドや、その[mongo](https://docs.mongodb.com/master/reference/program/mongo/#bin.mongo)シェルヘルパーである[db.collection.dropIndexes()](https://docs.mongodb.com/master/reference/method/db.collection.dropIndexes/#db.collection.dropIndexes)に対して、複数のインデックスを指定することができるようになりました。複数のインデックスを指定するには、[dropIndexes](https://docs.mongodb.com/master/reference/command/dropIndexes/#dbcmd.dropIndexes)/[db.collection.dropIndexes()](https://docs.mongodb.com/master/reference/method/db.collection.dropIndexes/#db.collection.dropIndexes)に対してインデックス名の配列を渡してください。
+
 #### 関連するクエリのみkill
 
+MongoDB 4.2以降では、dropIndexesと、シェルヘルパーであるdropIndex()、dropIndexes()は、dropされようとしているインデックスを使用しているクエリのみをkillするようになりました。これは、当該インデックスをクエリプランニングの一部として検討中であるクエリも含むかもしれません。
 
+以前のバージョンのMongoDBでは、あるコレクションのインデックスをdropする場合は、そのコレクション上でオープンされているすべてのクエリをkillしていました。
+
+### 設定ファイルにおける外部からの値取り込み
+
+MongoDBは、設定ファイル中で展開ディレクティブを使うことで、外部から値を読み込むことができます。展開ディレクティブは特定の設定ファイルオプションか、もしくは設定ファイル全体を読み込むことができます。
+
+以下の展開ディレクティブが利用可能です。
+
+| 展開ディレクティブ | 説明 |
+|:-------------------|:-----|
+| [__rest](https://docs.mongodb.com/master/reference/expansion-directives/#configexpansion.__rest) | RESTエンドポイントを指定して、そこから値を読み込みます。 |
+| [__exec](https://docs.mongodb.com/master/reference/expansion-directives/#configexpansion.__exec) | シェルやターミナルのコマンドを指定して、そこから値を読み込みます。 |
+
+完全なドキュメントは、[外部からの設定ファイルオプション読み込み](https://docs.mongodb.com/master/reference/expansion-directives/#externally-sourced-values)を参照してください。
+
+### currentOp
+
+MongoDB 4.2では、[$currentOp](https://docs.mongodb.com/master/reference/operator/aggregation/currentOp/#pipe._S_currentOp) aggregationステージにidleCursorsという新しいオプションが追加され、アイドル状態のカーソルに対する情報が取得できるようになりました。
+
+さらに、MongoDB 4.2では[$currentOp](https://docs.mongodb.com/master/reference/operator/aggregation/currentOp/#pipe._S_currentOp) aggregationステージ、[currentOp](https://docs.mongodb.com/master/reference/command/currentOp/#dbcmd.currentOp)コマンド、[db.currentOp()](https://docs.mongodb.com/master/reference/method/db.currentOp/#db.currentOp)ヘルパーから返されるドキュメントに、以下の新しいフィールドが追加されました。
+
+| $currentOp | currentOp/db.currentOp() | Description |
+|:-----------|:-------------------------|:------------|
+| [$currentOp.type](https://docs.mongodb.com/master/reference/operator/aggregation/currentOp/#_S_currentOp.type) | [currentOp.type](https://docs.mongodb.com/master/reference/command/currentOp/#currentOp.type) | 情報取得対象のオペレーションがop、idleSession、idleCursorのいずれであるかを指定する。 |
+| [$currentOp.cursor](https://docs.mongodb.com/master/reference/operator/aggregation/currentOp/#_S_currentOp.cursor) | [currentOp.cursor](https://docs.mongodb.com/master/reference/command/currentOp/#currentOp.cursor) | カーソルの詳細を指定する。getmoreオペレーションやidleCursorの情報を返す時に利用可能。 |
+| [$currentOp.effectiveUsers](https://docs.mongodb.com/master/reference/operator/aggregation/currentOp/#_S_currentOp.effectiveUsers) | [currentOp.effectiveUsers](https://docs.mongodb.com/master/reference/command/currentOp/#currentOp.effectiveUsers) | オペレーションに紐づくユーザーを指定する。 |
+| $currentOp.userImpersonators | [currentOp.userImpersonators](https://docs.mongodb.com/master/reference/command/currentOp/#currentOp.userImpersonators) | オペレーションの実効ユーザーになりすますユーザーを指定する。 |
+
+[4.2 current opに関する互換性の変更点](https://docs.mongodb.com/master/release-notes/4.2-compatibility/#current-op-compat)も参照してください。
+
+### ロギング
+
+### serverStatusメトリクス
+
+### zstdの導入
+
+### queryHashとplanCacheKey
+
+- **queryHash**
+
+- **planCacheKey**
+
+- queryHashとplanCacheKeyは以下で利用可能です。
+  - profiler entry
+  - diagnostic
+  - explain()
+
+### $regexと$not
+
+### 自分自身のカーソルをkill
+
+### collStats
 
 ## 互換性への影響
 いくつかの変更点は互換性に影響する可能性があり、ユーザーの対応が必要になるかもしれません。詳細な一覧は[MongoDB 4.2での互換性の変更点](https://docs.mongodb.com/master/release-notes/4.2-compatibility/)を参照してください。
