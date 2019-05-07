@@ -122,7 +122,24 @@ MongoDB 4.2では、[mongod](https://docs.mongodb.com/master/reference/program/m
 
 ### tlsClusterCAFileオプションの追加
 
+MongoDB 4.2では、[--tlsClusterCAFile](https://docs.mongodb.com/master/reference/program/mongod/#cmdoption-mongod-tlsclustercafile)オプション、[mongod](https://docs.mongodb.com/master/reference/program/mongod/#bin.mongod)と[mongos](https://docs.mongodb.com/master/reference/program/mongos/#bin.mongos)での[net.tls.clusterCAFile](https://docs.mongodb.com/master/reference/configuration-options/#net.tls.clusterCAFile)オプションが追加されました。これらは.pemファイルを指定して、クライアントからのコネクション確立を受け付けるときにTLS証明書を検証するためのものです。これにより、TLSハンドシェイクのクライアント・サーバー間、サーバー・クライアント間のそれぞれを検証するのに別々の認証局を使用することが出来るようになりました。
+
+<div><strong>参照：</strong><br />
+<a href="https://docs.mongodb.com/master/release-notes/4.2/#tls">TLSオプション</a></div>
+
 ### passwordPrompt()
+
+4.2以降の[mongo](https://docs.mongodb.com/master/reference/program/mongo/#bin.mongo)シェルでは、さまざまなユーザー認証、管理メソッド、コマンドと[passwordPrompt()](https://docs.mongodb.com/master/reference/method/passwordPrompt/#passwordPrompt)メソッドを組み合わせることで、パスワードをメソッドやコマンドに直接渡すのではなく、プロンプト入力させることができるようになりました。ただし、旧バージョンの[mongo](https://docs.mongodb.com/master/reference/program/mongo/#bin.mongo)シェルを使う場合はパスワードを直接渡す必要があることに注意してください。
+
+以下に例を示します。
+
+```
+db.createUser( {
+   user:"user123",
+   pwd: passwordPrompt(),   // Instead of specifying the password in cleartext
+   roles:[ "readWrite" ]
+} )
+```
 
 ### キーファイルがYAML形式に変更
 
@@ -141,6 +158,63 @@ YAML形式は、テキスト形式であるという点では、従来の単一�
 - [backup](https://docs.mongodb.com/master/reference/built-in-roles/#backup)組み込みロールに、[serverStatus](https://docs.mongodb.com/master/reference/privilege-actions/#serverStatus)権限が追加されました。
 
 ## Aggregationに関する改善
+
+### $outステージの改善
+
+MongoDB 4.2では[$out](https://docs.mongodb.com/master/reference/operator/aggregation/out/#pipe._S_out)ステージに新しいシンタックスが追加されました。新しいシンタックスでは以下のことができます。
+
+- aggregationの出力と既存のコレクションのマージ
+- 既存のコレクションの内容をaggregationの出力で置き換え
+- 異なるデータベースのコレクションに出力
+- シャード化されている既存のコレクションに出力
+
+aggregationの出力と、異なるデータベースの既存のコレクションとのマージを行う例を示します。
+
+```
+{ $out: { to : "employees", mode : "insertDocuments", db : "hr" } }
+```
+
+従来のシンタックスでは、既存のコレクションの内容をaggregationの出力で置き換えることは出来ましたが、シャード化されたコレクションに出力することはできませんでした。
+
+従来のシンタックスの例を示します。
+
+```
+{ $out: "stock" }
+```
+
+<div><strong>参照：</strong><br />
+<a href="https://docs.mongodb.com/master/release-notes/4.2-compatibility/#compat-out">$outステージの制約事項</a></div>
+
+### Aggregationにおける三角関数の追加
+
+MongoDB 4.2では、aggregationパイプライン中で使用可能な三角関数が追加されました。
+
+これらは数値に対して三角関数の計算をします。角度を表す値は、常にラジアンとして解釈されます。度数とラジアンの変換には[$degreesToRadians](https://docs.mongodb.com/master/reference/operator/aggregation/degreesToRadians/#exp._S_degreesToRadians)、[$radiansToDegrees](https://docs.mongodb.com/master/reference/operator/aggregation/radiansToDegrees/#exp._S_radiansToDegrees)を使用してください。
+
+| Name | Description |
+|:-----|:------------|
+| [$sin](https://docs.mongodb.com/master/reference/operator/aggregation/sin/#exp._S_sin) | サイン |
+| [$cos](https://docs.mongodb.com/master/reference/operator/aggregation/cos/#exp._S_cos) | コサイン |
+| [$tan](https://docs.mongodb.com/master/reference/operator/aggregation/tan/#exp._S_tan) | タンジェント |
+| [$asin](https://docs.mongodb.com/master/reference/operator/aggregation/asin/#exp._S_asin) | アークサイン |
+| [$acos](https://docs.mongodb.com/master/reference/operator/aggregation/acos/#exp._S_acos) | アークコサイン |
+| [$atan](https://docs.mongodb.com/master/reference/operator/aggregation/atan/#exp._S_atan) | アークタンジェント |
+| [$atan2](https://docs.mongodb.com/master/reference/operator/aggregation/atan2/#exp._S_atan2) | y/xのアークタンジェント。yが第1引数、xが第2引数。 |
+| [$asinh](https://docs.mongodb.com/master/reference/operator/aggregation/asinh/#exp._S_asinh) | ハイパボリックアークサイン |
+| [$acosh](https://docs.mongodb.com/master/reference/operator/aggregation/acosh/#exp._S_acosh) | ハイパボリックアークコサイン |
+| [$atanh](https://docs.mongodb.com/master/reference/operator/aggregation/atanh/#exp._S_atanh) | ハイパボリックアークタンジェント |
+| [$degreesToRadians](https://docs.mongodb.com/master/reference/operator/aggregation/degreesToRadians/#exp._S_degreesToRadians) | 度数からラジアンに変換 |
+| [$radiansToDegrees](https://docs.mongodb.com/master/reference/operator/aggregation/radiansToDegrees/#exp._S_radiansToDegrees) | ラジアンから度数に変換 |
+
+### Aggregationにおける算術式
+
+MongoDB 4.2では[$round](https://docs.mongodb.com/master/reference/operator/aggregation/round/#exp._S_round)が追加されました。数値を特定の桁に丸める場合に[$round](https://docs.mongodb.com/master/reference/operator/aggregation/round/#exp._S_round)を使用してください。
+
+MongoDB 4.2では、[$trunc](https://docs.mongodb.com/master/reference/operator/aggregation/trunc/#exp._S_trunc)に拡張機能と新しいシンタックスが追加されました。新しいシンタックスで[$trunc](https://docs.mongodb.com/master/reference/operator/aggregation/trunc/#exp._S_trunc)を使うことで、数値を特定の桁に切り捨てることができます。
+
+### 新たなステージ
+
+
 
 ## Change Stream
 
