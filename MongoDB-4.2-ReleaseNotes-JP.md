@@ -296,6 +296,45 @@ MongoDBは、特定のフィールドパス、または複数のフィールド�
 
 ## 一般的な改善
 
+### トラフィックレコーダ
+
+MongoDB 4.2では[mongod](https://docs.mongodb.com/master/reference/program/mongod/#bin.mongod)/[mongos](https://docs.mongodb.com/master/reference/program/mongos/#bin.mongos)に対して送受信される全てのワイヤープロトコルトラフィックをキャプチャーし、指定のファイルに記録するためのトラフィックレコーダが追加されました。
+
+- 有効化するには、[trafficRecordingDirectory](https://docs.mongodb.com/master/reference/parameters/#param.trafficRecordingDirectory)パラメータを起動時に設定する必要があります。
+- 開始するには、[startRecordingTraffic](https://docs.mongodb.com/master/reference/command/startRecordingTraffic/#dbcmd.startRecordingTraffic)コマンドを使います。
+- 終了するには、[stopRecordingTraffic](https://docs.mongodb.com/master/reference/command/stopRecordingTraffic/#dbcmd.stopRecordingTraffic)コマンドを使います。
+
+[serverStatus](https://docs.mongodb.com/master/reference/command/serverStatus/#dbcmd.serverStatus)コマンドと、[db.serverStatus()](https://docs.mongodb.com/master/reference/method/db.serverStatus/#db.serverStatus)メソッドの出力に、[trafficRecording](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.trafficRecording)の項目が含まれるようになりました。
+
+<div><strong>参照：</strong><br />
+<a href="https://docs.mongodb.com/master/release-notes/4.2/#serverstatus">serverStatusメトリクス</a></div>
+
+### outputConfigオプション
+
+MongoDB 4.2では[mongod](https://docs.mongodb.com/master/reference/program/mongod/#bin.mongod)と[mongos](https://docs.mongodb.com/master/reference/program/mongos/#bin.mongos)に[--outputConfig](https://docs.mongodb.com/master/reference/program/mongod/#cmdoption-mongod-outputconfig)オプションが追加され、YAML設定ドキュメントを標準出力に出力し、サーバーインスタンスを停止することができるようになりました。
+
+### インデックスキーのサイズ制限の解除
+
+MongoDB 4.2以降で、[featureCompatibilityVersion](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#view-fcv)が4.2またはそれ以上に設定されている場合、[インデックスキーのサイズ制限](https://docs.mongodb.com/master/reference/limits/#Index-Key-Limit)は解除されます。fCVが4.0に設定されている場合は、制限は有効のままです。
+
+<div><strong>参照：</strong><br />
+<a href="https://docs.mongodb.com/master/release-notes/4.2-compatibility/#index-compat-changes">4.2 インデックスに関する互換性の変更点</a></div>
+
+### インデックス名の長さ制限の解除
+
+MongoDB 4.2以降で、[featureCompatibilityVersion](https://docs.mongodb.com/master/reference/command/setFeatureCompatibilityVersion/#view-fcv)が4.2またはそれ以上に設定されている場合、最大127バイトという[インデックス名の長さ制限](https://docs.mongodb.com/master/reference/limits/#Index-Name-Length)は解除されます。以前のバージョンや、fCVが4.0に設定されている場合は、この制限長以内である必要があります。
+
+<div><strong>参照：</strong><br />
+<a href="https://docs.mongodb.com/master/release-notes/4.2-compatibility/#index-compat-changes">4.2 インデックスに関する互換性の変更点</a>、<a href="https://docs.mongodb.com/master/release-notes/4.2-compatibility/#compatibility-enabled">4.2 機能の互換性</a></div>
+
+### dropIndexesの改善
+
+#### 複数インデックスのdrop
+
+#### 関連するクエリのみkill
+
+
+
 ## 互換性への影響
 いくつかの変更点は互換性に影響する可能性があり、ユーザーの対応が必要になるかもしれません。詳細な一覧は[MongoDB 4.2での互換性の変更点](https://docs.mongodb.com/master/release-notes/4.2-compatibility/)を参照してください。
 
