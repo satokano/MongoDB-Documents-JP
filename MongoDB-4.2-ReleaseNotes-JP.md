@@ -443,13 +443,17 @@ MongoDB 4.2以降では、以下の機能に対して[zstd](https://docs.mongodb
 ### queryHashとplanCacheKey
 
 - **queryHash**<br /><div>
-同じ[形](https://docs.mongodb.com/master/reference/glossary/#term-query-shape)をしているスロークエリを識別しやすくするため、MongoDB 4.2以降では、クエリの[形](https://docs.mongodb.com/master/reference/glossary/#term-query-shape)ごとに[queryHash](https://docs.mongodb.com/master/release-notes/4.2/#query-hash)が割り当てられるようになりました。**queryHash** は、クエリの形のハッシュ値を表す16進数の文字列で、クエリの形によってのみ決まります。</div><br /><div><strong>注意：</strong><br />ハッシュ関数には一般的なことですが、2つの異なるクエリの形に対して同じハッシュ値となる可能性があります。ただしそのようなハッシュ値の衝突は非常にまれです。</div>
-- **planCacheKey**<br /><div>
-</div>
-- queryHashとplanCacheKeyは以下で利用可能です。
-  - profiler entry
-  - diagnostic
-  - explain()
+同じ[形](https://docs.mongodb.com/master/reference/glossary/#term-query-shape)をしているスロークエリを識別しやすくするため、MongoDB 4.2以降では、クエリの[形](https://docs.mongodb.com/master/reference/glossary/#term-query-shape)ごとに[queryHash](https://docs.mongodb.com/master/release-notes/4.2/#query-hash)が割り当てられるようになりました。**queryHash** は、クエリの形のハッシュ値を表す16進数の文字列で、クエリの形によってのみ決まります。</div><div><strong>注意：</strong><br />ハッシュ関数には一般的なことですが、2つの異なるクエリの形に対して同じハッシュ値となる可能性があります。ただしそのようなハッシュ値の衝突は非常にまれです。</div>
+- **planCacheKey**<br /><div>[クエリプランのキャッシュ](https://docs.mongodb.com/master/core/query-plans/)について詳細な情報を取得できるようにするため、MongoDB 4.2では[planCacheKey](https://docs.mongodb.com/master/release-notes/4.2/#plan-cache-key)が導入されました。<br />**planCacheKey**は、クエリに関連付けられているプランキャッシュエントリのキーのハッシュ値です。</div><div><strong>注意：</strong><br />**queryHash**とは異なり、**planCacheKey**はクエリの形と、そのクエリに対して現在利用可能なインデックスの両方の影響を受けます。つまり、そのクエリに対して利用可能なインデックスが追加または削除された場合、**planCacheKey**の値は変わりますが、**queryHash**は変わりません。</div><div><strong>参照：</strong><br /><a href="https://docs.mongodb.com/master/core/query-plans/#plan-cache-key">planCacheKey</a></div>
+- **queryHash**と**planCacheKey**は以下で利用可能です。
+  - [プロファイラ出力](https://docs.mongodb.com/master/tutorial/manage-the-database-profiler/)では、ログ出力されたオペレーションについて[queryHash](https://docs.mongodb.com/master/reference/database-profiler/#system.profile.queryHash)と[planCacheKey](https://docs.mongodb.com/master/reference/database-profiler/#system.profile.planCacheKey)
+  - [分析ログメッセージ](https://docs.mongodb.com/master/reference/log-messages/#log-message-slow-ops)（mongod/mongosのログメッセージ）
+  - [explain()出力](https://docs.mongodb.com/master/reference/explain-results/)
+
+クエリプランキャッシュに関する情報を返すオペレーションの中でも利用可能です。
+- [$planCacheStats](https://docs.mongodb.com/master/reference/operator/aggregation/planCacheStats/#pipe._S_planCacheStats) aggregationステージ（MongoDB 4.2で新規導入）
+- [PlanCache.listQueryShapes()](https://docs.mongodb.com/master/reference/method/PlanCache.listQueryShapes/#PlanCache.listQueryShapes)メソッド/[planCacheListQueryShapes](https://docs.mongodb.com/master/reference/command/planCacheListQueryShapes/#dbcmd.planCacheListQueryShapes)コマンド
+- [PlanCache.getPlansByQuery()](https://docs.mongodb.com/master/reference/method/PlanCache.getPlansByQuery/#PlanCache.getPlansByQuery)メソッド/[planCacheListPlans](https://docs.mongodb.com/master/reference/command/planCacheListPlans/#dbcmd.planCacheListPlans)コマンド
 
 ### $regexと$not
 
