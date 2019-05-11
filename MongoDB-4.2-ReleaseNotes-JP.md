@@ -385,12 +385,21 @@ MongoDB 4.2では、[$currentOp](https://docs.mongodb.com/master/reference/opera
 ```
 2018-11-16T12:31:35.886-0500 I REPL   [repl writer worker 13] applied op: command { ... }, took 112ms
 ```
+セカンダリにおける、遅いoplog適用のロギングは、
+  - [slowOpSampleRate](https://docs.mongodb.com/master/reference/configuration-options/#operationProfiling.slowOpSampleRate)の影響は受けません。つまり、すべての遅いoplog適用がセカンダリでログ出力されます。
+  - [logLevel](https://docs.mongodb.com/master/reference/parameters/#param.logLevel)/[systemLog.verbosity](https://docs.mongodb.com/master/reference/configuration-options/#systemLog.verbosity)レベル（または[systemLog.component.replicateion.verbosity](https://docs.mongodb.com/master/reference/configuration-options/#systemLog.component.replication.verbosity)レベル）の影響は受けません。つまり、oplogについては、セカンダリは遅いoplogのみログ出力します。verbosityレベルを上げたとしても、すべてのoplogがログ出力されることはありません。
+  - [プロファイラ](https://docs.mongodb.com/master/tutorial/manage-the-database-profiler/)にはキャプチャされません。プロファイリングレベルには影響を受けません。
 
+スローオペレーションのしきい値の設定についてさらなる詳細は以下を参照してください。
+  - [mongod --slowms](https://docs.mongodb.com/master/reference/program/mongod/#cmdoption-mongod-slowms)
+  - [slowOpThresholdMs](https://docs.mongodb.com/master/reference/configuration-options/#operationProfiling.slowOpThresholdMs)
+  - [profile](https://docs.mongodb.com/master/reference/command/profile/#dbcmd.profile)コマンド、またはシェルヘルパーの[db.setProfilingLevel()](https://docs.mongodb.com/master/reference/method/db.setProfilingLevel/#db.setProfilingLevel)メソッド。
 - MongoDB 4.2以降では、getLogコマンドは1024文字以上を含むイベントをtruncateします。以前のバージョンでは、getLogは512文字以上の場合truncateしていました。
 - MongoDB 4.2以降（および4.0.9）では、[プロファイラエントリ](https://docs.mongodb.com/master/tutorial/manage-the-database-profiler/)や[分析ログメッセージ](https://docs.mongodb.com/master/reference/log-messages/)にスローログとして出力されるオペレーションは、[ストレージ](https://docs.mongodb.com/master/reference/database-profiler/#system.profile.storage)の情報を含むようになりました。
 - MongoDB 4.2以降では、read/writeオペレーションに関するプロファイラエントリや分析ログメッセージ（mongod/mongosログメッセージ）は以下の項目を含むようになりました。
   - 同じ[形](https://docs.mongodb.com/master/reference/glossary/#term-query-shape)をしているスロークエリを識別するため **queryHash**
   - スロークエリについて、[クエリプランキャッシュ](https://docs.mongodb.com/master/core/query-plans/)についてさらなる情報を得られるようにするため、**planCacheKey**
+
 [クエリハッシュとプランキャッシュキー](https://docs.mongodb.com/master/release-notes/4.2/#query-plans)を参照してください。
 
 ### serverStatusメトリクス
@@ -433,9 +442,12 @@ MongoDB 4.2以降では、以下の機能に対して[zstd](https://docs.mongodb
 
 ### queryHashとplanCacheKey
 
-- **queryHash**
+- **queryHash**<br /><div>
+同じ[形](https://docs.mongodb.com/master/reference/glossary/#term-query-shape)をしているスロークエリを識別しやすくするため、MongoDB 4.2以降では、クエリの形ごとにqueryHashが割り当てられるようになりました。
+</div>
+- **planCacheKey**<br /><div>
 
-- **planCacheKey**
+</div>
 
 - queryHashとplanCacheKeyは以下で利用可能です。
   - profiler entry
