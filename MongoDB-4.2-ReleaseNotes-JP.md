@@ -443,12 +443,9 @@ MongoDB 4.2以降では、以下の機能に対して[zstd](https://docs.mongodb
 ### queryHashとplanCacheKey
 
 - **queryHash**<br /><div>
-同じ[形](https://docs.mongodb.com/master/reference/glossary/#term-query-shape)をしているスロークエリを識別しやすくするため、MongoDB 4.2以降では、クエリの形ごとにqueryHashが割り当てられるようになりました。
-</div>
+同じ[形](https://docs.mongodb.com/master/reference/glossary/#term-query-shape)をしているスロークエリを識別しやすくするため、MongoDB 4.2以降では、クエリの[形](https://docs.mongodb.com/master/reference/glossary/#term-query-shape)ごとに[queryHash](https://docs.mongodb.com/master/release-notes/4.2/#query-hash)が割り当てられるようになりました。**queryHash** は、クエリの形のハッシュ値を表す16進数の文字列で、クエリの形によってのみ決まります。</div><br /><div><strong>注意：</strong><br />ハッシュ関数には一般的なことですが、2つの異なるクエリの形に対して同じハッシュ値となる可能性があります。ただしそのようなハッシュ値の衝突は非常にまれです。</div>
 - **planCacheKey**<br /><div>
-
 </div>
-
 - queryHashとplanCacheKeyは以下で利用可能です。
   - profiler entry
   - diagnostic
