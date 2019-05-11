@@ -377,6 +377,15 @@ MongoDB 4.2では、[$currentOp](https://docs.mongodb.com/master/reference/opera
 
 ### zstdの導入
 
+MongoDB 4.2以降では、以下の機能に対して[zstd](https://docs.mongodb.com/master/reference/glossary/#term-zstd)が導入されました。
+
+- ブロック圧縮。[storage.wiredTiger.collectionConfig.blockCompressor](https://docs.mongodb.com/master/reference/configuration-options/#storage.wiredTiger.collectionConfig.blockCompressor)を参照してください。
+- ジャーナル圧縮。[storage.wiredTiger.engineConfig.journalCompressor](https://docs.mongodb.com/master/reference/configuration-options/#storage.wiredTiger.engineConfig.journalCompressor)を参照してください。
+- ネットワーク圧縮。[net.compression.compressors](https://docs.mongodb.com/master/reference/configuration-options/#net.compression.compressors)を参照してください。
+  - MongoDBドライバを使用しているクライアントは、MongoDB 4.2に対応したドライバにアップデートする必要があります。
+  - [mongod](https://docs.mongodb.com/master/reference/program/mongod/#bin.mongod)と[mongos](https://docs.mongodb.com/master/reference/program/mongos/#bin.mongos)のネットワーク圧縮は、デフォルトでは、 **snappy**、**zstd**、**zlib** で、優先順位としてもこの順で適用されます。バージョン4.0では、[mongod](https://docs.mongodb.com/master/reference/program/mongod/#bin.mongod)と[mongos](https://docs.mongodb.com/master/reference/program/mongos/#bin.mongos)のネットワーク圧縮はデフォルトでは **snappy** が利用可能でした。
+
+
 ### queryHashとplanCacheKey
 
 - **queryHash**
@@ -390,7 +399,9 @@ MongoDB 4.2では、[$currentOp](https://docs.mongodb.com/master/reference/opera
 
 ### $regexと$not
 
+MongoDB 4.2以降（および4.0.7）では、[$not](https://docs.mongodb.com/master/reference/operator/query/not/#op._S_not)オペレータは[$regex](https://docs.mongodb.com/master/reference/operator/query/regex/#op._S_regex)オペレータおよび正規表現オブジェクト（/pattern/形式）の両方に対して、論理否定として働くようになりました。
 
+4.0およびそれ以前のバージョンでは、[$not](https://docs.mongodb.com/master/reference/operator/query/not/#op._S_not)は正規表現オブジェクト（/pattern/形式）に対しては働きましたが、[$regex](https://docs.mongodb.com/master/reference/operator/query/regex/#op._S_regex)オペレータに対しては働きませんでした。
 
 ### 自分自身のカーソルをkill
 
