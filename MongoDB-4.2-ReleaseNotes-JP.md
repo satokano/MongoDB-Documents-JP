@@ -1,4 +1,4 @@
-<!-- Qiita  -->
+<!-- Qiita https://qiita.com/kabao/items/9e7726624708d0ed6caf -->
 <!-- マニュアルっぽいので「ですます」で -->
 <!-- 他のマニュアルを参照する場合、どちらかというと英語タイトルそのままで。文章の一部になっていて、訳さないと変な場合は日本語に訳す。 -->
 <!-- NOTE: とかの囲みは、QiitaのMDで対応するものがなさそうなので、注意：brなどとしてごまかす？ ```text: かと思ったがそうすると中身のMD記法が解釈されない。divかと思ったがQiitaはstyle属性適用されない。divで囲んでタイトルはstrong、中身は自前でタグを書くのが見た目的には一番マシっぽい。 -->
@@ -376,21 +376,22 @@ MongoDB 4.2では、[$currentOp](https://docs.mongodb.com/master/reference/opera
 ```
 ...  ACCESS   [repl writer worker 5] Unsupported modification to roles collection ...
 ```
-以前は、[syslog](https://docs.mongodb.com/master/reference/program/mongod/#cmdoption-mongod-syslog)でのメッセージテキストにはコンポーネント名は含まれていませんでした。たとえば以下のようになっていました。
+<br />以前は、[syslog](https://docs.mongodb.com/master/reference/program/mongod/#cmdoption-mongod-syslog)でのメッセージテキストにはコンポーネント名は含まれていませんでした。たとえば以下のようになっていました。<br />
 ```
 ... [repl writer worker 1] Unsupported modification to roles collection ...
 ```
 - MongoDB 4.2では、[プロファイラログメッセージ](https://docs.mongodb.com/master/tutorial/manage-the-database-profiler/)と[分析ログメッセージ](https://docs.mongodb.com/master/reference/log-messages/)において、[aggregate](https://docs.mongodb.com/master/reference/command/aggregate/#dbcmd.aggregate)オペレーションに関しての **usedDisk** インジケータが追加されました。**usedDisk** は[aggregate](https://docs.mongodb.com/master/reference/command/aggregate/#dbcmd.aggregate)オペレーションのいずれかのステージでメモリの制約により一時ファイルが使用されたことを示します。aggregationでのメモリの制約については[メモリ制約](https://docs.mongodb.com/master/core/aggregation-pipeline-limits/#agg-memory-restrictions)を参照してください。
-- バージョン4.2以降（4.0.6以降も含む）では、レプリカセットのセカンダリメンバーは、しきい値以上に長時間かかっているoplog反映処理を、スローログ出力できるようになりました。セカンダリにてREPLコンポーネントとして、 **applied op: \<oplog entry\> took \<num\>ms.** というテキストで[ログ出力](https://docs.mongodb.com/master/reference/program/mongod/#cmdoption-mongod-logpath)されます。
+- バージョン4.2以降（4.0.6以降も含む）では、レプリカセットのセカンダリメンバーは、しきい値以上に長時間かかっているoplog反映処理を、スローログ出力できるようになりました。セカンダリにてREPLコンポーネントとして、 **applied op: \<oplog entry\> took \<num\>ms.** というテキストで[ログ出力](https://docs.mongodb.com/master/reference/program/mongod/#cmdoption-mongod-logpath)されます。<br />
 ```
 2018-11-16T12:31:35.886-0500 I REPL   [repl writer worker 13] applied op: command { ... }, took 112ms
 ```
-セカンダリにおける、遅いoplog適用のロギングは、
+<br />セカンダリにおける、遅いoplog適用のロギングは、
   - [slowOpSampleRate](https://docs.mongodb.com/master/reference/configuration-options/#operationProfiling.slowOpSampleRate)の影響は受けません。つまり、すべての遅いoplog適用がセカンダリでログ出力されます。
   - [logLevel](https://docs.mongodb.com/master/reference/parameters/#param.logLevel)/[systemLog.verbosity](https://docs.mongodb.com/master/reference/configuration-options/#systemLog.verbosity)レベル（または[systemLog.component.replicateion.verbosity](https://docs.mongodb.com/master/reference/configuration-options/#systemLog.component.replication.verbosity)レベル）の影響は受けません。つまり、oplogについては、セカンダリは遅いoplogのみログ出力します。verbosityレベルを上げたとしても、すべてのoplogがログ出力されることはありません。
   - [プロファイラ](https://docs.mongodb.com/master/tutorial/manage-the-database-profiler/)にはキャプチャされません。プロファイリングレベルには影響を受けません。
 
 スローオペレーションのしきい値の設定についてさらなる詳細は以下を参照してください。
+
   - [mongod --slowms](https://docs.mongodb.com/master/reference/program/mongod/#cmdoption-mongod-slowms)
   - [slowOpThresholdMs](https://docs.mongodb.com/master/reference/configuration-options/#operationProfiling.slowOpThresholdMs)
   - [profile](https://docs.mongodb.com/master/reference/command/profile/#dbcmd.profile)コマンド、またはシェルヘルパーの[db.setProfilingLevel()](https://docs.mongodb.com/master/reference/method/db.setProfilingLevel/#db.setProfilingLevel)メソッド。
@@ -451,6 +452,7 @@ MongoDB 4.2以降では、以下の機能に対して[zstd](https://docs.mongodb
   - [explain()出力](https://docs.mongodb.com/master/reference/explain-results/)
 
 クエリプランキャッシュに関する情報を返すオペレーションの中でも利用可能です。
+
 - [$planCacheStats](https://docs.mongodb.com/master/reference/operator/aggregation/planCacheStats/#pipe._S_planCacheStats) aggregationステージ（MongoDB 4.2で新規導入）
 - [PlanCache.listQueryShapes()](https://docs.mongodb.com/master/reference/method/PlanCache.listQueryShapes/#PlanCache.listQueryShapes)メソッド/[planCacheListQueryShapes](https://docs.mongodb.com/master/reference/command/planCacheListQueryShapes/#dbcmd.planCacheListQueryShapes)コマンド
 - [PlanCache.getPlansByQuery()](https://docs.mongodb.com/master/reference/method/PlanCache.getPlansByQuery/#PlanCache.getPlansByQuery)メソッド/[planCacheListPlans](https://docs.mongodb.com/master/reference/command/planCacheListPlans/#dbcmd.planCacheListPlans)コマンド
@@ -473,6 +475,7 @@ MongoDB 4.2以降では、[$collStats](https://docs.mongodb.com/master/reference
 構築途中のインデックスに関する情報を返すようになりました。
 
 詳細については、以下を参照してください。
+
 - [collStats.nindexes](https://docs.mongodb.com/master/reference/command/collStats/#collStats.nindexes)
 - [collStats.indexDetails](https://docs.mongodb.com/master/reference/command/collStats/#collStats.indexDetails)
 - [collStats.indexBuilds](https://docs.mongodb.com/master/reference/command/collStats/#collStats.indexBuilds)
