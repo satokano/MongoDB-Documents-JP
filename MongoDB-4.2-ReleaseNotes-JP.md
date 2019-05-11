@@ -375,6 +375,33 @@ MongoDB 4.2では、[$currentOp](https://docs.mongodb.com/master/reference/opera
 
 ### serverStatusメトリクス
 
+- [shardingStatistics](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.shardingStatistics)に新しい項目が追加されました。
+  - [shardingStatistics.countDocsClonedOnRecipient](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.shardingStatistics.countDocsClonedOnRecipient)
+  - [shardingStatistics.countDocsClonedOnDonor](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.shardingStatistics.countDocsClonedOnDonor)
+  - [shardingStatistics.countDocsDeletedOnDonor](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.shardingStatistics.countDocsDeletedOnDonor)
+  - [shardingStatistics.countRecipientMoveChunkStarted](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.shardingStatistics.countRecipientMoveChunkStarted)
+- [metrics.repl.network](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.metrics.repl.network)に新しい項目が追加されました。
+  - [metrics.repl.network.notMasterLegacyUnacknowledgedWrites](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.metrics.repl.network.notMasterLegacyUnacknowledgedWrites)
+  - [metrics.repl.network.notMasterUnacknowledgedWrites](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.metrics.repl.network.notMasterUnacknowledgedWrites)
+- プライマリがステップダウンするときに実行中のオペレーションについて情報取得するため、[metrics.repl.stepDown](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.metrics.repl.stepDown)という新しい項目が追加されました。[metrics.repl.stepDown](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.metrics.repl.stepDown)には以下の項目が含まれます。
+  - [metrics.repl.stepDown.userOperationsKilled](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.metrics.repl.stepDown.userOperationsKilled)
+  - [metrics.repl.stepDown.userOperationRunning](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.metrics.repl.stepDown.userOperationsRunning)
+- [トラフィックレコーダ](https://docs.mongodb.com/master/release-notes/4.2/#traffic-recorder)の情報を取得するため、[trafficRecording](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.trafficRecording)という新しい項目が追加されました。[trafficRecording](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.trafficRecording)には以下の項目が含まれます。
+  - [trafficRecording.running](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.trafficRecording.running)
+  - [trafficRecording.bufferSize](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.trafficRecording.bufferSize)
+  - [trafficRecording.bufferedBytes](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.trafficRecording.bufferedBytes)
+  - [trafficRecording.recordingFile](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.trafficRecording.recordingFile)
+  - [trafficRecording.maxFileSize](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.trafficRecording.maxFileSize)
+  - [trafficRecording.currentFileSize](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.trafficRecording.currentFileSize)
+- [transactions](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.transactions)に以下の新しい項目が追加されました。
+  - [transactions.totalPrepared](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.transactions.totalPrepared)
+  - [transactions.totalPreparedThenCommitted](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.transactions.totalPreparedThenCommitted)
+  - [transactions.totalPreparedThenAborted](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.transactions.totalPreparedThenAborted)
+  - [transactions.currentPrepared](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.transactions.currentPrepared)
+  - [transactions.oldestActiveOplogEntryTimestamp](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.transactions.oldestActiveOplogEntryTimestamp)
+  - [transactions.oldestOpenUnpreparedReadTimestamp](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.transactions.oldestOpenUnpreparedReadTimestamp)
+
+
 ### zstdの導入
 
 MongoDB 4.2以降では、以下の機能に対して[zstd](https://docs.mongodb.com/master/reference/glossary/#term-zstd)が導入されました。
@@ -384,7 +411,6 @@ MongoDB 4.2以降では、以下の機能に対して[zstd](https://docs.mongodb
 - ネットワーク圧縮。[net.compression.compressors](https://docs.mongodb.com/master/reference/configuration-options/#net.compression.compressors)を参照してください。
   - MongoDBドライバを使用しているクライアントは、MongoDB 4.2に対応したドライバにアップデートする必要があります。
   - [mongod](https://docs.mongodb.com/master/reference/program/mongod/#bin.mongod)と[mongos](https://docs.mongodb.com/master/reference/program/mongos/#bin.mongos)のネットワーク圧縮は、デフォルトでは、 **snappy**、**zstd**、**zlib** で、優先順位としてもこの順で適用されます。バージョン4.0では、[mongod](https://docs.mongodb.com/master/reference/program/mongod/#bin.mongod)と[mongos](https://docs.mongodb.com/master/reference/program/mongos/#bin.mongos)のネットワーク圧縮はデフォルトでは **snappy** が利用可能でした。
-
 
 ### queryHashとplanCacheKey
 
