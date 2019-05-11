@@ -372,6 +372,26 @@ MongoDB 4.2では、[$currentOp](https://docs.mongodb.com/master/reference/opera
 - [INITSYNC](https://docs.mongodb.com/master/reference/log-messages/#INITSYNC)コンポーネントが追加されました。
 - [ELECTION](https://docs.mongodb.com/master/reference/log-messages/#ELECTION)コンポーネントが追加されました。
 - デバッグメッセージにはverbosityレベル（D\[1-5\]）が含まれるようになりました。たとえば、verbosityレベルが2の場合は、MongoDBは **D2** というログを出力します。以前のバージョンでは、MongoDBはデバッグレベルでは単にDと出力していました。
+- [syslog](https://docs.mongodb.com/master/reference/program/mongod/#cmdoption-mongod-syslog)にロギングしている場合、メッセージテキストのフォーマットに[コンポーネント名](https://docs.mongodb.com/master/reference/log-messages/#log-message-components)が含まれるようになりました。たとえば以下のようになります。<br />
+```
+...  ACCESS   [repl writer worker 5] Unsupported modification to roles collection ...
+```
+以前は、[syslog](https://docs.mongodb.com/master/reference/program/mongod/#cmdoption-mongod-syslog)でのメッセージテキストにはコンポーネント名は含まれていませんでした。たとえば以下のようになっていました。
+```
+... [repl writer worker 1] Unsupported modification to roles collection ...
+```
+- MongoDB 4.2では、[プロファイラログメッセージ](https://docs.mongodb.com/master/tutorial/manage-the-database-profiler/)と[分析ログメッセージ](https://docs.mongodb.com/master/reference/log-messages/)において、[aggregate](https://docs.mongodb.com/master/reference/command/aggregate/#dbcmd.aggregate)オペレーションに関しての **usedDisk** インジケータが追加されました。**usedDisk** は[aggregate](https://docs.mongodb.com/master/reference/command/aggregate/#dbcmd.aggregate)オペレーションのいずれかのステージでメモリの制約により一時ファイルが使用されたことを示します。aggregationでのメモリの制約については[メモリ制約](https://docs.mongodb.com/master/core/aggregation-pipeline-limits/#agg-memory-restrictions)を参照してください。
+- バージョン4.2以降（4.0.6以降も含む）では、レプリカセットのセカンダリメンバーは、しきい値以上に長時間かかっているoplog反映処理を、スローログ出力できるようになりました。セカンダリにてREPLコンポーネントとして、 **applied op: \<oplog entry\> took \<num\>ms.** というテキストで[ログ出力](https://docs.mongodb.com/master/reference/program/mongod/#cmdoption-mongod-logpath)されます。
+```
+2018-11-16T12:31:35.886-0500 I REPL   [repl writer worker 13] applied op: command { ... }, took 112ms
+```
+
+- MongoDB 4.2以降では、getLogコマンドは1024文字以上を含むイベントをtruncateします。以前のバージョンでは、getLogは512文字以上の場合truncateしていました。
+- MongoDB 4.2以降（および4.0.9）では、[プロファイラエントリ](https://docs.mongodb.com/master/tutorial/manage-the-database-profiler/)や[分析ログメッセージ](https://docs.mongodb.com/master/reference/log-messages/)にスローログとして出力されるオペレーションは、[ストレージ](https://docs.mongodb.com/master/reference/database-profiler/#system.profile.storage)の情報を含むようになりました。
+- MongoDB 4.2以降では、read/writeオペレーションに関するプロファイラエントリや分析ログメッセージ（mongod/mongosログメッセージ）は以下の項目を含むようになりました。
+  - 同じ[形](https://docs.mongodb.com/master/reference/glossary/#term-query-shape)をしているスロークエリを識別するため **queryHash**
+  - スロークエリについて、[クエリプランキャッシュ](https://docs.mongodb.com/master/core/query-plans/)についてさらなる情報を得られるようにするため、**planCacheKey**
+[クエリハッシュとプランキャッシュキー](https://docs.mongodb.com/master/release-notes/4.2/#query-plans)を参照してください。
 
 ### serverStatusメトリクス
 
@@ -400,7 +420,6 @@ MongoDB 4.2では、[$currentOp](https://docs.mongodb.com/master/reference/opera
   - [transactions.currentPrepared](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.transactions.currentPrepared)
   - [transactions.oldestActiveOplogEntryTimestamp](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.transactions.oldestActiveOplogEntryTimestamp)
   - [transactions.oldestOpenUnpreparedReadTimestamp](https://docs.mongodb.com/master/reference/command/serverStatus/#serverstatus.transactions.oldestOpenUnpreparedReadTimestamp)
-
 
 ### zstdの導入
 
