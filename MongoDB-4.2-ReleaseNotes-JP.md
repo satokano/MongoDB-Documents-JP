@@ -390,9 +390,25 @@ MongoDB 4.2では、[$currentOp](https://docs.mongodb.com/master/reference/opera
 
 ### $regexと$not
 
+
+
 ### 自分自身のカーソルをkill
 
+MongoDB 4.2以降では、ユーザーはいつでも、[killCursors](https://docs.mongodb.com/master/reference/privilege-actions/#killCursors)権限を持っているかどうかに関わらず、自分自身のカーソルをkillすることができるようになりました。[killCursors](https://docs.mongodb.com/master/reference/privilege-actions/#killCursors)権限はMongoDB 4.2以降ではこの点については影響を持たなくなりました。
+
+MongoDB 4.0では、自分自身のカーソルをkillするためにも[killCursors](https://docs.mongodb.com/master/reference/privilege-actions/#killCursors)権限が必要でした。
+
 ### collStats
+
+MongoDB 4.2以降では、[$collStats](https://docs.mongodb.com/master/reference/operator/aggregation/collStats/#pipe._S_collStats) aggregation、[collStats](https://docs.mongodb.com/master/reference/command/collStats/#dbcmd.collStats)コマンド、[mongo](https://docs.mongodb.com/master/reference/program/mongo/#bin.mongo)シェルヘルパーの[db.collection.stats](https://docs.mongodb.com/master/reference/method/db.collection.stats/#db.collection.stats)は
+構築途中のインデックスに関する情報を返すようになりました。
+
+詳細については、以下を参照してください。
+- [collStats.nindexes](https://docs.mongodb.com/master/reference/command/collStats/#collStats.nindexes)
+- [collStats.indexDetails](https://docs.mongodb.com/master/reference/command/collStats/#collStats.indexDetails)
+- [collStats.indexBuilds](https://docs.mongodb.com/master/reference/command/collStats/#collStats.indexBuilds)
+- [collStats.totalIndexSize](https://docs.mongodb.com/master/reference/command/collStats/#collStats.totalIndexSize)
+- [collStats.indexSizes](https://docs.mongodb.com/master/reference/command/collStats/#collStats.indexSizes)
 
 ## 互換性への影響
 いくつかの変更点は互換性に影響する可能性があり、ユーザーの対応が必要になるかもしれません。詳細な一覧は[MongoDB 4.2での互換性の変更点](https://docs.mongodb.com/master/release-notes/4.2-compatibility/)を参照してください。
