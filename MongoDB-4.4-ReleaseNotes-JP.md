@@ -1,18 +1,18 @@
-Release Notes for MongoDB 4.4 (Release Candidate)
-=================================================
+[Release Notes for MongoDB 4.4](https://docs.mongodb.com/master/release-notes/4.4/)の翻訳です。原文はMongoDB Documentation Teamによるものです。ライセンスは[CC BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/deed.ja)となっています。
 
-::: {.default-domain}
-mongodb
-:::
+[CONTRIBUTING.rst](https://github.com/mongodb/docs/blob/master/CONTRIBUTING.rst)
 
-::: {.contents}
-On this page
-:::
+> MongoDB documentation is distributed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported license.
 
-Aggregation {#4.4-rel-notes-agg}
------------
+2020/6 MongoDB.liveでの発表時点で4.4はベータの状態です。リリースノートも今後正式リリースまでに変わる可能性があります。変更があった場合は可能な限り追随していく予定です。
 
-### Union All (`$unionWith` Stage)
+------------------------------
+
+# MongoDB 4.4 リリースノート
+
+## Aggregationに関する改善
+
+### Union All (`$unionWith` ステージ)
 
 MongoDB 4.4 adds the [\$unionWith]{role="pipeline"} aggregation stage,
 providing the ability to combines pipeline results from multiple
