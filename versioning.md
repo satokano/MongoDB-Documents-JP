@@ -23,8 +23,8 @@ MongoDBのバージョン番号は`X.Y.Z`という形を持っており、`X.Y`�
 
 MongoDB 5.0以降、MongoDBは2つの異なるリリースシリーズでリリースされます。
 
-- メジャーリリース（Major Releases）
-- ラピッドリリース（Rapid Releases）
+- メジャーリリース
+- ラピッドリリース
 
 MongoDB 4.4およびそれ以前では、プロダクション用バージョンと開発バージョンからなるバージョニングが用いられていました。[過去のリリース](#過去のリリース)を参照してください。
 
@@ -39,17 +39,10 @@ MongoDB 4.4およびそれ以前では、プロダクション用バージョン
 
 ## ラピッドリリース
 
-Rapid Releases are made available approximately once each quarter
-that does not contain a Major Release, and generally mark the
-introduction of new features and improvements. Rapid Releases are
-designed for use with `MongoDB Atlas
-<https://www.mongodb.com/cloud/atlas?tck=docs_server>`_, and are not
-generally supported for use in an on-premise capacity. Rapid Releases
-are not available for use with `MongoDB Ops Manager
-<https://docs.opsmanager.mongodb.com/current/?tck=docs_server>`_, and
-are not supported for :ref:`arbiters <replica-set-arbiters>`. If
-arbiters are part of your MongoDB deployment, use the most recent
-Major Release instead.
+ラピッドリリースは、おおよそ、メジャーリリースの無い四半期ごとに出荷され、たいていは新機能や改善が導入されます。
+ラピッドリリースは[MongoDB Atlas](https://www.mongodb.com/cloud/atlas?tck=docs_server)で使われるよう設計されており、オンプレミス環境では一般的にはサポートされません。
+ラピッドリリースは[MongoDB Ops Manager](https://docs.opsmanager.mongodb.com/current/?tck=docs_server)とともに利用することはできず、[アービター](https://docs.mongodb.com/manual/core/replica-set-members/#std-label-replica-set-arbiters)はサポートされません。
+もしMongoDB環境の一部にアービターを利用している場合は、最新のメジャーリリースを利用してください。
 
 *バージョン番号の例：*
 
@@ -64,21 +57,19 @@ Major Release instead.
 
 *バージョン番号の例：*
 
-- `5.0.1` (a Major Release patch version)
-- `5.2.1` (a Rapid Release patch version)
+- `5.0.1` (メジャーリリースとパッチバージョン)
+- `5.2.1` (ラピッドリリースとパッチバージョン)
 
 ## リリース候補（RC）
 
-In advance of new Major Releases or Rapid Releases, Release Candidates
-are made available for early testing. A Release Candidate represents a
-version of the upcoming release that is stable enough to begin testing,
-but is not suitable for production deployment.
+メジャーリリースやラピッドリリースの前に、早期のテストのためリリース候補が出荷されます。
+リリース候補は次のリリースが十分に安定しているかどうかテストするために出荷されますが、プロダクション環境には適切ではありません。
 
-*Example versions:*
+*バージョン番号の例：*
 
-- ``5.0.0-rc0``
-- ``5.0.0-rc1``
-- ``5.1.2-rc5``
+- `5.0.0-rc0`
+- `5.0.0-rc1`
+- `5.1.2-rc5`
 
 ## ドライバのバージョン
 
@@ -94,18 +85,11 @@ MongoDB 4.4以降、[MongoDBデータベースツール](https://docs.mongodb.co
 
 ## 過去のリリース
 
-For MongoDB 4.4 and previous, MongoDB versioning used a Production /
-Development versioning scheme, and had the form ``X.Y.Z`` where ``X.Y``
-refers to either a release series or development series and ``Z`` refers
-to the revision/patch number.
+MongoDB 4.4およびそれ以前では、プロダクション用バージョンと開発バージョンに分ける考え方が採用されており、
+バージョン番号は`X.Y.Z`の形をしていて、`X.Y`はプロダクション用バージョンもしくは開発バージョンを示し、`Z`はリビジョン/パッチ番号を示していました。
 
-- If ``Y`` is even, ``X.Y`` refers to a release series; for example,
-  ``4.2`` release series and ``4.4`` release series. Release series are
-  **stable** and suitable for production.
+- `Y`が偶数の場合、`X.Y`はプロダクション用バージョンを示します。たとえば`4.2`系や`4.4`系がそれにあたります。これらのプロダクション用リリースは**安定**していてプロダクション環境に適しています。
 
-- If ``Y`` is odd, ``X.Y`` refers to a development series; for example,
-  ``4.3`` development series and ``4.5`` development series.
-  Development series are **for testing only and not for production**.
+- `Y`が奇数の場合、`X.Y`は開発バージョンを示します。たとえば`4.3`系や`4.5`系がそれにあたります。開発用リリースは**テスト目的限定でありプロダクション環境には適しません**。
 
-For example, in MongoDB version ``4.4.7``, ``4.4`` refers to the
-release series and ``.7`` refers to the revision.
+たとえばMongoDB `4.4.7`では、`4.4`はプロダクション用の系列を示し、`.7`はリビジョンを示します。
