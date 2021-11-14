@@ -12,15 +12,12 @@
 
 > MongoDB documentation is distributed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported license.
 
-<!-- 脚注は、リリースノート以外の4.2のマニュアルなども参考にして今回付け加えたものです。 -->
-
 ------------------------------
 
 # MongoDB バージョニング
 
 <div><strong>重要：</strong><br />
-常に当該リリースの最新安定リビジョンにアップグレードするようにしてください。
-</div>
+常に当該リリースの最新安定リビジョンにアップグレードするようにしてください。</div>
 
 MongoDBのバージョン番号は`X.Y.Z`という形を持っており、`X.Y`はリリースを表し、`Z`はパッチ番号を表します。
 
@@ -31,20 +28,16 @@ MongoDB 5.0以降、MongoDBは2つの異なるリリースシリーズでリリ�
 
 MongoDB 4.4およびそれ以前では、プロダクション用バージョンと開発バージョンからなるバージョニングが用いられていました。[過去のリリース](#過去のリリース)を参照してください。
 
-Major Releases
---------------
+## メジャーリリース
 
-Major Releases are made available approximately once a year, and
-generally mark the introduction of new features and improvements.
-Major Releases are appropriate for all MongoDB deployments.
+メジャーリリースはおおよそ1年に1回出荷され、たいていは新機能や改善が導入されます。メジャーリリースはすべてのMongoDB利用環境に適切なものです。
 
-*Example versions:*
+*バージョン番号の例：*
 
-- ``5.0``
-- ``6.0``
+- `5.0`
+- `6.0`
 
-Rapid Releases
---------------
+## ラピッドリリース
 
 Rapid Releases are made available approximately once each quarter
 that does not contain a Major Release, and generally mark the
@@ -58,26 +51,23 @@ are not supported for :ref:`arbiters <replica-set-arbiters>`. If
 arbiters are part of your MongoDB deployment, use the most recent
 Major Release instead.
 
-*Example versions:*
+*バージョン番号の例：*
 
-- ``5.1``
-- ``5.2``
-- ``5.3``
+- `5.1`
+- `5.2`
+- `5.3`
 
-Patch Releases
---------------
+## パッチリリース
 
-Patch Releases are made available as needed to both
-Major Releases and Rapid Releases, and generally
-include bug fixes and backwards-compatible changes.
+パッチリリースは、メジャーリリースとラピッドリリースの両方に対して必要に応じてリリースされます。
+一般的にはバグ修正や後方互換性を保った変更が含まれます。
 
-*Example versions:*
+*バージョン番号の例：*
 
-- ``5.0.1`` (a Major Release patch version)
-- ``5.2.1`` (a Rapid Release patch version)
+- `5.0.1` (a Major Release patch version)
+- `5.2.1` (a Rapid Release patch version)
 
-Release Candidate (RC) Releases
--------------------------------
+## リリース候補（RC）
 
 In advance of new Major Releases or Rapid Releases, Release Candidates
 are made available for early testing. A Release Candidate represents a
@@ -90,28 +80,17 @@ but is not suitable for production deployment.
 - ``5.0.0-rc1``
 - ``5.1.2-rc5``
 
-Driver Versions
----------------
+## ドライバのバージョン
 
-The version numbering system for MongoDB differs from the system
-used for the :ecosystem:`MongoDB drivers </drivers>`.
+MongoDBサーバ本体のバージョニングと、[ドライバ](https://docs.mongodb.com/drivers/drivers/)のバージョニングは異なります。
 
-MongoDB Shell (``mongosh``)
----------------------------
+## MongoDB Shell (`mongosh`)
 
-Starting with MongoDB 5.0, the `MongoDB Shell
-<https://docs.mongodb.com/mongodb-shell/>`__ (``mongosh``) is released
-separately from the MongoDB Server, and uses its own version numbering
-system.
+MongoDB 5.0以降、[MongoDB Shell](https://docs.mongodb.com/mongodb-shell/) (`mongosh`) はMongoDBサーバ本体とは個別にリリースされており、バージョニングも異なります。
 
-Database Tools
---------------
+## データベースツール
 
-Starting with MongoDB 4.4, the `MongoDB Database Tools
-<https://docs.mongodb.com/database-tools>`__ are released separately
-from the MongoDB Server, and use their own version numbering system.
-
-.. _historical-releases:
+MongoDB 4.4以降、[MongoDBデータベースツール](https://docs.mongodb.com/database-tools)はMongoDBサーバ本体とは個別にリリースされており、バージョニングも異なります。
 
 ## 過去のリリース
 
